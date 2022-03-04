@@ -27,4 +27,7 @@ class AuthServiceProvider extends ServiceProvider
 
         //
     }
+    // app/Providers/RouteServiceProvider.php
+
+    protected $namespace = 'App\\Http\\Controllers';
 }

@@ -14,5 +14,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
+    if(auth()->user()){
+        auth()->user()->assignRole('user');
+    }
     return view('welcome');
 });
+
