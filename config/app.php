@@ -164,6 +164,7 @@ return [
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
         Spatie\Permission\PermissionServiceProvider::class,
+        Stevebauman\Location\LocationServiceProvider::class,
         /*
          * Package Service Providers...
          */
@@ -191,7 +192,7 @@ return [
     */
 
     'aliases' => Facade::defaultAliases()->merge([
-        // ...
+        'Location' => 'Stevebauman\Location\Facades\Location',
     ])->toArray(),
 
 ];
