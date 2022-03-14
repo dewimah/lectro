@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\User;
 use App\Helpers\ResponseFormatter;
 /*
@@ -26,9 +27,6 @@ use App\Helpers\ResponseFormatter;
    // });
 //});
 
-//Route::post('/register', 'App\Http\Controllers\AuthController@register');
-//Route::post('/register',[RegisterController::class,'register'])->name('register');
-//Route::post('/register', [AuthController::class, 'register']);
 Route::post('/register', 'App\Http\Controllers\RegisterController@register');
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/logout', [AuthController::class, 'logout']);
