@@ -17,6 +17,7 @@ class RegisterController extends Controller
             'email' => 'required|email|unique:users,email',
             'password' => 'min:8|required_with:password_confirmation|same:password_confirmation',
             'password_confirmation' => 'min:8',
+            'role' => 'required',
         ]);
         if($validator->fails()){
             return ResponseFormatter::error($validator, $validator->messages(), 400);

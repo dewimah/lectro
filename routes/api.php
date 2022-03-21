@@ -53,3 +53,8 @@ Route::get('/erorrs/{id}', 'App\Http\Controllers\ErorrsController@show');
 Route::post('/erorrs','App\Http\Controllers\ErorrsController@store');
 Route::put('/erorrs/{id}', 'App\Http\Controllers\ErorrsController@update');
 Route::delete('/erorrs/{id}', 'App\Http\Controllers\ErorrsController@delete');
+
+//Route Monitoring
+//Route UserDevice
+Route::get('/usdev','App\Http\Controllers\UserDeviceController@all');
+//Route Setting
