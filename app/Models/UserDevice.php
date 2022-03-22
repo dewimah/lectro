@@ -13,6 +13,8 @@ class UserDevice extends Model
     protected $table='user_devices';
     protected $guarded = ['id'];
     protected $fillable = [
+        'user_id',
+        'battery_id',
         'is_active'
     ];
 

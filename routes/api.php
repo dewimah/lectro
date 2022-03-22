@@ -55,6 +55,14 @@ Route::put('/erorrs/{id}', 'App\Http\Controllers\ErorrsController@update');
 Route::delete('/erorrs/{id}', 'App\Http\Controllers\ErorrsController@delete');
 
 //Route Monitoring
+Route::get('monitoring','App\Http\Controllers\MonitoringController@all');
+Route::get('monitoring','App\Http\Controllers\MonitoringController@show');
+Route::post('monitoring','App\Http\Controllers\MonitoringController@store');
+Route::put('monitoring','App\Http\Controllers\MonitoringController@update');
+Route::delete('monitoring','App\Http\Controllers\MonitoringController@delete');
+
 //Route UserDevice
-Route::get('/usdev','App\Http\Controllers\UserDeviceController@all');
+Route::get('/userdevice','App\Http\Controllers\UserDeviceController@all');
+Route::get('/userdevice/{id}','App\Http\Controllers\UserDeviceController@show');
+Route::post('/userdevice','App\Http\Controllers\UserDeviceController@store');
 //Route Setting

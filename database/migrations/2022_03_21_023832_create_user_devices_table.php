@@ -15,8 +15,8 @@ return new class extends Migration
     {
         Schema::create('user_devices', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->nullable()->constrained('users')->onUpdate('cascade')->onDelete('cascade');
-            $table->foreignId('battery_id')->nullable()->constrained('battery')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('user_id')->none()->constrained('users')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('battery_id')->none()->constrained('battery')->onUpdate('cascade')->onDelete('cascade');
             $table->enum('is_active', ['1', '0']);
             $table->timestamps();
         });
