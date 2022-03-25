@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\User;
+use App\Helpers\ResponseFormatter;
 
 class UserController extends Controller
 {
@@ -28,12 +29,22 @@ class UserController extends Controller
     public function update($id, Request $request){
         $user = User::find($id);
         $user->update($request->all());
+
+        return ResponseFormatter::success(
+            'Success Edit',
+            $user = User::find($id),
+            200
+        );
     }
 
     //menghapus data
     public function delete($id){
         $user=User::find($id);
         $user->delete();
-        return 204;
+
+        return ResponseFormatter::success(
+            'Data Berhasil Di Hapus',
+            200
+        );
     }
 }

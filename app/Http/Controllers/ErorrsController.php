@@ -2,37 +2,48 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Erorrs;
+use App\Models\Error;
 use Illuminate\Http\Request;
+use App\Helpers\ResponseFormatter;
 
 class ErorrsController extends Controller
 {
      //mengambil semua data
      public function all()
      {
-         return Erorrs::all();
+         return Error::all();
      }
 
      //mengambil data by id
      public function show ($id){
-         return Erorrs::find($id);
+         return Error::find($id);
      }
 
      //menambah data
      public function store(Request $request){
-         return Erorrs::create($request->all());
+         return Error::create($request->all());
      }
 
      //mengubah data
      public function update($id, Request $request){
-         $erorrs = Erorrs::find($id);
+         $erorrs = Error::find($id);
          $erorrs->update($request->all());
+
+         return ResponseFormatter::success(
+            'Success Edit',
+            Error::find($id),
+            200
+        );
      }
 
      //menghapus data
      public function delete($id){
          $erorrs= Erorrs::find($id);
          $erorrs->delete();
-         return 204;
+
+         return ResponseFormatter::success(
+            'Data Berhasil Di Hapus',
+            200
+        );
      }
 }

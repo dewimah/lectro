@@ -42,13 +42,15 @@ class AuthController extends Controller
         return ResponseFormatter::error(null,'Email user tidak ditemukan', 404);
     }
 
-    public function logout()
+    public function logout(request $request)
     {
-        $token = request()->user()->currentAccessToken()->delete();
+        if ($request->user()) {
+            $request->user()->tokens()->delete();
+        }
 
         return ResponseFormatter::success(
-            $token,
-            'Token Revoked'
+            'Token Revoked',
+            200
         );
 }
 }

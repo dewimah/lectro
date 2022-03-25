@@ -15,8 +15,9 @@ return new class extends Migration
     {
         Schema::create('monitorings', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('erorr_id')->none()->constrained('erorrs')->onUpdate('cascade')->onDelete('cascade');
-            $table->foreignId('battery_id')->none()->constrained('battery')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('error_id')->none()->constrained('errors')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('battery_id')->none()->constrained('batteries')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('setting_id')->none()->constrained('settings')->onUpdate('cascade')->onDelete('cascade')->unsigned();
             $table->enum('control_relay', ['1', '0']);
             $table->integer('tegangan_tot');
             $table->integer('tegangan_cell');

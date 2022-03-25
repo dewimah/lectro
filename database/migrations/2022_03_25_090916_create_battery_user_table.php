@@ -13,10 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('battery', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->integer('jml_sel');
+        Schema::create('battery_user', function (Blueprint $table) {
+            $table->foreignId('battery_id')->references('id')->on('batteries')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('user_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
+            $table->primary(['battery_id','user_id']);
             $table->timestamps();
         });
     }
@@ -28,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('battery');
+        Schema::dropIfExists('battery_user');
     }
 };

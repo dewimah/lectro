@@ -4,14 +4,14 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Models\Monitoring;
-use App\Models\UserDevice;
+use App\Models\User;
 
 class Battery extends Model
 {
     use HasFactory;
-    protected $table='battery';
+
+    protected $table='batteries';
     protected $guarded = ['id'];
     protected $fillable = [
         'name',
@@ -22,7 +22,7 @@ class Battery extends Model
         return $this->belongsTo(Monitoring::class);
     }
 
-    public function userdevice(){
-        return $this->belongsTo(UserDevice::class);
-    }
+   public function users(){
+        return $this->belongsToMany(User::class);
+   }
 }

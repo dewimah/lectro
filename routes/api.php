@@ -27,11 +27,11 @@ use App\Helpers\ResponseFormatter;
    // });
 //});
 
+//Route Auth
 Route::post('/register', 'App\Http\Controllers\RegisterController@register');
 Route::post('/login', [AuthController::class, 'login']);
-Route::post('/logout', [AuthController::class, 'logout']);
-Route::post('/me', [AuthController::class, 'me']);
-Route::post('/me', [AuthController::class, 'me'])->middleware('auth:sanctum');
+Route::get('/logout', [AuthController::class, 'logout']);
+
 
 //Route User
 Route::get('/user', 'App\Http\Controllers\UserController@all');
@@ -65,4 +65,7 @@ Route::delete('monitoring','App\Http\Controllers\MonitoringController@delete');
 Route::get('/userdevice','App\Http\Controllers\UserDeviceController@all');
 Route::get('/userdevice/{id}','App\Http\Controllers\UserDeviceController@show');
 Route::post('/userdevice','App\Http\Controllers\UserDeviceController@store');
+Route::put('/userdevice/{id}','App\Http\Controllers\UserDeviceController@update');
+Route::delete('/userdevice/{id}', 'App\Http\Controllers\UserDeviceController@delete');
+
 //Route Setting

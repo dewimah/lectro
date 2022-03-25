@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Helpers\ResponseFormatter;
 use App\Models\Battery;
 
 class BatteryController extends Controller
@@ -28,12 +29,22 @@ class BatteryController extends Controller
       public function update($id, Request $request){
           $battery = Battery::find($id);
           $battery->update($request->all());
-      }
+
+          return ResponseFormatter::success(
+            'Success Edit',
+            Battery::find($id),
+            200
+        );
+    }
 
       //menghapus data
       public function delete($id){
           $battery=Battery::find($id);
           $battery->delete();
-          return 204;
-      }
+
+          return ResponseFormatter::success(
+            'Data Berhasil Di Hapus',
+            200
+        );
+    }
 }

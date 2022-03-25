@@ -10,7 +10,8 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use App\Models\UserDevice;
+use App\Models\BatteryUser;
+use App\Models\Battery;
 
 class User extends Authenticatable
 {
@@ -49,7 +50,7 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function userdevice(){
-        return $this->hasMany(UserDevice::class);
+    public function batteries(){
+        return $this->belongsToMany(Battery::class,'battery_user','user_id','battery_id');
     }
 }

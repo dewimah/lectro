@@ -6,10 +6,10 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Monitoring;
 
-class Erorrs extends Model
+class Error extends Model
 {
     use HasFactory;
-    protected $table='erorrs';
+    protected $table='errors';
     protected $fillable = [
         'ket_error',
     ];

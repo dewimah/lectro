@@ -15,7 +15,6 @@ return new class extends Migration
     {
         Schema::create('settings', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('battery_id')->nullable()->constrained('battery')->onUpdate('cascade')->onDelete('cascade');
             $table->integer('temp_min');
             $table->integer('temp_max');
             $table->integer('tegangan_min');

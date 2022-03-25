@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('erorrs', function (Blueprint $table) {
+        Schema::create('errors', function (Blueprint $table) {
             $table->id();
             $table->string('ket_error');
             $table->timestamps();
@@ -27,6 +27,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('erorrs');
+        Schema::dropIfExists('errors');
     }
 };
