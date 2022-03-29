@@ -38,6 +38,7 @@ class UserDeviceController extends Controller
             foreach ($results as $userrecord) {
             echo $userrecord->id; //access table2 data
             echo $userrecord->users->booktitle; //access table1 data
+            echo $userrecord->load('batteries');
         }
     }
 

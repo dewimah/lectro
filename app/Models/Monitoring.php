@@ -15,7 +15,7 @@ class Monitoring extends Model
     protected $fillable = [
         'battery_id',
         'setting_id',
-        'erorr_id',
+        'error_id',
         'control_relay',
         'tegangan_tot',
         'tegangan_cell',

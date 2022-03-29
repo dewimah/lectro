@@ -19,12 +19,12 @@ return new class extends Migration
             $table->foreignId('battery_id')->none()->constrained('batteries')->onUpdate('cascade')->onDelete('cascade');
             $table->foreignId('setting_id')->none()->constrained('settings')->onUpdate('cascade')->onDelete('cascade')->unsigned();
             $table->enum('control_relay', ['1', '0']);
-            $table->integer('tegangan_tot');
-            $table->integer('tegangan_cell');
-            $table->integer('temp_1');
-            $table->integer('temp_2');
-            $table->integer('temp_3');
-            $table->integer('arus');
+            $table->double('tegangan_tot',15,8);
+            $table->double('tegangan_cell',15,8);
+            $table->double('temp_1',15,8);
+            $table->double('temp_2',15,8);
+            $table->double('temp_3',15,8);
+            $table->double('arus',15,8);
             $table->timestamps();
         });
     }

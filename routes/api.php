@@ -32,7 +32,6 @@ Route::post('/register', 'App\Http\Controllers\RegisterController@register');
 Route::post('/login', [AuthController::class, 'login']);
 Route::get('/logout', [AuthController::class, 'logout']);
 
-
 //Route User
 Route::get('/user', 'App\Http\Controllers\UserController@all');
 Route::get('/user/{id}', 'App\Http\Controllers\UserController@show');
@@ -56,10 +55,10 @@ Route::delete('/erorrs/{id}', 'App\Http\Controllers\ErorrsController@delete');
 
 //Route Monitoring
 Route::get('monitoring','App\Http\Controllers\MonitoringController@all');
-Route::get('monitoring','App\Http\Controllers\MonitoringController@show');
+Route::get('monitoring/{id}','App\Http\Controllers\MonitoringController@show');
 Route::post('monitoring','App\Http\Controllers\MonitoringController@store');
-Route::put('monitoring','App\Http\Controllers\MonitoringController@update');
-Route::delete('monitoring','App\Http\Controllers\MonitoringController@delete');
+Route::put('monitoring/{id}','App\Http\Controllers\MonitoringController@update');
+Route::delete('monitoring/{id}','App\Http\Controllers\MonitoringController@delete');
 
 //Route UserDevice
 Route::get('/userdevice','App\Http\Controllers\UserDeviceController@all');
@@ -69,3 +68,8 @@ Route::put('/userdevice/{id}','App\Http\Controllers\UserDeviceController@update'
 Route::delete('/userdevice/{id}', 'App\Http\Controllers\UserDeviceController@delete');
 
 //Route Setting
+Route::get('/setting','App\Http\Controllers\SettingController@all');
+Route::get('/setting/{id}','App\Http\Controllers\SettingController@show');
+Route::post('/setting','App\Http\Controllers\SettingController@store');
+Route::put('/setting/{id}','App\Http\Controllers\SettingController@update');
+Route::delete('/setting/{id}', 'App\Http\Controllers\SettingController@delete');
