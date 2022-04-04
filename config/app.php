@@ -165,6 +165,7 @@ return [
         Illuminate\View\ViewServiceProvider::class,
         Spatie\Permission\PermissionServiceProvider::class,
         Stevebauman\Location\LocationServiceProvider::class,
+
         /*
          * Package Service Providers...
          */

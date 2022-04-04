@@ -4,6 +4,10 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 use Spatie\Permission\PermissionRegistrar;
+use Database\Seeder\RoleSeeder;
+use Database\Seeder\PermissionSeeder;
+use Database\Seeder\UserSeeder;
+use Database\Seeder\RoleAndPermissionSeeder;
 
 class CreatePermissionTables extends Migration
 {

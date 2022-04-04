@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use Auth;
 use Illuminate\Http\Request;
 use App\Helpers\ResponseFormatter;
 
@@ -26,5 +27,10 @@ class IsAdminMiddleware
         } else {
             return ResponseFormatter::error(null, 'Anda belum login', 401);
         }
+        /*if (auth()->user()){
+            if (auth()->user()->hasRole('admin')) {
+                return $next($request);
+            }
+        }*/
     }
 }

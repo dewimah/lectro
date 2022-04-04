@@ -9,6 +9,11 @@ use App\Helpers\ResponseFormatter;
 
 class UserController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     //mengambil semua data
     public function all()
     {
@@ -20,21 +25,19 @@ class UserController extends Controller
         return User::find($id);
     }
 
-    //menambah data
-    public function store(Request $request){
-        return User::create($request->all());
-    }
-
     //mengubah data
     public function update($id, Request $request){
-        $user = User::find($id);
+      /*  $user = User::find($id);
         $user->update($request->all());
 
         return ResponseFormatter::success(
             'Success Edit',
             $user = User::find($id),
             200
-        );
+        );*/
+        $user = User::where('email', $request->email)->first();
+        $user->update(['name' => $request->name]);
+        $user->syncRoles($request->input('roles'));
     }
 
     //menghapus data

@@ -23,9 +23,13 @@ class AuthServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->registerPolicies();
-
-        //
+       // $this->registerPolicies();
+        $this->app['auth']->viaRequest('api', function($request){
+            $token = $request->header('token');
+            if ($request->header('token')) {
+                return User::where('token', $token)->first();
+                }
+        });
     }
     // app/Providers/RouteServiceProvider.php
 

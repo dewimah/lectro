@@ -8,6 +8,11 @@ use App\Helpers\ResponseFormatter;
 
 class SettingController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     //mengambil semua data
     public function all()
     {

@@ -9,6 +9,12 @@ use App\Models\Battery;
 
 class BatteryController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
       //mengambil semua data
       public function all()
       {
