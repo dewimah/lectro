@@ -42,7 +42,7 @@ class AuthController extends Controller
         return ResponseFormatter::error(null,'Email user tidak ditemukan', 404);
     }
 
-    public function logout(request $request)
+    /*public function logout(request $request)
     {
         $this->middleware('auth');
         if ($request->user()) {
@@ -53,5 +53,5 @@ class AuthController extends Controller
             'Token Revoked',
             200
         );
-}
+}*/
 }

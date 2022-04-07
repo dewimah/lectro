@@ -26,16 +26,15 @@ use App\Helpers\ResponseFormatter;
 //Route Auth
 Route::post('/register', 'App\Http\Controllers\RegisterController@register');
 Route::post('/login', [AuthController::class, 'login'])->name('login');
-    Route::get('/logout', [AuthController::class, 'logout']);
-
 
 //Route User
 Route::group(['middleware' => ['auth:sanctum']], function () {
-Route::get('/user', 'App\Http\Controllers\UserController@all');
-Route::get('/user/{id}', 'App\Http\Controllers\UserController@show');
-Route::post('/user','App\Http\Controllers\UserController@store');
-Route::put('/user/{id}', 'App\Http\Controllers\UserController@update');
-Route::delete('/user/{id}', 'App\Http\Controllers\UserController@delete');
+    Route::get('/logout', 'App\Http\Controllers\LogoutController@logout');
+    Route::get('/user', 'App\Http\Controllers\UserController@all');
+    Route::get('/user/{id}', 'App\Http\Controllers\UserController@show');
+    Route::post('/user','App\Http\Controllers\UserController@store');
+    Route::put('/user/{id}', 'App\Http\Controllers\UserController@update');
+    Route::delete('/user/{id}', 'App\Http\Controllers\UserController@delete');
 });
 
 //Route BMS
