@@ -1,0 +1,1 @@
+<script src="<?php echo e(asset('js/app.js')); ?>"></script><?php /**PATH D:\lectro\resources\views/template/script.blade.php ENDPATH**/ ?>
