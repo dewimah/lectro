@@ -17,6 +17,10 @@ Vue.use(VueAxios, axios)
 
 let routes =[
     {
+        path: '/',
+        component:require('./components/Login.vue').default
+    },
+    {
         path: '/data-bms',
         component:require('./components/bms/Data-bms.vue').default
     },
@@ -27,6 +31,18 @@ let routes =[
     {
         path: '/edit-bms',
         component:require('./components/bms/Edit-bms.vue').default
+    },
+    {
+        path: '/data-user',
+        component:require('./components/user/Data-user.vue').default
+    },
+    {
+        path: '/add-user',
+        component:require('./components/user/Add-user.vue').default
+    },
+    {
+        path: '/edit-user',
+        component:require('./components/user/Edit-user.vue').default
     }
 ]
 

@@ -19,16 +19,16 @@
                                 </thead>
                                 
                                 <tbody>
-                                    <tr v-for="bms in bms" :key="bms.id">
+                                    <tr v-for="Battery in Battery" :key="Battery.id">
                                         <!--<td>x</td>-->
-                                        <td>{{ bms.id }}</td>
-                                        <td>{{ bms.name }}</td>
-                                        <td>{{ bms.jml_sel }}</td>
+                                        <td>{{ Battery.id }}</td>
+                                        <td>{{ Battery.name }}</td>
+                                        <td>{{ Battery.jml_sel }}</td>
                                         <td>
-                                            <router-link :to="{name: 'edit-bms', params: {id: bms.id}}" class="btn btn-app">
+                                            <router-link :to="{name: 'edit-bms', params: {id: Battery.id}}" class="btn btn-app">
                                                 <i class="fas fa-edit"></i> <br>Edit
                                             </router-link>
-                                            <button class="btn btn-danger" @click="deletebms(bms.id)">
+                                            <button class="btn btn-danger" @click="deletebms(Battery.id)">
                                                 <i class="fa-solid fa-trash"></i> <br>Hapus
                                             </button>
                                         </td>
@@ -53,7 +53,7 @@ export default {
         this.axios
         .get('http://127.0.0.1:8000/api/battery/')
         .then(response =>{
-            this.product = response.data;
+            this.Battery = response.data;
         });
     },
     methods: {
@@ -61,8 +61,8 @@ export default {
             this.axios
                 .delete('http://127.0.0.1:8000/api/battery/${id}')
                 .then(response => {
-                    let i = this.product.map(data => data.id.indexOf(id));
-                    this.product.splice(i,1)
+                    let i = this.Battery.map(data => data.id.indexOf(id));
+                    this.Battery.splice(i,1)
                 });
         }
     }
