@@ -12,11 +12,15 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+/*
 Route::get('/', function () {
     if(auth()->user()){
         auth()->user()->assignRole('user');
     }
     return view('welcome');
-});
+});*/
+
+Route::get('{any}', function () {
+    return view('home');
+})->where('any', '.*');
 
