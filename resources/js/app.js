@@ -17,39 +17,76 @@ Vue.use(VueAxios, axios)
 
 let routes =[
     {
-        path: '/',
-        component:require('./components/Login.vue').default
+        path: '/login',
+        component:require('./components/Login.vue').default,
+        meta: {
+            auth: false
+        }
     },
     {
         path: '/data-bms',
-        component:require('./components/bms/Data-bms.vue').default
+        component:require('./components/bms/Data-bms.vue').default,
+        meta: {
+            auth: false
+        }
     },
     {
         path: '/add-bms',
-        component:require('./components/bms/Add-bms.vue').default
+        component:require('./components/bms/Add-bms.vue').default,
+        meta: {
+            auth: false
+        }
     },
     {
         path: '/edit-bms',
-        component:require('./components/bms/Edit-bms.vue').default
+        component:require('./components/bms/Edit-bms.vue').default,
+        meta: {
+            auth: false
+        }
     },
     {
         path: '/data-user',
-        component:require('./components/user/Data-user.vue').default
+        component:require('./components/user/Data-user.vue').default,
+        meta: {
+            auth: false
+        }
     },
     {
         path: '/add-user',
-        component:require('./components/user/Add-user.vue').default
+        component:require('./components/user/Add-user.vue').default,
+        meta: {
+            auth: false
+        }
     },
     {
         path: '/edit-user',
-        component:require('./components/user/Edit-user.vue').default
+        component:require('./components/user/Edit-user.vue').default,
+        meta: {
+            auth: false
+        }
+    },
+    {
+        path: '/user-monitoring',
+        component:require('./components/monitoring/User-monitoring.vue').default,
+        meta: {
+            auth: true
+        }
+    },
+    {
+        path: '/admin-monitoring',
+        component:require('./components/monitoring/Admin-monitoring.vue').default,
+        meta: {
+            auth: false
+        }
     }
 ]
 
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 
 const router = new VueRouter({
-    routes
+    routes,
+    mode: 'history',
+    history: true
 })
 
 const app = new Vue({
