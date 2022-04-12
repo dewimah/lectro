@@ -46,6 +46,7 @@ let routes =[
     },
     {
         path: '/data-user',
+        name: 'data-user',
         component:require('./components/user/Data-user.vue').default,
         meta: {
             auth: false

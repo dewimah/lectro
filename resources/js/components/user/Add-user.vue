@@ -15,7 +15,7 @@
                     <label for="email">Email</label>
                     <input type="email" class="form-control" v-model="User.email" placeholder="Email User">
                 </div>
-<!--
+
                 <div class="form-group">
                     <label for="exampleSelectRounded0">Role</label>
                     <select class="custom-select rounded-0" id="exampleSelectRounded0" v-model="User.role">
@@ -23,7 +23,7 @@
                         <option value="User">User</option>
                     </select>
                 </div>
--->
+
                 <div class="form-group">
                     <label for="password">Password</label>
                     <input type="text" class="form-control" v-model="User.password" placeholder="Password">
@@ -44,13 +44,37 @@
 </template>
 
 <script>
-/*export default {
+/*export default{
+    methods: {
+    tambahUser(){
+        const formData = {
+            name: this.name,
+            email: this.email,
+            password: this.password,
+            password_confirmation: this.password_confirmation
+        }
+        axios({
+            method: "POST",
+            url: "http://127.0.0.1:8000/api/register/",
+            headers: {"Conten-Type": "application/json"},
+            data: formData
+        })
+        .then(response => {
+            console.log(response);
+        })
+        .catch(e => {
+            this.errors.push(e)
+        })
+    }
+}
+}*/
+export default {
     data() {
         return{
             User: {
                 name: '',
                 email: '',
-                //role: '',
+                role: '',
                 password: '',
                 password_conformation: ''
             },
@@ -60,14 +84,17 @@
     methods: {
         tambahUser(){
             this.axios
-                .post('http://127.0.0.1:8000/api/register', this.User)
+                .post('http://127.0.0.1:8000/api/register/', this.User)
                 .then(response => (
-                    this.$router.push({name:'Data-user'})
+                    this.$router.push({name:'data-user'})
+                    //console.log(response)
                 ))
                 .catch((error) => {
                     this.errors = error.response.data.errors;
+                    //console.log(error)
                 })
+                
         }
     }
-}*/
+}
 </script>
