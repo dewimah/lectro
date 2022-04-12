@@ -8,7 +8,7 @@
 
                 <div class="card-body">
                     <p class="login-box-msg">Log in to start your session</p>
-                    <form autocomplete="off" method="post" @submit.prevent="login">
+                    <form>
                         <div class="input-group mb-3">
                             <input type="email" class="form-control" v-model="User.email" placeholder="Email" required>
                             <div class="input-group-append">
@@ -29,7 +29,7 @@
                         
                         <div class="row">
                             <div class="col-12">
-                                <button type="submit" class="btn btn-success btn-block" color="#1c3b10">Log In</button>
+                                <button @click.prevent="login" type="submit" class="btn btn-success btn-block" color="#1c3b10">Log In</button>
                             </div>
                         </div>
                     </form>
@@ -43,38 +43,20 @@
 export default {
     data() {
         return{
-            //User: {}
-            email: null,
-            password: null,
-            success: false,
-            has_error: false,
-            error: ''
+            User: {
+                email:'',
+                password:''
+            },
+            errors:[]
         }
     },
-    mounted(){
-        //
-    },
-    methods: {
-        login() {
-            var redirect = this.$auth.redirect()
-            var app = this
 
-            this.$auth.login({
-                data: {
-                    email: app.email,
-                    password: app.password
-                },
-                success: function(){
-                    app.success = true
-                    const  redirectTo = 'Admin-monitoring'
-                    this.$router.push({name: redirectTo})
-                },
-                error: function(){
-                    app.has_error = true
-                    app.error = res.response.data.error
-                },
-                rememberMe: true,
-                fetchUser: true
+    methods: {
+        login(){
+            axios.post('http://127.0.0.1:8000/api/login/', this.User).then(() =>{
+                this.$router.push({ name: "admin-monitoring"});
+            }).catch((error) => {
+                this.errors = error.response.data.errors;
             })
         }
     }

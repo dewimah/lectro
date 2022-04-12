@@ -75,6 +75,7 @@ let routes =[
     },
     {
         path: '/admin-monitoring',
+        name: 'admin-monitoring',
         component:require('./components/monitoring/Admin-monitoring.vue').default,
         meta: {
             auth: false

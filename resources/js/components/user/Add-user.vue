@@ -26,7 +26,7 @@
 
                 <div class="form-group">
                     <label for="password">Password</label>
-                    <input type="text" class="form-control" v-model="User.password" placeholder="Password">
+                    <input type="text" class="form-control" v-model="User.password" placeholder="Password minimal 8 karakter">
                 </div>
 
                 <div class="form-group">
@@ -44,30 +44,6 @@
 </template>
 
 <script>
-/*export default{
-    methods: {
-    tambahUser(){
-        const formData = {
-            name: this.name,
-            email: this.email,
-            password: this.password,
-            password_confirmation: this.password_confirmation
-        }
-        axios({
-            method: "POST",
-            url: "http://127.0.0.1:8000/api/register/",
-            headers: {"Conten-Type": "application/json"},
-            data: formData
-        })
-        .then(response => {
-            console.log(response);
-        })
-        .catch(e => {
-            this.errors.push(e)
-        })
-    }
-}
-}*/
 export default {
     data() {
         return{

@@ -5463,38 +5463,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
-      //User: {}
-      email: null,
-      password: null,
-      success: false,
-      has_error: false,
-      error: ''
+      User: {
+        email: '',
+        password: ''
+      },
+      errors: []
     };
-  },
-  mounted: function mounted() {//
   },
   methods: {
     login: function login() {
-      var redirect = this.$auth.redirect();
-      var app = this;
-      this.$auth.login({
-        data: {
-          email: app.email,
-          password: app.password
-        },
-        success: function success() {
-          app.success = true;
-          var redirectTo = 'Admin-monitoring';
-          this.$router.push({
-            name: redirectTo
-          });
-        },
-        error: function error() {
-          app.has_error = true;
-          app.error = res.response.data.error;
-        },
-        rememberMe: true,
-        fetchUser: true
+      var _this = this;
+
+      axios.post('http://127.0.0.1:8000/api/login/', this.User).then(function () {
+        _this.$router.push({
+          name: "admin-monitoring"
+        });
+      })["catch"](function (error) {
+        _this.errors = error.response.data.errors;
       });
     }
   }
@@ -5779,31 +5764,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-
-/*export default{
-    methods: {
-    tambahUser(){
-        const formData = {
-            name: this.name,
-            email: this.email,
-            password: this.password,
-            password_confirmation: this.password_confirmation
-        }
-        axios({
-            method: "POST",
-            url: "http://127.0.0.1:8000/api/register/",
-            headers: {"Conten-Type": "application/json"},
-            data: formData
-        })
-        .then(response => {
-            console.log(response);
-        })
-        .catch(e => {
-            this.errors.push(e)
-        })
-    }
-}
-}*/
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -6076,6 +6036,7 @@ var routes = [{
   }
 }, {
   path: '/admin-monitoring',
+  name: 'admin-monitoring',
   component: (__webpack_require__(/*! ./components/monitoring/Admin-monitoring.vue */ "./resources/js/components/monitoring/Admin-monitoring.vue")["default"]),
   meta: {
     auth: false
@@ -42841,81 +42802,82 @@ var render = function () {
               _vm._v("Log in to start your session"),
             ]),
             _vm._v(" "),
-            _c(
-              "form",
-              {
-                attrs: { autocomplete: "off", method: "post" },
-                on: {
-                  submit: function ($event) {
-                    $event.preventDefault()
-                    return _vm.login.apply(null, arguments)
+            _c("form", [
+              _c("div", { staticClass: "input-group mb-3" }, [
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.User.email,
+                      expression: "User.email",
+                    },
+                  ],
+                  staticClass: "form-control",
+                  attrs: { type: "email", placeholder: "Email", required: "" },
+                  domProps: { value: _vm.User.email },
+                  on: {
+                    input: function ($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.User, "email", $event.target.value)
+                    },
                   },
-                },
-              },
-              [
-                _c("div", { staticClass: "input-group mb-3" }, [
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.User.email,
-                        expression: "User.email",
-                      },
-                    ],
-                    staticClass: "form-control",
-                    attrs: {
-                      type: "email",
-                      placeholder: "Email",
-                      required: "",
-                    },
-                    domProps: { value: _vm.User.email },
-                    on: {
-                      input: function ($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.$set(_vm.User, "email", $event.target.value)
-                      },
-                    },
-                  }),
-                  _vm._v(" "),
-                  _vm._m(1),
-                ]),
+                }),
                 _vm._v(" "),
-                _c("div", { staticClass: "input-group mb-3" }, [
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.User.password,
-                        expression: "User.password",
-                      },
-                    ],
-                    staticClass: "form-control",
-                    attrs: {
-                      type: "password",
-                      placeholder: "Password",
-                      required: "",
+                _vm._m(1),
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "input-group mb-3" }, [
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.User.password,
+                      expression: "User.password",
                     },
-                    domProps: { value: _vm.User.password },
-                    on: {
-                      input: function ($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.$set(_vm.User, "password", $event.target.value)
-                      },
+                  ],
+                  staticClass: "form-control",
+                  attrs: {
+                    type: "password",
+                    placeholder: "Password",
+                    required: "",
+                  },
+                  domProps: { value: _vm.User.password },
+                  on: {
+                    input: function ($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.User, "password", $event.target.value)
                     },
-                  }),
-                  _vm._v(" "),
-                  _vm._m(2),
-                ]),
+                  },
+                }),
                 _vm._v(" "),
-                _vm._m(3),
-              ]
-            ),
+                _vm._m(2),
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "row" }, [
+                _c("div", { staticClass: "col-12" }, [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-success btn-block",
+                      attrs: { type: "submit", color: "#1c3b10" },
+                      on: {
+                        click: function ($event) {
+                          $event.preventDefault()
+                          return _vm.login.apply(null, arguments)
+                        },
+                      },
+                    },
+                    [_vm._v("Log In")]
+                  ),
+                ]),
+              ]),
+            ]),
           ]),
         ]
       ),
@@ -42948,23 +42910,6 @@ var staticRenderFns = [
     return _c("div", { staticClass: "input-group-append" }, [
       _c("div", { staticClass: "input-group-text" }, [
         _c("span", { staticClass: "fas fa-lock" }),
-      ]),
-    ])
-  },
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "row" }, [
-      _c("div", { staticClass: "col-12" }, [
-        _c(
-          "button",
-          {
-            staticClass: "btn btn-success btn-block",
-            attrs: { type: "submit", color: "#1c3b10" },
-          },
-          [_vm._v("Log In")]
-        ),
       ]),
     ])
   },
@@ -43530,7 +43475,7 @@ var render = function () {
               },
             ],
             staticClass: "form-control",
-            attrs: { type: "text", placeholder: "Password" },
+            attrs: { type: "text", placeholder: "Password minimal 8 karakter" },
             domProps: { value: _vm.User.password },
             on: {
               input: function ($event) {
