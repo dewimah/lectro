@@ -28,17 +28,17 @@ class UserController extends Controller
 
     //mengubah data
     public function update($id, Request $request){
-      /*  $user = User::find($id);
+       $user = User::find($id);
         $user->update($request->all());
 
         return ResponseFormatter::success(
             'Success Edit',
-            $user = User::find($id),
+            User::find($id),
             200
-        );*/
-        $user = User::where('email', $request->email)->first();
+        );
+        /*$user = User::where('email', $request->email)->first();
         $user->update(['name' => $request->name]);
-        $user->syncRoles($request->input('roles'));
+        $user->syncRoles($request->input('roles'));*/
     }
 
     //menghapus data

@@ -26,7 +26,9 @@ class ErorrsController extends Controller
 
      //menambah data
      public function store(Request $request){
-         return Error::create($request->all());
+        $error =  Error::create($request->all());
+
+         return ResponseFormatter::success($error,'Data Battery Berhasil di Tambahkan',201);
      }
 
      //mengubah data
@@ -43,7 +45,7 @@ class ErorrsController extends Controller
 
      //menghapus data
      public function delete($id){
-         $erorrs= Erorrs::find($id);
+         $erorrs= Error::find($id);
          $erorrs->delete();
 
          return ResponseFormatter::success(
