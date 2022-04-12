@@ -30,6 +30,6 @@ class RegisterController extends Controller
         ]);
         $user->assignRole(request()->role);
 
-        return ResponseFormatter::success($user->load('roles'),'Data berhasil diregistrasi BESTI');
+        return ResponseFormatter::success($user->load('roles'),'Berhasil Melakukan Registrasi');
     }
 }

@@ -24,9 +24,6 @@ class LogoutController extends Controller
             $request->user()->tokens()->delete();
         }
 
-        return ResponseFormatter::success(
-            'Token Revoked',
-            200
-        );
+        return ResponseFormatter::success(null, 'Token Revoked',200);
     }
 }

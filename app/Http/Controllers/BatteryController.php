@@ -19,6 +19,7 @@ class BatteryController extends Controller
       public function all()
       {
           return Battery::all();
+
       }
 
       //mengambil data by id
@@ -28,7 +29,9 @@ class BatteryController extends Controller
 
       //menambah data
       public function store(Request $request){
-          return Battery::create($request->all());
+          $battery = Battery::create($request->all());
+          
+          return ResponseFormatter::success($battery,'Data Battery Berhasil di Tambahkan',201);
       }
 
       //mengubah data

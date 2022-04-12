@@ -37,9 +37,9 @@ class AuthController extends Controller
                 ];
                 return ResponseFormatter::success($data,'Login berhasil');
             }
-            return ResponseFormatter::error(null,'Password user salah', 400);
+            return ResponseFormatter::error('Password user salah', 400);
         }
-        return ResponseFormatter::error(null,'Email user tidak ditemukan', 404);
+        return ResponseFormatter::error('Email user tidak ditemukan', 404);
     }
 
     /*public function logout(request $request)
