@@ -18,6 +18,7 @@ Vue.use(VueAxios, axios)
 let routes =[
     {
         path: '/login',
+        name: 'login',
         component:require('./components/Login.vue').default,
         meta: {
             auth: false
@@ -25,6 +26,7 @@ let routes =[
     },
     {
         path: '/data-bms',
+        name: 'data-bms',
         component:require('./components/bms/Data-bms.vue').default,
         meta: {
             auth: false
@@ -32,13 +34,15 @@ let routes =[
     },
     {
         path: '/add-bms',
+        name: 'add-bms',
         component:require('./components/bms/Add-bms.vue').default,
         meta: {
             auth: false
         }
     },
     {
-        path: '/edit-bms',
+        path: '/edit-bms/:id',
+        name: 'edit-bms',
         component:require('./components/bms/Edit-bms.vue').default,
         meta: {
             auth: false
@@ -54,13 +58,15 @@ let routes =[
     },
     {
         path: '/add-user',
+        name: 'add-user',
         component:require('./components/user/Add-user.vue').default,
         meta: {
             auth: false
         }
     },
     {
-        path: '/edit-user',
+        path: '/edit-user/:id',
+        name: 'edit-user',
         component:require('./components/user/Edit-user.vue').default,
         meta: {
             auth: false
@@ -68,6 +74,7 @@ let routes =[
     },
     {
         path: '/user-monitoring',
+        name: 'user-monitoring',
         component:require('./components/monitoring/User-monitoring.vue').default,
         meta: {
             auth: true

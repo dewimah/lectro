@@ -38,7 +38,7 @@ export default {
             this.axios
                 .post('http://127.0.0.1:8000/api/battery/', this.Battery)
                 .then(response => (
-                    this.$router.push({name:'Data-bms'})
+                    this.$router.push({name:'data-bms'})
                 ))
                 .catch(err => console.log(err))
                 .finally(() => this.loading = false)

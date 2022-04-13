@@ -13,7 +13,7 @@
                                         <th>ID</th>
                                         <th>Nama</th>
                                         <th>Email</th>
-                                        <th>Password</th>
+                                        <!--<th>Password</th>-->
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
@@ -24,12 +24,12 @@
                                         <td>{{ User.id }}</td>
                                         <td>{{ User.name }}</td>
                                         <td>{{ User.email }}</td>
-                                        <td>{{ User.password }}</td>
+                                        <!--<td>{{ User.password }}</td>-->
                                         <td>
                                             <router-link :to="{name: 'edit-user', params: {id: User.id}}" class="btn btn-app">
                                                 <i class="fas fa-edit"></i> <br>Edit
                                             </router-link>
-                                            <button class="btn btn-danger" @click="deleteuser(User.id)">
+                                            <button class="btn btn-danger" @click="deleteUser(User.id)">
                                                 <i class="fa-solid fa-trash"></i> <br>Hapus
                                             </button>
                                         </td>
@@ -47,18 +47,18 @@
 export default {
     data() {
         return{
-            User: []
+            User: {}
         }
     },
     created(){
         this.axios
-        .get('http://127.0.0.1:8000/api/user/')
+        .get('http://127.0.0.1:8000/api/user')
         .then(response =>{
             this.User = response.data;
         });
     },
     methods: {
-        deleteBms(id){
+        deleteUser(id){
             this.axios
                 .delete('http://127.0.0.1:8000/api/user/${id}')
                 .then(response => {
