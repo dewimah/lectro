@@ -1,5 +1,4 @@
 <template>
-<div class="bms">
     <div class="container">
         <div class="row justify-content-center">
             <div class="card">
@@ -28,7 +27,7 @@
                                             <router-link :to="{name: 'edit-bms', params: {id: Battery.id}}" class="btn btn-app">
                                                 <i class="fas fa-edit"></i> <br>Edit
                                             </router-link>
-                                            <button class="btn btn-danger" @click="deletebms(Battery.id)">
+                                            <button class="btn btn-danger" @click="deleteBms(Battery.id)">
                                                 <i class="fa-solid fa-trash"></i> <br>Hapus
                                             </button>
                                         </td>
@@ -39,14 +38,13 @@
             </div>
         </div>
     </div>
-</div>
 </template>
 
 <script>
 export default {
     data() {
         return{
-            Battery: []
+            Battery: {}
         }
     },
     created(){
@@ -59,9 +57,9 @@ export default {
     methods: {
         deleteBms(id){
             this.axios
-                .delete('http://127.0.0.1:8000/api/battery/${id}')
+                .delete('http://127.0.0.1:8000/api/battery/' + id)
                 .then(response => {
-                    let i = this.Battery.map(data => data.id.indexOf(id));
+                    let i = this.Battery.map(data => data.id).indexOf(id);
                     this.Battery.splice(i,1)
                 });
         }

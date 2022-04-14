@@ -60,9 +60,9 @@ export default {
     methods: {
         deleteUser(id){
             this.axios
-                .delete('http://127.0.0.1:8000/api/user/${id}')
+                .delete('http://127.0.0.1:8000/api/user/' + id)
                 .then(response => {
-                    let i = this.User.map(data => data.id.indexOf(id));
+                    let i = this.User.map(data => data.id).indexOf(id);
                     this.User.splice(i,1)
                 });
         }

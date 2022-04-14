@@ -21,11 +21,12 @@
                 <label for="email">Email</label>
                 <input type="email" class="form-control"  v-model="User.email" placeholder="Email User">
             </div>
-
+<!--
             <div class="form-group">
                 <label for="email">Password</label>
                 <input type="text" class="form-control" v-model="User.password" placeholder="Password User">
             </div>
+-->
         </div>
 
         <div class="card-footer">
@@ -40,8 +41,7 @@
 export default {
     data() {
         return{
-            User: {
-            }
+            User: {}
         }
     },
     created(){
@@ -51,14 +51,9 @@ export default {
                 this.User = response.data;
             });
     },
-
-
-
-
-
     methods: {
         editUser(id){
-            this.axios.get('http://127.0.0.1:8000/api/user/${id}')
+            this.axios.get('http://127.0.0.1:8000/api/user/' + id)
             .then((response)=>{
                 this.User = response.data;
                 console.log(response.data);
@@ -66,8 +61,8 @@ export default {
         },
         updateUser(){
             this.axios
-                .patch('http://127.0.0.1:8000/api/user/${this.$route.params.id}', this.User)
-                .then((res) => {
+                .patch('http://127.0.0.1:8000/api/user/' + this.$route.params.id, this.User)
+                .then((response) => {
                     this.$router.push({ name:'data-user'})
                 })
         }

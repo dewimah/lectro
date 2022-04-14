@@ -24,7 +24,7 @@
         </div>
 
         <div class="card-footer">
-            <router-link to="data-bms" class="btn btn-danger" type="button">Cancel</router-link>
+            <router-link :to="{name: 'data-bms'}" class="btn btn-danger" type="button">Cancel</router-link>
             <button type="submit" class="btn btn-success">Update</button>
         </div>
     </form>
@@ -38,19 +38,26 @@ export default {
             Battery: {}
         }
     },
-    cretaed(){
+    created(){
         this.axios
-            .get('http://127.0.0.1:8000/api/battery/${this.$route.params.id}')
-            .then ((res) => {
-                this.Battery = res.data;
+            .get('http://127.0.0.1:8000/api/battery/' + this.$route.params.id)
+            .then ((response) => {
+                this.Battery = response.data;
             })
     },
     methods: {
+        editBms(id){
+            this.axios.get('http://127.0.0.1:8000/api/battery/${id}')
+            .then((response)=>{
+                this.Battery = response.data;
+                console.log(response.data);
+            })
+        },
         updateBms(){
             this.axios
                 .patch('http://127.0.0.1:8000/api/battery/${this.$route.params.id}', this.Battery)
-                .then((res) => {
-                    this.$router.push({ name:'Data-bms'})
+                .then((response) => {
+                    this.$router.push({ name:'data-bms'})
                 })
         }
     }

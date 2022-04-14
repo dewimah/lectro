@@ -5604,12 +5604,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
-      Battery: []
+      Battery: {}
     };
   },
   created: function created() {
@@ -5623,10 +5621,10 @@ __webpack_require__.r(__webpack_exports__);
     deleteBms: function deleteBms(id) {
       var _this2 = this;
 
-      this.axios["delete"]('http://127.0.0.1:8000/api/battery/${id}').then(function (response) {
+      this.axios["delete"]('http://127.0.0.1:8000/api/battery/' + id).then(function (response) {
         var i = _this2.Battery.map(function (data) {
-          return data.id.indexOf(id);
-        });
+          return data.id;
+        }).indexOf(id);
 
         _this2.Battery.splice(i, 1);
       });
@@ -5686,20 +5684,28 @@ __webpack_require__.r(__webpack_exports__);
       Battery: {}
     };
   },
-  cretaed: function cretaed() {
+  created: function created() {
     var _this = this;
 
-    this.axios.get('http://127.0.0.1:8000/api/battery/${this.$route.params.id}').then(function (res) {
-      _this.Battery = res.data;
+    this.axios.get('http://127.0.0.1:8000/api/battery/' + this.$route.params.id).then(function (response) {
+      _this.Battery = response.data;
     });
   },
   methods: {
-    updateBms: function updateBms() {
+    editBms: function editBms(id) {
       var _this2 = this;
 
-      this.axios.patch('http://127.0.0.1:8000/api/battery/${this.$route.params.id}', this.Battery).then(function (res) {
-        _this2.$router.push({
-          name: 'Data-bms'
+      this.axios.get('http://127.0.0.1:8000/api/battery/${id}').then(function (response) {
+        _this2.Battery = response.data;
+        console.log(response.data);
+      });
+    },
+    updateBms: function updateBms() {
+      var _this3 = this;
+
+      this.axios.patch('http://127.0.0.1:8000/api/battery/${this.$route.params.id}', this.Battery).then(function (response) {
+        _this3.$router.push({
+          name: 'data-bms'
         });
       });
     }
@@ -5900,10 +5906,10 @@ __webpack_require__.r(__webpack_exports__);
     deleteUser: function deleteUser(id) {
       var _this2 = this;
 
-      this.axios["delete"]('http://127.0.0.1:8000/api/user/${id}').then(function (response) {
+      this.axios["delete"]('http://127.0.0.1:8000/api/user/' + id).then(function (response) {
         var i = _this2.User.map(function (data) {
-          return data.id.indexOf(id);
-        });
+          return data.id;
+        }).indexOf(id);
 
         _this2.User.splice(i, 1);
       });
@@ -5962,6 +5968,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -5979,7 +5986,7 @@ __webpack_require__.r(__webpack_exports__);
     editUser: function editUser(id) {
       var _this2 = this;
 
-      this.axios.get('http://127.0.0.1:8000/api/user/${id}').then(function (response) {
+      this.axios.get('http://127.0.0.1:8000/api/user/' + id).then(function (response) {
         _this2.User = response.data;
         console.log(response.data);
       });
@@ -5987,7 +5994,7 @@ __webpack_require__.r(__webpack_exports__);
     updateUser: function updateUser() {
       var _this3 = this;
 
-      this.axios.patch('http://127.0.0.1:8000/api/user/${this.$route.params.id}', this.User).then(function (res) {
+      this.axios.patch('http://127.0.0.1:8000/api/user/' + this.$route.params.id, this.User).then(function (response) {
         _this3.$router.push({
           name: 'data-user'
         });
@@ -43166,103 +43173,97 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "bms" }, [
-    _c("div", { staticClass: "container" }, [
-      _c("div", { staticClass: "row justify-content-center" }, [
-        _c("div", { staticClass: "card" }, [
-          _vm._m(0),
-          _vm._v(" "),
-          _c(
-            "div",
-            { staticClass: "card-body" },
-            [
-              _c(
-                "router-link",
-                {
-                  staticClass: "btn btn-success",
-                  attrs: { to: "add-bms", type: "button" },
-                },
-                [
-                  _c("i", { staticClass: "fa-solid fa-circle-plus" }),
-                  _vm._v(" Tambah"),
-                ]
-              ),
+  return _c("div", { staticClass: "container" }, [
+    _c("div", { staticClass: "row justify-content-center" }, [
+      _c("div", { staticClass: "card" }, [
+        _vm._m(0),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "card-body" },
+          [
+            _c(
+              "router-link",
+              {
+                staticClass: "btn btn-success",
+                attrs: { to: "add-bms", type: "button" },
+              },
+              [
+                _c("i", { staticClass: "fa-solid fa-circle-plus" }),
+                _vm._v(" Tambah"),
+              ]
+            ),
+            _vm._v(" "),
+            _c("br"),
+            _c("br"),
+            _vm._v(" "),
+            _c("table", { staticClass: "table table-bordered table-striped" }, [
+              _vm._m(1),
               _vm._v(" "),
-              _c("br"),
-              _c("br"),
-              _vm._v(" "),
               _c(
-                "table",
-                { staticClass: "table table-bordered table-striped" },
-                [
-                  _vm._m(1),
-                  _vm._v(" "),
-                  _c(
-                    "tbody",
-                    _vm._l(_vm.Battery, function (Battery) {
-                      return _c("tr", { key: Battery.id }, [
-                        _c("td", [_vm._v(_vm._s(Battery.id))]),
-                        _vm._v(" "),
-                        _c("td", [_vm._v(_vm._s(Battery.name))]),
-                        _vm._v(" "),
-                        _c("td", [_vm._v(_vm._s(Battery.jml_sel))]),
+                "tbody",
+                _vm._l(_vm.Battery, function (Battery) {
+                  return _c("tr", { key: Battery.id }, [
+                    _c("td", [_vm._v(_vm._s(Battery.id))]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v(_vm._s(Battery.name))]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v(_vm._s(Battery.jml_sel))]),
+                    _vm._v(" "),
+                    _c(
+                      "td",
+                      [
+                        _c(
+                          "router-link",
+                          {
+                            staticClass: "btn btn-app",
+                            attrs: {
+                              to: {
+                                name: "edit-bms",
+                                params: { id: Battery.id },
+                              },
+                            },
+                          },
+                          [
+                            _c("i", { staticClass: "fas fa-edit" }),
+                            _vm._v(" "),
+                            _c("br"),
+                            _vm._v(
+                              "Edit\n                                        "
+                            ),
+                          ]
+                        ),
                         _vm._v(" "),
                         _c(
-                          "td",
+                          "button",
+                          {
+                            staticClass: "btn btn-danger",
+                            on: {
+                              click: function ($event) {
+                                return _vm.deleteBms(Battery.id)
+                              },
+                            },
+                          },
                           [
-                            _c(
-                              "router-link",
-                              {
-                                staticClass: "btn btn-app",
-                                attrs: {
-                                  to: {
-                                    name: "edit-bms",
-                                    params: { id: Battery.id },
-                                  },
-                                },
-                              },
-                              [
-                                _c("i", { staticClass: "fas fa-edit" }),
-                                _vm._v(" "),
-                                _c("br"),
-                                _vm._v(
-                                  "Edit\r\n                                            "
-                                ),
-                              ]
-                            ),
+                            _c("i", { staticClass: "fa-solid fa-trash" }),
                             _vm._v(" "),
-                            _c(
-                              "button",
-                              {
-                                staticClass: "btn btn-danger",
-                                on: {
-                                  click: function ($event) {
-                                    return _vm.deletebms(Battery.id)
-                                  },
-                                },
-                              },
-                              [
-                                _c("i", { staticClass: "fa-solid fa-trash" }),
-                                _vm._v(" "),
-                                _c("br"),
-                                _vm._v(
-                                  "Hapus\r\n                                            "
-                                ),
-                              ]
+                            _c("br"),
+                            _vm._v(
+                              "Hapus\n                                        "
                             ),
-                          ],
-                          1
+                          ]
                         ),
-                      ])
-                    }),
-                    0
-                  ),
-                ]
+                      ],
+                      1
+                    ),
+                  ])
+                }),
+                0
               ),
-            ],
-            1
-          ),
-        ]),
+            ]),
+          ],
+          1
+        ),
       ]),
     ]),
   ])
@@ -43417,7 +43418,7 @@ var render = function () {
               "router-link",
               {
                 staticClass: "btn btn-danger",
-                attrs: { to: "data-bms", type: "button" },
+                attrs: { to: { name: "data-bms" }, type: "button" },
               },
               [_vm._v("Cancel")]
             ),
@@ -43958,32 +43959,6 @@ var render = function () {
                   return
                 }
                 _vm.$set(_vm.User, "email", $event.target.value)
-              },
-            },
-          }),
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "form-group" }, [
-          _c("label", { attrs: { for: "email" } }, [_vm._v("Password")]),
-          _vm._v(" "),
-          _c("input", {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.User.password,
-                expression: "User.password",
-              },
-            ],
-            staticClass: "form-control",
-            attrs: { type: "text", placeholder: "Password User" },
-            domProps: { value: _vm.User.password },
-            on: {
-              input: function ($event) {
-                if ($event.target.composing) {
-                  return
-                }
-                _vm.$set(_vm.User, "password", $event.target.value)
               },
             },
           }),
