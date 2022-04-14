@@ -36,6 +36,7 @@ class BatteryController extends Controller
 
       //mengubah data
       public function update($id, Request $request){
+          
           $battery = Battery::find($id);
           $battery->update($request->all());
 

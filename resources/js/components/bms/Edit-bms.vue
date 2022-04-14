@@ -46,16 +46,16 @@ export default {
             })
     },
     methods: {
-        editBms(id){
-            this.axios.get('http://127.0.0.1:8000/api/battery/${id}')
+        /*editBms(id){
+            this.axios.get('http://127.0.0.1:8000/api/battery/' + id)
             .then((response)=>{
                 this.Battery = response.data;
                 console.log(response.data);
             })
-        },
+        },*/
         updateBms(){
             this.axios
-                .patch('http://127.0.0.1:8000/api/battery/${this.$route.params.id}', this.Battery)
+                .put('http://127.0.0.1:8000/api/battery/' + this.$route.params.id, this.Battery)
                 .then((response) => {
                     this.$router.push({ name:'data-bms'})
                 })

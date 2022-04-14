@@ -5692,19 +5692,18 @@ __webpack_require__.r(__webpack_exports__);
     });
   },
   methods: {
-    editBms: function editBms(id) {
+    /*editBms(id){
+        this.axios.get('http://127.0.0.1:8000/api/battery/' + id)
+        .then((response)=>{
+            this.Battery = response.data;
+            console.log(response.data);
+        })
+    },*/
+    updateBms: function updateBms() {
       var _this2 = this;
 
-      this.axios.get('http://127.0.0.1:8000/api/battery/${id}').then(function (response) {
-        _this2.Battery = response.data;
-        console.log(response.data);
-      });
-    },
-    updateBms: function updateBms() {
-      var _this3 = this;
-
-      this.axios.patch('http://127.0.0.1:8000/api/battery/${this.$route.params.id}', this.Battery).then(function (response) {
-        _this3.$router.push({
+      this.axios.put('http://127.0.0.1:8000/api/battery/' + this.$route.params.id, this.Battery).then(function (response) {
+        _this2.$router.push({
           name: 'data-bms'
         });
       });
