@@ -6,10 +6,10 @@
                 <div class="card-body">
                     <router-link to="add-bms" class="btn btn-success" type="button">
                     <i class="fa-solid fa-circle-plus"></i> Tambah</router-link> <br><br>
-                            <table class="table table-bordered table-striped">
+                            <table id="example1" class="table table-bordered table-striped">
                                 <thead>
                                     <tr>
-                                        <!--<th>No</th>-->
+                                        <th>No</th>
                                         <th>ID</th>
                                         <th>Nama BMS</th>
                                         <th>Jumlah Sel</th>
@@ -18,8 +18,8 @@
                                 </thead>
                                 
                                 <tbody>
-                                    <tr v-for="Battery in Battery" :key="Battery.id">
-                                        <!--<td>x</td>-->
+                                    <tr v-for="(Battery, index) in Battery" :key="Battery.id">
+                                        <td>{{ index+1 }}</td>
                                         <td>{{ Battery.id }}</td>
                                         <td>{{ Battery.name }}</td>
                                         <td>{{ Battery.jml_sel }}</td>
@@ -41,6 +41,22 @@
 </template>
 
 <script>
+                    $(function () {
+                        $("#example1").DataTable({
+                        "responsive": true, "lengthChange": false, "autoWidth": false,
+                        "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+                        }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+                        $('#example2').DataTable({
+                        "paging": true,
+                        "lengthChange": false,
+                        "searching": false,
+                        "ordering": true,
+                        "info": true,
+                        "autoWidth": false,
+                        "responsive": true,
+                        });
+                    });
+
 export default {
     data() {
         return{

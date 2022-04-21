@@ -9,7 +9,7 @@
                             <table class="table table-bordered table-striped">
                                 <thead>
                                     <tr>
-                                        <!--<th>No</th>-->
+                                        <th>No</th>
                                         <th>ID</th>
                                         <th>Nama</th>
                                         <th>Email</th>
@@ -19,8 +19,8 @@
                                 </thead>
                                 
                                 <tbody>
-                                    <tr v-for="User in User" :key="User.id">
-                                        <!--<td>x</td>-->
+                                    <tr v-for="(User, index) in User" :key="User.id">
+                                        <td>{{ index+1 }}</td>
                                         <td>{{ User.id }}</td>
                                         <td>{{ User.name }}</td>
                                         <td>{{ User.email }}</td>
@@ -68,5 +68,4 @@ export default {
         }
     }
 }
-    
 </script>

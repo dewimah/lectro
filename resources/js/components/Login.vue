@@ -40,6 +40,34 @@
 </template>
 
 <script>
+/*
+export default{
+    data(){
+        return{
+            User: {
+                email: '',
+                password: ''
+            }
+        }
+    },
+    methods: {
+        login(){
+            this.$store
+                .dispatch('login', {
+                    email: this.email,
+                    password: this.password
+                })
+                .then(()=> {
+                    this.$router.push({ name: 'admin-monitoring'})
+                })
+                .catch(err => {
+                    console.log(err)
+                })
+        }
+    }
+}
+*/
+
 export default {
     data() {
         return{
@@ -61,4 +89,5 @@ export default {
         }
     }
 }
+
 </script>

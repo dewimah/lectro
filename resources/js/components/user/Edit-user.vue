@@ -5,7 +5,7 @@
         </div>
 
 
-    <form>
+    <form @submit.prevent="updateUser">
         <div class="card-body">
             <div class="form-group">
                 <label for="id">ID</label>
@@ -31,7 +31,7 @@
 
         <div class="card-footer">
             <router-link :to="{name: 'data-user'}" class="btn btn-danger" type="button">Cancel</router-link>
-            <button @click="updateUser()" type="submit" class="btn btn-success">Update</button>
+            <button type="submit" class="btn btn-success">Update</button>
         </div>
     </form>
 </div>
@@ -52,16 +52,16 @@ export default {
             });
     },
     methods: {
-        editUser(id){
+        /*editUser(id){
             this.axios.get('http://127.0.0.1:8000/api/user/' + id)
             .then((response)=>{
                 this.User = response.data;
                 console.log(response.data);
             });
-        },
+        },*/
         updateUser(){
             this.axios
-                .patch('http://127.0.0.1:8000/api/user/' + this.$route.params.id, this.User)
+                .put('http://127.0.0.1:8000/api/user/' + this.$route.params.id, this.User)
                 .then((response) => {
                     this.$router.push({ name:'data-user'})
                 })
