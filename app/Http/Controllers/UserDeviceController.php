@@ -33,8 +33,8 @@ class UserDeviceController extends Controller
     }
 
     public function show($id){
-        return UserDevice::find($id);
-        $results = UserDevice::with('users')->get();
+        return BatteryUser::find($id);
+        $results = BatteryUser::with('users')->get();
             foreach ($results as $userrecord) {
             echo $userrecord->id; //access table2 data
             echo $userrecord->users->booktitle; //access table1 data
@@ -53,12 +53,12 @@ class UserDeviceController extends Controller
     }
 
     public function update($id, Request $request){
-        $userdevice=UserDevice::find($id);
-        $userdevice->delete();
+        $userdevice = BatteryUser::find($id);
+          $userdevice->update($request->all());
 
         return ResponseFormatter::success(
             'Success Edit',
-            UserDevice::find($id),
+            BatteryUser::find($id),
             200
         );
     }
