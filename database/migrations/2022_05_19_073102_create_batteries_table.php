@@ -15,8 +15,9 @@ return new class extends Migration
     {
         Schema::create('batteries', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('setting_id')->none()->constrained('settings')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('cell_id')->none()->constrained('cells')->onUpdate('cascade')->onDelete('cascade');
             $table->string('name');
-            $table->integer('jml_sel');
             $table->timestamps();
         });
     }

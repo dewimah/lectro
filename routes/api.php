@@ -46,6 +46,15 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::delete('/battery/{id}', 'App\Http\Controllers\BatteryController@delete');
 });
 
+//Route cell baterai
+Route::group(['middleware' => ['auth:sanctum']], function () {
+    Route::get('/cell', 'App\Http\Controllers\CellController@all');
+    Route::get('/cell/{id}', 'App\Http\Controllers\CellController@show');
+    Route::post('/cell','App\Http\Controllers\CellController@store');
+    Route::put('/cell/{id}', 'App\Http\Controllers\CellController@update');
+    Route::delete('/cell/{id}', 'App\Http\Controllers\CellController@delete');
+});
+
 //Route Erorr
 Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('/erorrs', 'App\Http\Controllers\ErorrsController@all');

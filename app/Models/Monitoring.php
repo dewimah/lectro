@@ -4,7 +4,6 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Setting;
 use App\Models\Error;
 use App\Models\Battery;
 
@@ -14,7 +13,6 @@ class Monitoring extends Model
     protected $guarded = ['id'];
     protected $fillable = [
         'battery_id',
-        'setting_id',
         'error_id',
         'control_relay',
         'tegangan_tot',
@@ -25,9 +23,9 @@ class Monitoring extends Model
         'arus'
     ];
 
-    public function setting(){
+    /*public function setting(){
         return $this->hasOne(Setting::class);
-    }
+    }*/
 
     public function erorrs(){
     return $this->hasMany(Erorrs::class);
@@ -37,5 +35,4 @@ class Monitoring extends Model
     public function battery(){
         return $this->hasOne(Battery::class);
     }
-
 }

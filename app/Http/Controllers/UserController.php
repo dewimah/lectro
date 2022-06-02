@@ -27,9 +27,10 @@ class UserController extends Controller
     }
 
     //mengubah data
-    public function update($id, Request $request){
+    public function update( Request $request, $id){
        $user = User::find($id);
         $user->update($request->all());
+       // return $request->all();
 
         return ResponseFormatter::success(
             'Success Edit',

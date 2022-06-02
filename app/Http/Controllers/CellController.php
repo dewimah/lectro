@@ -5,11 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Helpers\ResponseFormatter;
-use App\Models\Battery;
+use App\Models\cell;
 
-class BatteryController extends Controller
+class CellController extends Controller
 {
-
     public function __construct()
     {
         $this->middleware('auth');
@@ -18,38 +17,38 @@ class BatteryController extends Controller
       //mengambil semua data
       public function all()
       {
-          return Battery::all();
+          return cell::all();
 
       }
 
       //mengambil data by id
       public function show ($id){
-          return Battery::find($id);
+          return cell::find($id);
       }
 
       //menambah data
       public function store(Request $request){
-          $battery = Battery::create($request->all());
+          $cell = cell::create($request->all());
 
-          return ResponseFormatter::success($battery,'Data Battery Berhasil di Tambahkan',201);
+          return ResponseFormatter::success($cell,'Jumlah Cell Berhasil di Tambahkan',201);
       }
 
       //mengubah data
       public function update( Request $request, $id){
 
-          $battery = Battery::find($id);
-          $battery->update($request->all());
-            //return $request->all();
+          $cell = cell::find($id);
+          //$battery->update($request->all());
+            return $request->all();
           return ResponseFormatter::success(
             'Success Edit',
-            Battery::find($id),
+            cell::find($id),
             200
         );
     }
 
       //menghapus data
       public function delete($id){
-          $battery=Battery::find($id);
+          $battery=cell::find($id);
           $battery->delete();
 
           return ResponseFormatter::success(

@@ -17,7 +17,6 @@ return new class extends Migration
             $table->id();
             $table->foreignId('error_id')->none()->constrained('errors')->onUpdate('cascade')->onDelete('cascade');
             $table->foreignId('battery_id')->none()->constrained('batteries')->onUpdate('cascade')->onDelete('cascade');
-            $table->foreignId('setting_id')->none()->constrained('settings')->onUpdate('cascade')->onDelete('cascade')->unsigned();
             $table->enum('control_relay', ['1', '0']);
             $table->double('tegangan_tot',15,8);
             $table->double('tegangan_cell',15,8);
