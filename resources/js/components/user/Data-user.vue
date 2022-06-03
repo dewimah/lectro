@@ -4,7 +4,7 @@
             <div class="card">
                 <div class="card-header"><h5>Data User</h5></div>
                 <div class="card-body">
-                    <router-link to="add-user" class="btn btn-success" type="button">
+                    <router-link to="add-user" class="btn btn-success" type="button" style="background-color:#1c3b10">
                     <i class="fa-solid fa-circle-plus"></i> Tambah</router-link> <br><br>
                             <table class="table table-bordered table-striped">
                                 <thead>

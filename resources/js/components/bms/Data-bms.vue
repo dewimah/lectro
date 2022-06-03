@@ -4,7 +4,7 @@
             <div class="card">
                 <div class="card-header"><h5>Data BMS</h5></div>
                 <div class="card-body">
-                    <router-link to="add-bms" class="btn btn-success" type="button">
+                    <router-link to="add-bms" class="btn btn-success" type="button" style="background-color:#1c3b10">
                     <i class="fa-solid fa-circle-plus"></i> Tambah</router-link> <br><br>
                             <table id="example1" class="table table-bordered table-striped">
                                 <thead>
@@ -41,22 +41,6 @@
 </template>
 
 <script>
-                    $(function () {
-                        $("#example1").DataTable({
-                        "responsive": true, "lengthChange": false, "autoWidth": false,
-                        "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
-                        }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
-                        $('#example2').DataTable({
-                        "paging": true,
-                        "lengthChange": false,
-                        "searching": false,
-                        "ordering": true,
-                        "info": true,
-                        "autoWidth": false,
-                        "responsive": true,
-                        });
-                    });
-
 export default {
     data() {
         return{

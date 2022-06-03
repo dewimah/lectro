@@ -1,6 +1,6 @@
 <template>
     <div class="card card-success">
-        <div class="card-header">
+        <div class="card-header" style="background-color:#1c3b10">
             <h3 class="card-title">Tambah Data BMS</h3>
         </div>
 
@@ -20,7 +20,7 @@
 
         <div class="card-footer">
             <router-link to="data-bms" class="btn btn-danger" type="button">Cancel</router-link>
-            <button type="submit" class="btn btn-success">Simpan</button>
+            <button type="submit" class="btn btn-success" style="background-color:#1c3b10">Simpan</button>
         </div>
     </form>
 </div>

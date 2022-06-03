@@ -1,6 +1,6 @@
 <template>
     <div class="card card-success">
-        <div class="card-header">
+        <div class="card-header" style="background-color:#1c3b10">
             <h3 class="card-title">Tambah Data User</h3>
         </div>
 
@@ -42,7 +42,7 @@
 
             <div class="card-footer">
                 <router-link to="data-user" class="btn btn-danger" type="button">Cancel</router-link>
-                <button @click.prevent="tambahUser" type="button" class="btn btn-success">Simpan</button>
+                <button @click.prevent="tambahUser" type="button" class="btn btn-success" style="background-color:#1c3b10">Simpan</button>
             </div>
         </form>
     </div>

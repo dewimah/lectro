@@ -3,6 +3,7 @@
 <link rel="stylesheet" href="{{asset('css/app.css')}}" type="text/css" />
 <link rel="stylesheet" type="text/css" href="http://unpkg.com/bootstrap/dist/css/bootstrap.min.css" />
 <link rel="stylesheet" type="text/css" href="http://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.min.css" />
-<script src="http://unpkg.com/vue@latest/dist/vue.min.js"> </script>
+<!--<script src="http://unpkg.com/vue@latest/dist/vue.min.js"> </script>-->
 <script src="http://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.min.js"> </script>
 <script src="http://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue-icons.min.js"> </script>
+<link rel="stylesheet" href="{{asset('chart.js/dist/chart.js')}}">
