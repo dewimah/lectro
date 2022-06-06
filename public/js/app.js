@@ -5637,9 +5637,8 @@ __webpack_require__.r(__webpack_exports__);
         });
       })["catch"](function (err) {
         return console.log(err);
-      })["finally"](function () {
-        return _this.loading = false;
-      });
+      }); //console.log(error)
+      //.finally(() => this.loading = false)
     }
   }
 });
@@ -5699,10 +5698,44 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
-      Battery: {}
+      Battery: {},
+      cell: {}
     };
   },
   created: function created() {
@@ -5722,6 +5755,17 @@ __webpack_require__.r(__webpack_exports__);
         }).indexOf(id);
 
         _this2.Battery.splice(i, 1);
+      });
+    },
+    tambahCell: function tambahCell() {
+      var _this3 = this;
+
+      this.axios.post('http://127.0.0.1:8000/api/cell/', this.cell).then(function (response) {
+        return _this3.$router.push({
+          name: 'data-bms'
+        });
+      })["catch"](function (err) {
+        return concole.log(err);
       });
     }
   }
@@ -44454,6 +44498,81 @@ var render = function () {
       _c("div", { staticClass: "card" }, [
         _vm._m(0),
         _vm._v(" "),
+        _c("div", { staticClass: "card-body" }, [
+          _c("div", { staticClass: "input-group mb-3" }, [
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.cell.cellbaterai,
+                  expression: "cell.cellbaterai",
+                },
+              ],
+              staticClass: "form-control",
+              attrs: {
+                type: "number",
+                placeholder: "Masukan Jumlah Sel Baterai",
+                "aria-label": "Recipient's username",
+                "aria-describedby": "button-addon2",
+              },
+              domProps: { value: _vm.cell.cellbaterai },
+              on: {
+                input: function ($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.cell, "cellbaterai", $event.target.value)
+                },
+              },
+            }),
+            _vm._v(" "),
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-outline-secondary",
+                attrs: { type: "button", id: "button-addon2" },
+                on: {
+                  click: function ($event) {
+                    $event.preventDefault()
+                    return _vm.tambahCell.apply(null, arguments)
+                  },
+                },
+              },
+              [_vm._v("Tambah")]
+            ),
+          ]),
+          _vm._v(" "),
+          _c(
+            "table",
+            {
+              staticClass: "table table-bordered table-striped",
+              attrs: { id: "example1" },
+            },
+            [
+              _vm._m(1),
+              _vm._v(" "),
+              _c(
+                "tbody",
+                _vm._l(_vm.cell, function (cell, index) {
+                  return _c("tr", { key: cell.id }, [
+                    _c("td", [_vm._v(_vm._s(index + 1))]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v(_vm._s(cell.id))]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v(_vm._s(cell.cellbaterai))]),
+                  ])
+                }),
+                0
+              ),
+            ]
+          ),
+        ]),
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "card" }, [
+        _vm._m(2),
+        _vm._v(" "),
         _c(
           "div",
           { staticClass: "card-body" },
@@ -44481,7 +44600,7 @@ var render = function () {
                 attrs: { id: "example1" },
               },
               [
-                _vm._m(1),
+                _vm._m(3),
                 _vm._v(" "),
                 _c(
                   "tbody",
@@ -44514,7 +44633,7 @@ var render = function () {
                               _vm._v(" "),
                               _c("br"),
                               _vm._v(
-                                "Edit\n                                        "
+                                "Edit\n                                            "
                               ),
                             ]
                           ),
@@ -44534,7 +44653,7 @@ var render = function () {
                               _vm._v(" "),
                               _c("br"),
                               _vm._v(
-                                "Hapus\n                                        "
+                                "Hapus\n                                            "
                               ),
                             ]
                           ),
@@ -44555,6 +44674,28 @@ var render = function () {
   ])
 }
 var staticRenderFns = [
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "card-header" }, [
+      _c("h5", [_vm._v("Jumlah Sel")]),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("tr", [
+        _c("th", [_vm._v("No")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("ID")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Jumlah Sel")]),
+      ]),
+    ])
+  },
   function () {
     var _vm = this
     var _h = _vm.$createElement

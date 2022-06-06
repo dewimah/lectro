@@ -2,7 +2,40 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="card">
+                <div class="card-header"><h5>Jumlah Sel</h5></div>
+
+                <div class="card-body">
+                    <div class="input-group mb-3">
+                        <input v-model="cell.cellbaterai" type="number" class="form-control" placeholder="Masukan Jumlah Sel Baterai" aria-label="Recipient's username" aria-describedby="button-addon2">
+                        <button @click.prevent="tambahCell" class="btn btn-outline-secondary" type="button" id="button-addon2">Tambah</button>
+                    </div>
+<!--
+                    <router-link to="add-bms" class="btn btn-success" type="button" style="background-color:#1c3b10">
+                    <i class="fa-solid fa-circle-plus"></i> Tambah</router-link> <br><br>
+-->
+                            <table id="example1" class="table table-bordered table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>No</th>
+                                        <th>ID</th>
+                                        <th>Jumlah Sel</th>
+                                    </tr>
+                                </thead>
+                                
+                                <tbody>
+                                    <tr v-for="(cell, index) in cell" :key="cell.id">
+                                        <td>{{ index+1 }}</td>
+                                        <td>{{ cell.id }}</td>
+                                        <td>{{ cell.cellbaterai }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                </div>
+            </div>
+
+            <div class="card">
                 <div class="card-header"><h5>Data BMS</h5></div>
+
                 <div class="card-body">
                     <router-link to="add-bms" class="btn btn-success" type="button" style="background-color:#1c3b10">
                     <i class="fa-solid fa-circle-plus"></i> Tambah</router-link> <br><br>
@@ -44,7 +77,8 @@
 export default {
     data() {
         return{
-            Battery: {}
+            Battery: {},
+            cell:{}
         }
     },
     created(){
@@ -62,6 +96,15 @@ export default {
                     let i = this.Battery.map(data => data.id).indexOf(id);
                     this.Battery.splice(i,1)
                 });
+        },
+
+        tambahCell(){
+            this.axios
+                .post('http://127.0.0.1:8000/api/cell/', this.cell)
+                .then(response => (
+                    this.$router.push({name:'data-bms'})
+                ))
+                .catch(err => concole.log(err))
         }
     }
 }

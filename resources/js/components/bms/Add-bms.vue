@@ -41,7 +41,8 @@ export default {
                     this.$router.push({name:'data-bms'})
                 ))
                 .catch(err => console.log(err))
-                .finally(() => this.loading = false)
+                //console.log(error)
+                //.finally(() => this.loading = false)
         }
     }
 }
