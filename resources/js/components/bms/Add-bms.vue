@@ -14,7 +14,10 @@
             
             <div class="form-group">
                 <label for="jml_sel">Jumlah Sel</label>
-                <input type="number" class="form-control" v-model="Battery.jml_sel" placeholder="Jumlah Sel">
+                <select name="jml_sel" class="form-control" v-model="Battery.cell_id" @change="onChangeChain">
+                    <option>--Jumlah Sel--</option>
+                    <option v-for="cell in cell" :key="cell.id" v-text="cell.cellbaterai"></option>
+                </select>
             </div>
         </div>
 
@@ -30,7 +33,8 @@
 export default {
     data() {
         return{
-            Battery: {}
+            Battery: {},
+            cell: {}
         }
     },
     methods: {

@@ -5621,10 +5621,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
-      Battery: {}
+      Battery: {},
+      cell: {}
     };
   },
   methods: {
@@ -5743,6 +5747,9 @@ __webpack_require__.r(__webpack_exports__);
 
     this.axios.get('http://127.0.0.1:8000/api/battery/').then(function (response) {
       _this.Battery = response.data;
+    });
+    this.axios.get('http://127.0.0.1:8000/api/cell/').then(function (response) {
+      _this.cell = response.data;
     });
   },
   methods: {
@@ -44403,27 +44410,54 @@ var render = function () {
           _c("div", { staticClass: "form-group" }, [
             _c("label", { attrs: { for: "jml_sel" } }, [_vm._v("Jumlah Sel")]),
             _vm._v(" "),
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.Battery.jml_sel,
-                  expression: "Battery.jml_sel",
-                },
-              ],
-              staticClass: "form-control",
-              attrs: { type: "number", placeholder: "Jumlah Sel" },
-              domProps: { value: _vm.Battery.jml_sel },
-              on: {
-                input: function ($event) {
-                  if ($event.target.composing) {
-                    return
-                  }
-                  _vm.$set(_vm.Battery, "jml_sel", $event.target.value)
+            _c(
+              "select",
+              {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.Battery.cell_id,
+                    expression: "Battery.cell_id",
+                  },
+                ],
+                staticClass: "form-control",
+                attrs: { name: "jml_sel" },
+                on: {
+                  change: [
+                    function ($event) {
+                      var $$selectedVal = Array.prototype.filter
+                        .call($event.target.options, function (o) {
+                          return o.selected
+                        })
+                        .map(function (o) {
+                          var val = "_value" in o ? o._value : o.value
+                          return val
+                        })
+                      _vm.$set(
+                        _vm.Battery,
+                        "cell_id",
+                        $event.target.multiple
+                          ? $$selectedVal
+                          : $$selectedVal[0]
+                      )
+                    },
+                    _vm.onChangeChain,
+                  ],
                 },
               },
-            }),
+              [
+                _c("option", [_vm._v("--Jumlah Sel--")]),
+                _vm._v(" "),
+                _vm._l(_vm.cell, function (cell) {
+                  return _c("option", {
+                    key: cell.id,
+                    domProps: { textContent: _vm._s(cell.cellbaterai) },
+                  })
+                }),
+              ],
+              2
+            ),
           ]),
         ]),
         _vm._v(" "),

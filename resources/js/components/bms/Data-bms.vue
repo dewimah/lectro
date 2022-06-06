@@ -87,6 +87,11 @@ export default {
         .then(response =>{
             this.Battery = response.data;
         });
+        this.axios
+        .get('http://127.0.0.1:8000/api/cell/')
+        .then(response => {
+            this.cell = response.data;
+        });
     },
     methods: {
         deleteBms(id){
