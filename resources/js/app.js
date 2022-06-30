@@ -40,12 +40,28 @@ require('./bootstrap');
           }
       },
       {
+        path: '/data-bmx',
+        name: 'data-bmx',
+        component:require('./components/bms/Data-bmx.vue').default,
+        meta: {
+            auth: false
+        }
+    },
+      {
           path: '/add-bms',
           name: 'add-bms',
           component:require('./components/bms/Add-bms.vue').default,
           meta: {
               auth: false
           }
+      },
+      {
+        path: '/add-cell',
+        name: 'add-cell',
+        component:require('./components/bms/Add-cell.vue').default,
+        meta: {
+            auth: false
+        }
       },
       {
           path: '/edit-bms/:id',
@@ -106,7 +122,7 @@ require('./bootstrap');
       {
         path: '/add-setting',
         name: 'add-setting',
-        component:require('./components/monitoring/Add-setting.vue').default,
+        component:require('./components/bms/setting/Add-setting.vue').default,
         meta: {
             auth: false
         }
@@ -114,7 +130,7 @@ require('./bootstrap');
       {
         path: '/edit-setting',
         name: 'edit-setting',
-        component:require('./components/monitoring/Edit-setting.vue').default,
+        component:require('./components/bms/setting/Edit-setting.vue').default,
         meta: {
             auth: false
         }
@@ -141,3 +157,5 @@ require('./bootstrap');
       el: '#app',
       router
   });
+
+  //const validation = ref([]);

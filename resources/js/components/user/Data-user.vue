@@ -6,7 +6,8 @@
                 <div class="card-body">
                     <router-link to="add-user" class="btn btn-success" type="button" style="background-color:#1c3b10">
                     <i class="fa-solid fa-circle-plus"></i> Tambah</router-link> <br><br>
-                            <table class="table table-bordered table-striped">
+                    <div class="table-responsive">
+                            <table class="table table-bordered table-striped DataTable">
                                 <thead>
                                     <tr>
                                         <th>No</th>
@@ -26,17 +27,17 @@
                                         <td>{{ User.email }}</td>
                                         <!--<td>{{ User.password }}</td>-->
                                         <td>
-                                            <router-link :to="{name: 'edit-user', params: {id: User.id}}" class="btn btn-app">
-                                                <i class="fas fa-edit"></i> <br>Edit
+                                            <router-link :to="{name: 'edit-user', params: {id: User.id}}" class="btn btn-sm btn-warning">
+                                                <i class="fas fa-edit"></i>
                                             </router-link>
-                                            <button class="btn btn-danger" @click="deleteUser(User.id)">
-                                                <i class="fa-solid fa-trash"></i> <br>Hapus
+                                            <button class="btn btn-danger btn-sm" @click="deleteUser(User.id)">
+                                                <i class="fa-solid fa-trash"></i>
                                             </button>
                                         </td>
                                     </tr>
                                 </tbody>
                             </table>
-                    
+                    </div>
                 </div>
             </div>
         </div>
@@ -55,6 +56,9 @@ export default {
         .get('http://127.0.0.1:8000/api/user')
         .then(response =>{
             this.User = response.data;
+        })
+        .then(function (){
+            $(".DataTable").DataTable();
         });
     },
     methods: {
@@ -64,6 +68,14 @@ export default {
                 .then(response => {
                     let i = this.User.map(data => data.id).indexOf(id);
                     this.User.splice(i,1)
+                })
+                .then(function (){
+                    var msg = "Apakah anda yakin untuk menghapusnya"
+                    agree = confirm(msg)
+                    if (agree)
+                        return true
+                    else
+                        return false
                 });
         }
     }

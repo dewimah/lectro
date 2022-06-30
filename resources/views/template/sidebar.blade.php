@@ -9,28 +9,28 @@
                 <nav class="mt-2">
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                         <li class="nav-item">
-                            <router-link to="#" class="nav-link">
+                            <router-link to="#" class="nav-link calltoaction">
                                 <i class="fa-solid fa-desktop"></i>
                                 <p>Monitoring</p>
-                            </a>
+                            </router-link>
                         </li>
                         
                         <li class="nav-item">
-                            <router-link to="data-bms" class="nav-link">
+                            <router-link to="data-bms" class="nav-link calltoaction">
                                 <i class="fa-solid fa-car-battery"></i>
                                 <p>Data BMS</p>
                             </a>
                         </li>
 
                         <li class="nav-item">
-                            <router-link to="data-user" class="nav-link">
+                            <router-link to="data-user" class="nav-link calltoaction">
                                 <i class="fa-solid fa-users"></i>
                                 <p>Data User</p>
                             </a>
                         </li>
 
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
+                            <a href="#" class="nav-link calltoaction">
                                 <i class="fa-solid fa-arrow-right-from-bracket"></i>
                                 <p>Logout</p>
                             </a>

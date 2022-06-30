@@ -6,9 +6,45 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Helpers\ResponseFormatter;
 use App\Models\Battery;
+use Yajra\DataTables\DataTables;
 
 class BatteryController extends Controller
 {
+
+    //function menampilkan data table
+    public function BmsDataTables(){
+
+        if(request()->ajax())
+        {
+            $query = Battery::query();
+
+            return DataTables::of($query)
+                ->addColumn('action', function($item){
+                    return '
+                        <div class="btn-group">
+                            <div class="dropdown">
+                                <button class="btn btn-info dropdown=toggle mr-1 mb-1"
+                                        type="button"
+                                        data-toggle="dropdown">
+                                        Aksi
+                                </button>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" href="' . route('edit-bms', $item->id) .'">
+                                        Edit
+                                    </a>
+                                    <button class="btn btn-danger" @click="deleteBms(Battery.id)">
+                                    <i class="fa-solid fa-trash"></i> <br>Hapus
+                                </button>
+                                </div>
+                            </div>
+                        </div>
+                    ';
+                })
+                
+                ->rawColumns(['action'])
+                ->make();
+        }
+    }
 
     public function __construct()
     {

@@ -1,12 +1,17 @@
 <template>
     <div class="card card-success">
         <div class="card-header" style="background-color:#1c3b10">
-            <h3 class="card-title">Tambah Data Setting</h3>
+            <h3 class="card-title">Edit Data Setting</h3>
         </div>
 
 
-    <form @submit.prevent="tambahSetting">
+    <form @submit.prevent="updateSetting">
         <div class="card-body">
+            <div class="form-group">
+                <label for="id">ID</label>
+                <input type="text" class="form-control" v-model="Setting.id" disabled>
+            </div>
+
             <div class="form-group">
                 <label for="temp_min">Suhu Mininum</label>
                 <input type="number" class="form-control" v-model="Setting.temp_min">
@@ -29,8 +34,8 @@
         </div>
 
         <div class="card-footer">
-            <router-link to="halaman-detail" class="btn btn-danger" type="button">Cancel</router-link>
-            <button type="submit" class="btn btn-success" style="background-color:#1c3b10">Simpan</button>
+            <router-link :to="{name: 'halaman-detail'}" class="btn btn-danger" type="button">Cancel</router-link>
+            <button type="submit" class="btn btn-success" style="background-color:#1c3b10">Update</button>
         </div>
     </form>
 </div>
@@ -43,15 +48,27 @@ export default {
             Setting: {}
         }
     },
+    created(){
+        this.axios
+            .get('http://127.0.0.1:8000/api/setting/' + this.$route.params.id)
+            .then ((response) => {
+                this.Setting = response.data;
+            })
+    },
     methods: {
-        tambahSetting(){
+        /*editBms(id){
+            this.axios.get('http://127.0.0.1:8000/api/battery/' + id)
+            .then((response)=>{
+                this.Battery = response.data;
+                console.log(response.data);
+            })
+        },*/
+        updateSetting(){
             this.axios
-                .post('http://127.0.0.1:8000/api/setting/', this.Setting)
-                .then(response => (
-                    this.$router.push({name:'data-bms'})
-                ))
-                .catch(err => console.log(err))
-                .finally(() => this.loading = false)
+                .put('http://127.0.0.1:8000/api/setting/' + this.$route.params.id, this.Setting)
+                .then((response) => {
+                    this.$router.push({ name:'data-bms'})
+                })
         }
     }
 }

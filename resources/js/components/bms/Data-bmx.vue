@@ -30,7 +30,6 @@
                   <th>No</th>
                   <th>ID</th>
                   <th>Jumlah Sel</th>
-                  <th>Aksi</th>
                 </tr>
               </thead>
 
@@ -39,14 +38,6 @@
                   <td>{{ index + 1 }}</td>
                   <td>{{ cell.id }}</td>
                   <td>{{ cell.cellbaterai }}</td>
-                  <td>
-                    <button
-                      class="btn btn-danger btn-sm"
-                      @click="deleteCell(cell.id)"
-                    >
-                      <i class="fa-solid fa-trash"></i>
-                    </button>
-                  </td>
                 </tr>
               </tbody>
             </table>
@@ -214,14 +205,6 @@ export default {
         .then((response) => {
           let i = this.Battery.map((data) => data.id).indexOf(id);
           this.Battery.splice(i, 1);
-        })
-        .then(function (){
-                    var msg = "Apakah anda yakin untuk menghapusnya"
-                    agree = confirm(msg)
-                    if (agree)
-                        return true
-                    else
-                        return false
         });
     },
 
@@ -239,30 +222,6 @@ export default {
         .then((response) => {
           let i = this.Setting.map((data) => data.id).indexOf(id);
           this.Setting.splice(i, 1);
-        })
-        .then(function (){
-            var msg = "Apakah anda yakin untuk menghapusnya"
-            agree = confirm(msg)
-            if (agree)
-                return true
-            else
-                return false
-        });
-    },
-    deleteCell(id) {
-      this.axios
-        .delete("http://127.0.0.1:8000/api/cell/" + id)
-        .then((response) => {
-          let i = this.Setting.map((data) => data.id).indexOf(id);
-          this.Setting.splice(i, 1);
-        })
-        .then(function (){
-            var msg = "Apakah anda yakin untuk menghapusnya"
-            agree = confirm(msg)
-            if (agree)
-                return true
-            else
-                return false
         });
     },
   },

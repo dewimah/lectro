@@ -54,5 +54,5 @@ class AuthController extends Controller
             'Token Revoked',
             200
         );
-}*/
+    }*/
 }

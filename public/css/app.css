@@ -34614,3 +34614,13 @@ readers do not read off random characters that represent icons */
 .fa-zhihu:before {
   content: "\f63f";
 }
+
+.calltoaction {
+  color: #1c3b10 !important;
+  background-color: #d3d3d3;
+}
+
+.calltoaction:hover {
+  color: #ffffff !important;
+  background-color: #1c3b10;
+}

@@ -5,28 +5,34 @@
         </div>
 
 
-    <form @submit.prevent="tambahBms">
-        <div class="card-body">
-            <div class="form-group">
-                <label for="name">Nama Produk</label>
-                <input type="text" class="form-control" v-model="Battery.name" placeholder="Nama BMS">
-            </div>
+        <form @submit.prevent="tambahBms">
+            <div class="card-body">
+                <div class="form-group">
+                    <label for="name">Nama Produk</label>
+                    <input type="text" class="form-control" v-model="Battery.name" placeholder="Nama BMS">
+                </div>
             
-            <div class="form-group">
-                <label for="jml_sel">Jumlah Sel</label>
-                <select name="jml_sel" class="form-control" v-model="Battery.cell_id" @change="onChangeChain">
-                    <option>--Jumlah Sel--</option>
-                    <option v-for="cell in cell" :key="cell.id" v-text="cell.cellbaterai"></option>
-                </select>
-            </div>
-        </div>
+                <div class="form-group">
+                    <label for="jml_sel">Jumlah Sel</label>
+                    <select name="jml_sel" class="form-control" v-model="Battery.cell_id">
+                        <option v-for="cell in cell" :key="cell.id" :value="cell.id">{{cell.cellbaterai}}</option>
+                    </select>
+                </div>
 
-        <div class="card-footer">
-            <router-link to="data-bms" class="btn btn-danger" type="button">Cancel</router-link>
-            <button type="submit" class="btn btn-success" style="background-color:#1c3b10">Simpan</button>
-        </div>
-    </form>
-</div>
+                <div class="form-group">
+                    <label for="jml_sel">Setting</label>
+                    <select name="jml_sel" class="form-control" v-model="Battery.setting_id">
+                        <option v-for="Setting in Setting" :key="Setting.id" :value="Setting.id">{{Setting.id}}</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="card-footer">
+                <router-link to="data-bms" class="btn btn-danger" type="button">Cancel</router-link>
+                <button type="submit" class="btn btn-success" style="background-color:#1c3b10">Simpan</button>
+            </div>
+        </form>
+    </div>
 </template>
 
 <script>
@@ -34,7 +40,8 @@ export default {
     data() {
         return{
             Battery: {},
-            cell: {}
+            cell: {},
+            Setting: {}
         }
     },
     methods: {
@@ -45,9 +52,21 @@ export default {
                     this.$router.push({name:'data-bms'})
                 ))
                 .catch(err => console.log(err))
-                //console.log(error)
-                //.finally(() => this.loading = false)
+        },
+        loadDataCell(){
+            this.axios
+                .get('http://127.0.0.1:8000/api/cell/')
+                .then(({data}) => {this.cell = data});
+        },
+        loadDataSetting(){
+            this.axios
+                .get('http://127.0.0.1:8000/api/setting/')
+                .then(({data}) => {this.Setting = data});
         }
+    },
+    created(){
+        this.loadDataCell();
+        this.loadDataSetting();
     }
 }
 </script>
