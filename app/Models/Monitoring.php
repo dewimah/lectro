@@ -12,15 +12,17 @@ class Monitoring extends Model
     use HasFactory;
     protected $guarded = ['id'];
     protected $fillable = [
-        'battery_id',
-        'error_id',
-        'control_relay',
+       // 'battery_id',
+       //'error_id',
+        //'control_relay',
         'tegangan_tot',
         'tegangan_cell',
         'temp_1',
         'temp_2',
         'temp_3',
-        'arus'
+        'arus',
+        'soc',
+        'soh',
     ];
 
     /*public function setting(){

@@ -32,4 +32,22 @@ class MonitoringController extends Controller
         $monitoring->delete();
         return 204;
     }
+
+    public function datamasuk(Request $request){
+        $data = new Monitoring;
+       // $data -> battery_id = $request -> battery_id;
+        //$data -> error_id = $request -> error_id;
+        //$data -> control_relay = $request -> control_relay;
+        $data -> tegangan_tot = $request -> tegangan_tot;
+        $data -> tegangan_cell = $request -> tegangan_cell;
+        $data -> temp_1 = $request -> temp_1;
+        $data -> temp_2 = $request -> temp_2;
+        $data -> temp_3 = $request -> temp_3;
+        $data -> arus = $request -> arus;
+        $data -> soc = $request -> soc;
+        $data -> soh = $request -> soh;
+
+        $data -> save();
+        return 200;
+    }
 }

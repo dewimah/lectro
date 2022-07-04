@@ -15,15 +15,17 @@ return new class extends Migration
     {
         Schema::create('monitorings', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('error_id')->none()->constrained('errors')->onUpdate('cascade')->onDelete('cascade');
-            $table->foreignId('battery_id')->none()->constrained('batteries')->onUpdate('cascade')->onDelete('cascade');
-            $table->enum('control_relay', ['1', '0']);
+            //$table->foreignId('error_id')->none()->constrained('errors')->onUpdate('cascade')->onDelete('cascade');
+           // $table->foreignId('battery_id')->none()->constrained('batteries')->onUpdate('cascade')->onDelete('cascade');
+            //$table->enum('control_relay', ['1', '0']);
             $table->double('tegangan_tot',15,8);
             $table->double('tegangan_cell',15,8);
             $table->double('temp_1',15,8);
             $table->double('temp_2',15,8);
             $table->double('temp_3',15,8);
             $table->double('arus',15,8);
+            $table->double('soc',15,8);
+            $table->double('soh',15,8);
             $table->timestamps();
         });
     }

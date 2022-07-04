@@ -16,6 +16,8 @@ class Setting extends Model
         'temp_max',
         'tegangan_min',
         'tegangan_max'
+        'arus_min',
+        'arus_max',
     ];
 
     public function monitoring(){

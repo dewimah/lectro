@@ -25,8 +25,12 @@ class SettingController extends Controller
     }
 
     //menambah data
-    public function store(Request $request){
+    /*public function store(Request $request){
         return Setting::create($request->all());
+    }*/
+
+    public function store(Request $request){
+
     }
 
     //mengubah data
