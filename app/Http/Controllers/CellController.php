@@ -34,11 +34,11 @@ class CellController extends Controller
       }
 
       //mengubah data
-      public function update( Request $request, $id){
+      public function update($id, Request $request){
 
           $cell = cell::find($id);
-          //$battery->update($request->all());
-            return $request->all();
+          $cell->update($request->all());
+           // return $request->all();
           return ResponseFormatter::success(
             'Success Edit',
             cell::find($id),

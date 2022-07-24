@@ -18,6 +18,8 @@ return new class extends Migration
             $table->foreignId('setting_id')->none()->constrained('settings')->onUpdate('cascade')->onDelete('cascade');
             $table->foreignId('cell_id')->none()->constrained('cells')->onUpdate('cascade')->onDelete('cascade');
             $table->string('name');
+            $table->string('tipe');
+            $table->string('serial');
             $table->timestamps();
         });
     }

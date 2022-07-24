@@ -19,6 +19,8 @@ return new class extends Migration
             $table->integer('temp_max');
             $table->integer('tegangan_min');
             $table->integer('tegangan_max');
+            $table->integer('arus_max');
+            $table->integer('arus_min');
             $table->timestamps();
         });
     }

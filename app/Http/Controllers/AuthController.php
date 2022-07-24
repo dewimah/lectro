@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
+//use App\Models\PersonalAccessToken;
 use App\Models\BatteryUser;
 use Illuminate\Support\Facades\Validator;
 use App\Helpers\ResponseFormatter;
@@ -35,6 +36,8 @@ class AuthController extends Controller
                     'Token Type' => 'Bearer Token',
                     'Token' => $token,
                     'user' => $user->load('roles'),
+                   // 'expired_at' => now()->addHours(1),
+                    //'expired_at' => $token->accessToken->expired_at
                 ];
                 return ResponseFormatter::success($data,'Login berhasil');
             }

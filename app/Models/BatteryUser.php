@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Laravel\Sanctum\HasApiTokens;
+use App\Models\Monitoring;
 
 class BatteryUser extends Model
 {
@@ -21,4 +22,8 @@ class BatteryUser extends Model
         'password',
         'remember_token',
     ];
+
+    public function monitoring(){
+        return $this->belongsTo(Monitoring::class);
+    }
 }
