@@ -19,7 +19,16 @@
             
             <div class="form-group">
                 <label for="jml_sel">Jumlah Sel</label>
-                <input type="number" class="form-control" v-model="Battery.jml_sel" placeholder="Jumlah Sel">
+                <select name="jml_sel" class="form-control" v-model="Battery.cell_id">
+                    <option v-for="cell in cell" :key="cell.id" :value="cell.id">{{cell.cellbaterai}}</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="jml_sel">Setting</label>
+                <select name="jml_sel" class="form-control" v-model="Battery.setting_id">
+                    <option v-for="Setting in Setting" :key="Setting.id" :value="Setting.id">{{Setting.id}}</option>
+                </select>
             </div>
         </div>
 
@@ -35,7 +44,9 @@
 export default {
     data() {
         return{
-            Battery: {}
+            Battery: {},
+            cell: {},
+            Setting: {}
         }
     },
     created(){
@@ -43,7 +54,9 @@ export default {
             .get('http://127.0.0.1:8000/api/battery/' + this.$route.params.id)
             .then ((response) => {
                 this.Battery = response.data;
-            })
+            }),
+        this.loadDataCell();
+        this.loadDataSetting();
     },
     methods: {
         /*editBms(id){
@@ -57,9 +70,23 @@ export default {
             this.axios
                 .put('http://127.0.0.1:8000/api/battery/' + this.$route.params.id, this.Battery)
                 .then((response) => {
+                    Toast.fire({
+                        icon: 'success',
+                        title: 'Data Berhasil Tersimpan'
+                    }),
                     this.$router.push({ name:'data-bms'})
                 })
+        },
+         loadDataCell(){
+            this.axios
+                .get('http://127.0.0.1:8000/api/cell/')
+                .then(({data}) => {this.cell = data});
+        },
+        loadDataSetting(){
+            this.axios
+                .get('http://127.0.0.1:8000/api/setting/')
+                .then(({data}) => {this.Setting = data});
         }
-    }
+    },
 }
 </script>

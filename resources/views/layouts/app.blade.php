@@ -16,9 +16,8 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head> 
-<body style="background-color:#32681e">
+<body>
     <div id="app">
-       <nav-component></nav-component>
         <main class="py-4">
             @yield('content')
         </main>

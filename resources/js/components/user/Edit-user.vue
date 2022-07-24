@@ -63,6 +63,10 @@ export default {
             this.axios
                 .put('http://127.0.0.1:8000/api/user/' + this.$route.params.id, this.User)
                 .then((response) => {
+                    Toast.fire({
+                        icon: 'success',
+                        title: 'Data Berhasil Tersimpan'
+                    }),
                     this.$router.push({ name:'data-user'})
                 })
         }

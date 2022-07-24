@@ -34,7 +34,7 @@
         </div>
 
         <div class="card-footer">
-            <router-link :to="{name: 'halaman-detail'}" class="btn btn-danger" type="button">Cancel</router-link>
+            <router-link :to="{name: 'data-bms'}" class="btn btn-danger" type="button">Cancel</router-link>
             <button type="submit" class="btn btn-success" style="background-color:#1c3b10">Update</button>
         </div>
     </form>
@@ -67,6 +67,10 @@ export default {
             this.axios
                 .put('http://127.0.0.1:8000/api/setting/' + this.$route.params.id, this.Setting)
                 .then((response) => {
+                    Toast.fire({
+                        icon: 'success',
+                        title: 'Data Berhasil Tersimpan'
+                    }),
                     this.$router.push({ name:'data-bms'})
                 })
         }

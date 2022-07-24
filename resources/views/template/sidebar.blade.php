@@ -9,7 +9,7 @@
                 <nav class="mt-2">
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                         <li class="nav-item">
-                            <router-link to="#" class="nav-link calltoaction">
+                            <router-link to="admin-monitoring" class="nav-link calltoaction">
                                 <i class="fa-solid fa-desktop"></i>
                                 <p>Monitoring</p>
                             </router-link>
@@ -26,6 +26,13 @@
                             <router-link to="data-user" class="nav-link calltoaction">
                                 <i class="fa-solid fa-users"></i>
                                 <p>Data User</p>
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <router-link to="data-userdevice" class="nav-link calltoaction">
+                                <i class="fa-solid fa-mobile-button"></i>
+                                <p>Data User Device</p>
                             </a>
                         </li>
 

@@ -2,9 +2,9 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="card">
-                <div class="card-header"><h5>Data User</h5></div>
+                <div class="card-header"><h5>Data User Device</h5></div>
                 <div class="card-body">
-                    <router-link to="add-user" class="btn btn-success" type="button" style="background-color:#1c3b10">
+                    <router-link to="add-userdevice" class="btn btn-success" type="button" style="background-color:#1c3b10">
                     <i class="fa-solid fa-circle-plus"></i> Tambah</router-link> <br><br>
                     <div class="table-responsive">
                             <table class="table table-bordered table-striped DataTable">
@@ -12,25 +12,25 @@
                                     <tr>
                                         <th>No</th>
                                         <th>ID</th>
-                                        <th>Nama</th>
-                                        <th>Email</th>
-                                        <!--<th>Password</th>-->
+                                        <th>ID Baterai</th>
+                                        <th>ID User</th>
+                                        <th>Status</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
                                 
                                 <tbody>
-                                    <tr v-for="(User, index) in User" :key="User.id">
+                                    <tr v-for="(BatteryUser, index) in BatteryUser" :key="BatteryUser.id">
                                         <td>{{ index+1 }}</td>
-                                        <td>{{ User.id }}</td>
-                                        <td>{{ User.name }}</td>
-                                        <td>{{ User.email }}</td>
-                                        <!--<td>{{ User.password }}</td>-->
+                                        <td>{{ BatteryUser.id }}</td>
+                                        <td>{{ BatteryUser.battery_id }}</td>
+                                        <td>{{ BatteryUser.user_id }}</td>
+                                        <td>{{ BatteryUser.is_active }}</td>
                                         <td>
-                                            <router-link :to="{name: 'edit-user', params: {id: User.id}}" class="btn btn-sm btn-warning">
+                                            <router-link :to="{name: 'edit-userdevice', params: {id: User.id}}" class="btn btn-sm btn-warning">
                                                 <i class="fas fa-edit"></i>
                                             </router-link>
-                                            <button class="btn btn-danger btn-sm" @click="deleteUser(User.id)">
+                                            <button class="btn btn-danger btn-sm" @click="deleteUserdevice(BatteryUser.id)">
                                                 <i class="fa-solid fa-trash"></i>
                                             </button>
                                         </td>
@@ -48,12 +48,12 @@
 export default {
     data() {
         return{
-            User: {}
+            BatteryUser: {}
         }
     },
     created(){
         this.axios
-        .get('http://127.0.0.1:8000/api/user')
+        .get('http://127.0.0.1:8000/api/userdevice')
         .then(response =>{
             this.User = response.data;
         })
@@ -62,7 +62,7 @@ export default {
         });
     },
     methods: {
-        deleteUser(id) {
+        deleteUser(id){
             Swal.fire({
                 title: "Anda yakin ingin menghapus data ini?",
                 text: "Klik batal untuk membatalkan hapus data",
@@ -74,15 +74,15 @@ export default {
             }).then(result => {
                 if (result.value) {
                     this.axios
-                        .delete('http://127.0.0.1:8000/api/user/' + id)
+                        .delete('http://127.0.0.1:8000/api/userdevice/' + id)
                         .then(()=> {
                             Swal.fire(
                                 "Terhapus",
                                 "Data sudah terhapus",
                                 "success"
                             );
-                            let i = this.User.map(data => data.id).indexOf(id);
-                            this.User.splice(i,1)
+                            let i = this.BatteryUser.map(data => data.id).indexOf(id);
+                            this.BatteryUser.splice(i,1)
                         })
                         .catch(() => {
                             Swal.fire (
@@ -93,10 +93,8 @@ export default {
                         });
                 }
             });
-        }
-        // deleteUser(id){
         //     this.axios
-        //         .delete('http://127.0.0.1:8000/api/user/' + id)
+        //         .delete('http://127.0.0.1:8000/api/userdevice/' + id)
         //         .then(response => {
         //             let i = this.User.map(data => data.id).indexOf(id);
         //             this.User.splice(i,1)
@@ -109,7 +107,7 @@ export default {
         //             else
         //                 return false
         //         });
-        // }
+        }
     }
 }
 </script>

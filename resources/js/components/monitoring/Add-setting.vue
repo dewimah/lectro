@@ -48,6 +48,10 @@ export default {
             this.axios
                 .post('http://127.0.0.1:8000/api/setting/', this.Setting)
                 .then(response => (
+                    Toast.fire({
+                        icon: 'success',
+                        title: 'Data Berhasil Tersimpan'
+                    }),
                     this.$router.push({name:'data-bms'})
                 ))
                 .catch(err => console.log(err))

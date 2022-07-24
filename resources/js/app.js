@@ -1,6 +1,41 @@
 require('./bootstrap');
 
   window.Vue = require('vue').default;
+  let Fire = new Vue();
+  window.Fire = Fire;
+
+  //import alert
+  import Swal from 'sweetalert2'
+  window.Swal = Swal;
+  const Toast = Swal.mixin({
+    toast: true,
+    position: 'top-end',
+    showConfirmButton:false,
+    timer:3000
+  });
+  window.Toast = Toast;
+
+  //VALIDASI
+  import {ValidationObserver, ValidationProvider, extend} from 'vee-validate';
+  import {required, email, min, confirmpassword} from 'vee-validate/dist/rules';
+  //TAMBAH RULES
+  extend('email', email);
+  extend('confirmpassword', {
+    ...required,
+    message: 'Password confirmation is incorect'
+  })
+  extend('min',{
+    ...required,
+    message: 'Minimum password should be 8'
+  });
+  extend('required', {
+    ...required,
+    message: 'This field is required'
+  });
+  //REGISTER IT GLOBALLY
+  Vue.component('ValidationObserver', ValidationObserver);
+  Vue.component('ValidationProvider', ValidationProvider);
+
   
   import Vue from 'vue';
   import VueRouter from 'vue-router'
@@ -12,21 +47,27 @@ require('./bootstrap');
   
   Vue.use(Vuex)
   
+  //LOGIN FUNCTION
+  function loggedIn()
+  {
+    return localStorage.getItem('token')
+  }
+  
   let routes =[
-      {
-          path: '/',
-          name: 'home',
-          component: require('../home/Index.vue')
-      },
-      {
-        path: '/halaman-login',
-        name: 'halaman-login',
-        component: require('../views/auth/login.vue')
-      },
+    //   {
+    //       path: '/',
+    //       name: 'home',
+    //       component: require('../home/Index.vue')
+    //   },
+    //   {
+    //     path: '/halaman-login',
+    //     name: 'halaman-login',
+    //     component: require('../views/auth/login.vue')
+    //   },
       {
           path: '/login',
           name: 'login',
-          component:require('./components/Login.vue').default,
+          component:require('./components/auth/Login.vue').default,
           meta: {
               auth: false
           }
@@ -139,6 +180,30 @@ require('./bootstrap');
         path: '/halaman-detail',
         name: 'halaman-detail',
         component:require('./components/monitoring/Detail.vue').default,
+        meta: {
+            auth: false
+        }
+      },
+      {
+        path: '/data-userdevice',
+        name: 'data-userdevice',
+        component:require('./components/userdevice/Data-userdevice.vue').default,
+        meta: {
+            auth: false
+        }
+      },
+      {
+        path: '/add-userdevice',
+        name: 'add-userdevice',
+        component:require('./components/userdevice/Add-userdevice.vue').default,
+        meta: {
+            auth: false
+        }
+      },
+      {
+        path: '/edit-userdevice',
+        name: 'edit-userdevice',
+        component:require('./components/userdevice/Edit-userdevice.vue').default,
         meta: {
             auth: false
         }

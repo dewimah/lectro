@@ -1,0 +1,79 @@
+<template>
+    <div class="card card-success">
+        <div class="card-header" style="background-color:#1c3b10">
+            <h3 class="card-title">Tambah Data User Device</h3>
+        </div>
+
+
+        <form @submit.prevent="tambahUserdevice">
+            <div class="card-body">
+                <div class="form-group">
+                    <label for="baterai_id">Nama Baterai</label>
+                    <select name="baterai_id" class="form-control" v-model="BatteryUser.battery_id">
+                        <option v-for="Battery in Battery" :key="Battery.id" :value="Battery.id">{{Battery.name}}</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="user_id">Nama User</label>
+                    <select name="user_id" class="form-control" v-model="BatteryUser.user_id">
+                        <option v-for="User in User" :key="User.id" :value="User.id">{{User.name}}</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="is_active">Status</label>
+                    <select name="is_active" class="form-control" v-model="BatteryUser.is_active">
+                        <option :value="{ number:1 }">Aktif</option>
+                        <option :value="{ number:0 }">Non Aktif</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="card-footer">
+                <router-link to="data-userdevice" class="btn btn-danger" type="button">Cancel</router-link>
+                <button type="submit" class="btn btn-success" style="background-color:#1c3b10">Simpan</button>
+            </div>
+        </form>
+    </div>
+</template>
+
+<script>
+export default {
+    data() {
+        return{
+            BatteryUser: {},
+            Battery: {},
+            User: {}
+        }
+    },
+    methods: {
+        tambahUserdevice(){
+            this.axios
+                .post('http://127.0.0.1:8000/api/userdevice/', this.BatteryUser)
+                .then(response => (
+                    Toast.fire({
+                        icon: 'success',
+                        title: 'Data Berhasil Tersimpan'
+                    }),
+                    this.$router.push({name:'data-userdevice'})
+                ))
+                .catch(err => console.log(err))
+        },
+        loadDataBattery(){
+            this.axios
+                .get('http://127.0.0.1:8000/api/battery/')
+                .then(({data}) => {this.Battery = data});
+        },
+        loadDataUser(){
+            this.axios
+                .get('http://127.0.0.1:8000/api/user/')
+                .then(({data}) => {this.User = data});
+        }
+    },
+    created(){
+        this.loadDataBattery();
+        this.loadDataUser();
+    }
+}
+</script>

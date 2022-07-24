@@ -1,0 +1,88 @@
+<template>
+    <body class="hold-transition login-page">
+        <div class="login-box">
+            <div class="card card-outline" color="#1c3b10">
+                <div class="card-header text-center">
+                    <h4>BMS's LECTRO</h4>
+                </div>
+
+                <div class="card-body">
+                    <p class="login-box-msg">Log in to start your session</p>
+                    <ValidationObserver v-slot="{handleSubmit}">
+                    <form  @submit.prevent="handleSubmit(login)">
+                        <div class="input-group mb-3 " style="width:100%">
+                            <ValidationProvider name="email" rules="required|email" v-slot="{ errors }">
+                            <input type="email" class="form-control" v-model="User.email" placeholder="Email">
+                            <span class="invalid-feedback d-block">{{ errors[0] }}</span>
+                            </ValidationProvider>
+                        </div>
+
+                        <div class="input-group mb-3">
+                            <ValidationProvider name="password" rules="min:8" v-slot="{ errors }">
+                            <input type="password" class="form-control" v-model="User.password" placeholder="Password">
+                            <span class="invalid-feedback d-block">{{ errors[0] }}</span>
+                            </ValidationProvider>
+                        </div>
+                        
+                        <div class="form-group">
+                                <button type="submit" class="btn btn-success btn-block" color="#1c3b10">Log In</button>
+                        </div>
+                    </form>
+                    </ValidationObserver>
+                </div>
+            </div>
+        </div>
+    </body>
+</template>
+
+<script>
+// export default{
+//     data(){
+//         return{
+//             User: {
+//                 email: '',
+//                 password: ''
+//             }
+//         }
+//     },
+//     methods: {
+//         login(){
+//             this.$store
+//                 .dispatch('login', {
+//                     email: this.email,
+//                     password: this.password
+//                 })
+//                 .then(()=> {
+//                     this.$router.push({ name: 'admin-monitoring'})
+//                 })
+//                 .catch(err => {
+//                     console.log(err)
+//                 })
+//         }
+//     }
+// }
+
+export default {
+    data() {
+        return{
+            User: {
+                email:'',
+                password:''
+            },
+            errors:{}
+        }
+    },
+
+    methods: {
+        login(){
+            axios.post('http://127.0.0.1:8000/api/login/', this.User).then((response) =>{
+                localStorage.setItem('token', response.data)
+                this.$router.push({ name: "admin-monitoring"});
+            }).catch((errors) => {
+                this.errors = errors.response.data.errors;
+            })
+        }
+    }
+}
+
+</script>
