@@ -20,7 +20,13 @@ Route::get('/', function () {
     return view('welcome');
 });*/
 
+Route::get('/', function () {
+    return view('landingpages');
+});
+
+
 Route::get('{any}', function () {
-    return view('home');
+    return view('welcome');
 })->where('any', '.*');
+
 

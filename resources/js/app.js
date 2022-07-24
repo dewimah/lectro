@@ -146,6 +146,8 @@ require('./bootstrap');
   ]
   
   Vue.component('example-component', require('./components/ExampleComponent.vue').default);
+  Vue.component('welcome-component', require('./components/WelcomeComponent.vue').default);
+  Vue.component('nav-component', require('./components/NavComponent.vue').default);
   
   const router = new VueRouter({
       routes,
