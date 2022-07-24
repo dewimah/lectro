@@ -15,7 +15,7 @@ class Setting extends Model
         'temp_min',
         'temp_max',
         'tegangan_min',
-        'tegangan_max'
+        'tegangan_max',
         'arus_min',
         'arus_max',
     ];

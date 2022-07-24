@@ -54,8 +54,8 @@ class UserDeviceController extends Controller
 
     public function update(Request $request, $id){
         $userdevice = BatteryUser::find($id);
-          //$userdevice->update($request->all());
-          return $request->all();
+          $userdevice->update($request->all());
+         // return $request->all();
 
         return ResponseFormatter::success(
             'Success Edit',

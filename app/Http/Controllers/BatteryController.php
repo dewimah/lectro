@@ -40,7 +40,7 @@ class BatteryController extends Controller
                         </div>
                     ';
                 })
-                
+
                 ->rawColumns(['action'])
                 ->make();
         }
@@ -93,4 +93,14 @@ class BatteryController extends Controller
             200
         );
     }
+
+    /*public function check ($token) {
+        $res = false;
+        $data = Battery::where('token', $token)->first();
+
+        if $data {
+            $res = true;
+        }
+        return $res;
+    }*/
 }

@@ -18,10 +18,7 @@ class DatabaseSeeder extends Seeder
         $this->call(class: [
             RoleSeeder::class,
             UserSeeder::class,
-<<<<<<< Updated upstream
-            //CellSeeder::class,
-=======
->>>>>>> Stashed changes
+
         ]);
     }
 }

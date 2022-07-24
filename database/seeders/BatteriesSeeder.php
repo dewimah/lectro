@@ -15,6 +15,13 @@ class BatteriesSeeder extends Seeder
      */
     public function run()
     {
-        
+        DB::table('batteries')->insert([
+            'name' => Str::random(10),
+            'setting_id' => Str::random(10).'@gmail.com',
+            'cell_id' => Hash::make('password'),
+            'tipe' => Str::random(10),
+            'serial' => Str::random(10),
+            'token' =>Str::random(10),
+        ]);
     }
 }

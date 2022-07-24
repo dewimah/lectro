@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Setting;
 use App\Helpers\ResponseFormatter;
+use Illuminate\Support\Facades\Validator;
 
 class SettingController extends Controller
 {
@@ -29,7 +30,17 @@ class SettingController extends Controller
         return Setting::create($request->all());
     }*/
 
-    public function store(Request $request){
+    public function store(Request $request) {
+         $validateData = $request->validate([
+            'temp_min' => 'required|numeric|gt:20|lt:60',
+            'temp_max' => 'required|numeric|gt:20|lt:60',
+            'tegangan_min' => 'required|numeric|gt:20|lt:60',
+            'tegangan_max' =>'required|numeric|gt:20|lt:60',
+            'arus_min' =>'required|numeric|gt:20|lt:60',
+            'arus_max' =>'required|numeric|gt:20|lt:60'
+        ]);
+
+        return Setting::create($validateData);
 
     }
 
