@@ -20,8 +20,7 @@ class Battery extends Model
         'setting_id',
         'cell_id',
         'tipe',
-        'serial',
-        'token'
+        'serial'
     ];
 
     public function monitoring(){
