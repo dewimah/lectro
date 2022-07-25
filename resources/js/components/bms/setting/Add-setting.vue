@@ -4,27 +4,54 @@
             <h3 class="card-title">Tambah Data Setting</h3>
         </div>
 
-
-    <form @submit.prevent="tambahSetting">
+    <ValidationObserver v-slot="{handleSubmit}">
+    <form @submit.prevent="handleSubmit(tambahSetting)">
         <div class="card-body">
             <div class="form-group">
                 <label for="temp_min">Suhu Mininum</label>
+                <ValidationProvider name="temp_min" rules="batasmin" v-slot="{ errors }">
                 <input type="number" class="form-control" v-model="Setting.temp_min">
+                <span class="invalid-feedback d-block">{{ errors[0] }}</span>
+                </ValidationProvider>
             </div>
             
             <div class="form-group">
                 <label for="temp_max">Suhu Maksimum</label>
+                <ValidationProvider name="temp_min" rules="batasmax" v-slot="{ errors }">
                 <input type="number" class="form-control" v-model="Setting.temp_max">
+                <span class="invalid-feedback d-block">{{ errors[0] }}</span>
+                </ValidationProvider>
             </div>
 
             <div class="form-group">
                 <label for="tegangan_min">Tegangan Minimum</label>
+                <ValidationProvider name="temp_min" rules="batasmin" v-slot="{ errors }">
                 <input type="number" class="form-control" v-model="Setting.tegangan_min">
+                <span class="invalid-feedback d-block">{{ errors[0] }}</span>
+                </ValidationProvider>
             </div>
 
             <div class="form-group">
                 <label for="tegangan_max">Tegangan Maksimum</label>
+                <ValidationProvider name="temp_min" rules="batasmax" v-slot="{ errors }">
                 <input type="number" class="form-control" v-model="Setting.tegangan_max">
+                <span class="invalid-feedback d-block">{{ errors[0] }}</span>
+                </ValidationProvider>
+            </div>
+            <div class="form-group">
+                <label for="tegangan_min">Arus Minimum</label>
+                <ValidationProvider name="temp_min" rules="batasmin" v-slot="{ errors }">
+                <input type="number" class="form-control" v-model="Setting.arus_min">
+                <span class="invalid-feedback d-block">{{ errors[0] }}</span>
+                </ValidationProvider>
+            </div>
+
+            <div class="form-group">
+                <label for="tegangan_max">Arus Maksimum</label>
+                <ValidationProvider name="temp_min" rules="batasmax" v-slot="{ errors }">
+                <input type="number" class="form-control" v-model="Setting.arus_max">
+                <span class="invalid-feedback d-block">{{ errors[0] }}</span>
+                </ValidationProvider>
             </div>
         </div>
 
@@ -33,6 +60,7 @@
             <button type="submit" class="btn btn-success" style="background-color:#1c3b10">Simpan</button>
         </div>
     </form>
+    </ValidationObserver>
 </div>
 </template>
 

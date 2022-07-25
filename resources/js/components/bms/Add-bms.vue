@@ -25,6 +25,16 @@
                         <option v-for="Setting in Setting" :key="Setting.id" :value="Setting.id">{{Setting.id}}</option>
                     </select>
                 </div>
+
+                <div class="form-group">
+                    <label for="name">Tipe</label>
+                    <input type="text" class="form-control" v-model="Battery.tipe" placeholder="Tipe BMS">
+                </div>
+
+                <div class="form-group">
+                    <label for="name">Serial</label>
+                    <input type="text" class="form-control" v-model="Battery.serial" placeholder="Serial BMS">
+                </div>
             </div>
 
             <div class="card-footer">

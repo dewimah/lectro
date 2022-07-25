@@ -14,7 +14,7 @@
                                 <p>Monitoring</p>
                             </router-link>
                         </li>
-                        
+                        @if (Auth::user() != null && Auth::user()->name == "admin")
                         <li class="nav-item">
                             <router-link to="data-bms" class="nav-link calltoaction">
                                 <i class="fa-solid fa-car-battery"></i>
@@ -35,12 +35,13 @@
                                 <p>Data User Device</p>
                             </a>
                         </li>
-
-                        <li class="nav-item">
-                            <a href="#" class="nav-link calltoaction">
+                        @endif
+                        <li class="nav-item" onclick="event.preventDefault(); document.getElementById('logout-form').submit()">
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="nav-link calltoaction">
+                                @csrf
                                 <i class="fa-solid fa-arrow-right-from-bracket"></i>
                                 <p>Logout</p>
-                            </a>
+                            </form>
                         </li>
 
                     </ul>

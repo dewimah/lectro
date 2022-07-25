@@ -9,14 +9,14 @@
 <body class="hold-transition sidebar-mini">
     <div id="app" class="wrapper">
         <!--NAVBAR-->
+        @if (Auth::user() == null)
+        <span id="navbar" hidden>
             @include('template.navbar')
-        <!--NAVBAR END-->
-
-        <!--SIDEBAR-->
+        </span>
+        <span id="sidebar" hidden>
             @include('template.sidebar')
-        <!--SIDEBAR END-->
-        
-        <div class="content-wrapper">
+        </span>
+        <div class="content-wrapper" style="margin-left: 0px;">
             <div class="content-header">
                 <div class="container-fluid">
                     <router-view> </router-view>
@@ -30,16 +30,59 @@
                 </div>
             </div>
         </div>
+        @else
+        <span id="navbar">
+            @include('template.navbar')
+        </span>
+        <span id="sidebar">
+            @include('template.sidebar')
+        </span>
+        <div class="content-wrapper" id="wp" style="margin-left: 250px;">
+            <div class="content-header">
+                <div class="container-fluid">
+                    <router-view> </router-view>
+                </div>
+            </div>
 
 
-        <aside class="control-sidebar control-sidebar-dark">
+            <div class="content">
+                <div class="container-fluid">
+                    
+                </div>
+            </div>
+        </div>
+        @endif
+        <!--NAVBAR END-->
+
+        <!--SIDEBAR-->
+        <!--SIDEBAR END-->
+
+
+        <!-- <aside class="control-sidebar control-sidebar-dark">
             <div class="p-3">
                 <h5>Title</h5>
                 <p>Sidebar content</p>
             </div>
-        </aside>
+        </aside> -->
     </div>
-
+    <script>
+        // let user: {{}}
+        // console.log(user)
+        // console.log()
+        // console.log({!! json_encode(optional(auth()->user())) !!})
+        // window.onload = function(){  
+            // let token = localStorage.getItem('token')
+            //         if (token === null) {
+            //             document.getElementById("navbar").hidden = true;
+            //             document.getElementById("sidebar").hidden = true;
+            //             document.getElementById("wp").style.marginLeft = "0px";
+            //         } else {
+            //             document.getElementById("navbar").hidden = false;
+            //             document.getElementById("sidebar").hidden = false;
+            //             document.getElementById("wp").style.marginLeft = "250px";
+            //         }
+            // }  
+    </script>
    @include('template.script')
 </body>
 </html>

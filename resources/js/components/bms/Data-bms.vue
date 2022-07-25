@@ -69,22 +69,26 @@
             >
               <thead>
                 <tr>
-                  <th>No</th>
-                  <th>Suhu Min</th>
-                  <th>Suhu Max</th>
-                  <th>V Min</th>
-                  <th>V Max</th>
+                  <!-- <th>No</th> -->
+                  <th>Suhu Min (C)</th>
+                  <th>Suhu Max (C)</th>
+                  <th>V Min (Volt)</th>
+                  <th>V Max (Volt)</th>
+                  <th>I Min (A)</th>
+                  <th>I Max (A)</th>
                   <th>Aksi</th>
                 </tr>
               </thead>
 
               <tbody>
                 <tr v-for="(Setting, index) in Setting" :key="Setting.id">
-                  <td>{{ index + 1 }}</td>
+                  <!-- <td>{{ index + 1 }}</td> -->
                   <td>{{ Setting.temp_min }}</td>
                   <td>{{ Setting.temp_max }}</td>
                   <td>{{ Setting.tegangan_min }}</td>
                   <td>{{ Setting.tegangan_max }}</td>
+                  <td>{{ Setting.arus_min }}</td>
+                  <td>{{ Setting.arus_max }}</td>
                   <td>
                     <router-link
                       :to="{ name: 'edit-setting', params: { id: Setting.id } }"
@@ -132,6 +136,8 @@
                   <th>ID Setting</th>
                   <th>Nama BMS</th>
                   <th>ID Sel</th>
+                  <th>Tipe</th>
+                  <th>Serial</th>
                   <th>Aksi</th>
                 </tr>
               </thead>
@@ -143,6 +149,8 @@
                   <td>{{ Battery.setting_id }}</td>
                   <td>{{ Battery.name }}</td>
                   <td>{{ Battery.cell_id }}</td>
+                  <td>{{ Battery.tipe }}</td>
+                  <td>{{ Battery.serial }}</td>
                   <td>
                     <router-link
                       :to="{ name: 'edit-bms', params: { id: Battery.id } }"

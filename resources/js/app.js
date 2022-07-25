@@ -17,13 +17,21 @@ require('./bootstrap');
 
   //VALIDASI
   import {ValidationObserver, ValidationProvider, extend} from 'vee-validate';
-  import {required, email, min, confirmpassword} from 'vee-validate/dist/rules';
+  import {required, email, min, confirmpassword, batasmin, batasmax} from 'vee-validate/dist/rules';
   //TAMBAH RULES
   extend('email', email);
+  extend('batasmin', {
+    ...required,
+    message: 'Minimum 21'
+  });
+  extend('batasmax', {
+    ...required,
+    message: 'Maksimum 59'
+  });
   extend('confirmpassword', {
     ...required,
     message: 'Password confirmation is incorect'
-  })
+  });
   extend('min',{
     ...required,
     message: 'Minimum password should be 8'
@@ -48,10 +56,10 @@ require('./bootstrap');
   Vue.use(Vuex)
   
   //LOGIN FUNCTION
-  function loggedIn()
-  {
-    return localStorage.getItem('token')
-  }
+  // function loggedIn()
+  // {
+  //   return localStorage.getItem('token')
+  // }
   
   let routes =[
     //   {
@@ -72,6 +80,14 @@ require('./bootstrap');
               auth: false
           }
       },
+      {
+        path: '/logout',
+        name: 'logout',
+        component:require('./components/auth/Login.vue').default,
+        meta: {
+            auth: false
+        }
+    },
       {
           path: '/data-bms',
           name: 'data-bms',
@@ -153,14 +169,6 @@ require('./bootstrap');
           }
       },
       {
-        path: '/halaman-setting',
-        name: 'halaman-setting',
-        component:require('./components/monitoring/Setting.vue').default,
-        meta: {
-            auth: false
-        }
-      },
-      {
         path: '/add-setting',
         name: 'add-setting',
         component:require('./components/bms/setting/Add-setting.vue').default,
@@ -211,14 +219,26 @@ require('./bootstrap');
   ]
   
   Vue.component('example-component', require('./components/ExampleComponent.vue').default);
-  Vue.component('welcome-component', require('./components/WelcomeComponent.vue').default);
-  Vue.component('nav-component', require('./components/NavComponent.vue').default);
-  
+
   const router = new VueRouter({
       routes,
       mode: 'history',
       history: true
   });
+
+  // router.beforeEach((to, from, next) => {
+  //   const isAuthenticated = JSON.parse(localStorage.getItem("token"));
+
+  //   if (isAuthenticated === null) {
+  //     window.location.href = "/login"
+  //   } else {
+  //     router.push({name: "admin-monitoring"})
+  //   }
+
+  //   // if (isAuthenticated === null) next({ name: "login" });
+  //   // if (isAuthenticated !== null) next();
+  //   // else next();
+  // })
   
   const app = new Vue({
       el: '#app',
