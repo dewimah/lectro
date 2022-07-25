@@ -41,7 +41,6 @@ class MonitoringController extends Controller
 
     public function datamasuk(Request $request){
         $data = new Monitoring;
-       // $data -> battery_id = $request -> battery_id;
         //$data -> error_id = $request -> error_id;
         //$data -> control_relay = $request -> control_relay;
         $data -> battery_id = $request -> battery_id;

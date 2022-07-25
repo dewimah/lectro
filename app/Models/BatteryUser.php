@@ -16,7 +16,7 @@ class BatteryUser extends Model
         'user_id',
         'battery_id',
         'is_active',
-        'token_device',
+       // 'token_device',
     ];
     protected $hidden = [
         'password',

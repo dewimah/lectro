@@ -26,7 +26,7 @@ class UserDeviceController extends Controller
             'user_id' => request()->user_id,
             'battery_id' => request()->battery_id,
             'is_active' => request()->is_active,
-            'token_device' => Str::random(40),
+            //'token_device' => Str::random(40),
         ]);
 
         return ResponseFormatter::success($userdevice->load('batteries'),'Akun User Berhasil Dibuat');
