@@ -74,7 +74,7 @@ export default {
     methods: {
         tambahSetting(){
             this.axios
-                .post('http://127.0.0.1:8000/api/setting/', this.Setting)
+                .post('http://127.0.0.1:8000/api/admin/setting/', this.Setting)
                 .then(response => (
                     Toast.fire({
                         icon: 'success',

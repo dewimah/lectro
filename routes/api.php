@@ -30,7 +30,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 
 //Route User
 Route::group(['middleware' => ['auth:sanctum']], function () {
-    Route::get('/logout', 'App\Http\Controllers\AuthController@logout')->name('logout');
+    Route::get('/logout', 'App\Http\Controllers\LogoutController@logout')->name('logout');
         Route::middleware('is.admin')->group( function(){
         Route::prefix('/admin')->group( function(){
             //User
@@ -84,6 +84,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
         Route::prefix('/user')->group( function(){
                 Route::get('monitoring','App\Http\Controllers\MonitoringController@all');
                 Route::post('input','App\Http\Controllers\MonitoringController@datamasuk');
+                Route::get('/setting','App\Http\Controllers\SettingController@all');
        });
     });
 });

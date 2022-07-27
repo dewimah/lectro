@@ -80,22 +80,15 @@ export default {
     },
     created(){
         this.axios
-            .get('http://127.0.0.1:8000/api/setting/' + this.$route.params.id)
+            .get('http://127.0.0.1:8000/api/admin/setting/' + this.$route.params.id)
             .then ((response) => {
                 this.Setting = response.data;
             })
     },
     methods: {
-        /*editBms(id){
-            this.axios.get('http://127.0.0.1:8000/api/battery/' + id)
-            .then((response)=>{
-                this.Battery = response.data;
-                console.log(response.data);
-            })
-        },*/
         updateSetting(){
             this.axios
-                .put('http://127.0.0.1:8000/api/setting/' + this.$route.params.id, this.Setting)
+                .put('http://127.0.0.1:8000/api/admin/setting/' + this.$route.params.id, this.Setting)
                 .then((response) => {
                     Toast.fire({
                         icon: 'success',

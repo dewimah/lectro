@@ -76,7 +76,9 @@ export default {
     methods: {
         login(){
             axios.post('http://127.0.0.1:8000/api/login/', this.User).then((response) =>{
+                console.log(response)
                 localStorage.setItem('token', response.data.data.Token)
+                localStorage.setItem('role', response.data.data.user.roles[0].name)
                 if (response.data.data.user.roles[0].name === "admin") {
                     window.location.href = "/admin-monitoring"
                 } else if (response.data.data.user.roles[0].name === "user") {

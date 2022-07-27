@@ -6,6 +6,7 @@
     <title>BMS | LECTRO</title>
 </head>
 
+<!-- <body class="hold-transition sidebar-mini" onload="loadRole()"> -->
 <body class="hold-transition sidebar-mini">
     <div id="app" class="wrapper">
         <!--NAVBAR-->
@@ -86,3 +87,12 @@
    @include('template.script')
 </body>
 </html>
+
+<script>
+//     function loadRole() {
+//         const role = localStorage.getItem('role');
+//         if(role !== "admin"){
+//             window.location.href = "/login"
+//         }
+// }
+</script>

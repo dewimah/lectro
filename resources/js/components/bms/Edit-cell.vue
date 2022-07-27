@@ -31,7 +31,7 @@ export default {
 
     created() {
         this.axios
-             .get('http://127.0.0.1:8000/api/cell/' + this.$route.params.id)
+             .get('http://127.0.0.1:8000/api/admin/cell/' + this.$route.params.id)
              .then((response) => {
                 this.cell = response.data;
             })
@@ -40,7 +40,7 @@ export default {
     methods: {
         updateCell(){
             this.axios
-                .put('http://127.0.0.1:8000/api/cell/' + this.$route.params.id, this.cell)
+                .put('http://127.0.0.1:8000/api/admin/cell/' + this.$route.params.id, this.cell)
                 .then((response) => {
                     Toast.fire({
                         icon: 'success',

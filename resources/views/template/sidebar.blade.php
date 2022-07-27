@@ -37,7 +37,7 @@
                         </li>
                         @endif
                         <li class="nav-item" onclick="event.preventDefault(); document.getElementById('logout-form').submit()">
-                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="nav-link">
+                            <form id="logout-form" action="{{ route('logout') }}" method="GET" class="nav-link">
                                 @csrf
                                 <i class="fa-solid fa-arrow-right-from-bracket"></i>
                                 <p>Logout</p>

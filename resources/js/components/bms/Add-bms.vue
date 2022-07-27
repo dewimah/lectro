@@ -57,7 +57,7 @@ export default {
     methods: {
         tambahBms(){
             this.axios
-                .post('http://127.0.0.1:8000/api/battery/', this.Battery)
+                .post('http://127.0.0.1:8000/api/admin/battery/', this.Battery)
                 .then(response => (
                     Toast.fire({
                         icon: 'success',
@@ -69,12 +69,12 @@ export default {
         },
         loadDataCell(){
             this.axios
-                .get('http://127.0.0.1:8000/api/cell/')
+                .get('http://127.0.0.1:8000/api/admin/cell/')
                 .then(({data}) => {this.cell = data});
         },
         loadDataSetting(){
             this.axios
-                .get('http://127.0.0.1:8000/api/setting/')
+                .get('http://127.0.0.1:8000/api/admin/setting/')
                 .then(({data}) => {this.Setting = data});
         }
     },

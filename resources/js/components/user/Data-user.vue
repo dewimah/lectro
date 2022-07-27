@@ -51,7 +51,7 @@ export default {
     },
     created(){
         this.axios
-        .get('http://127.0.0.1:8000/api/user')
+        .get('http://127.0.0.1:8000/api/admin/user')
         .then(response =>{
             this.User = response.data;
         })
@@ -72,7 +72,7 @@ export default {
             }).then(result => {
                 if (result.value) {
                     this.axios
-                        .delete('http://127.0.0.1:8000/api/user/' + id)
+                        .delete('http://127.0.0.1:8000/api/admin/user/' + id)
                         .then(()=> {
                             Swal.fire(
                                 "Terhapus",
@@ -92,22 +92,6 @@ export default {
                 }
             });
         }
-        // deleteUser(id){
-        //     this.axios
-        //         .delete('http://127.0.0.1:8000/api/user/' + id)
-        //         .then(response => {
-        //             let i = this.User.map(data => data.id).indexOf(id);
-        //             this.User.splice(i,1)
-        //         })
-        //         .then(function (){
-        //             var msg = "Apakah anda yakin untuk menghapusnya"
-        //             agree = confirm(msg)
-        //             if (agree)
-        //                 return true
-        //             else
-        //                 return false
-        //         });
-        // }
     }
 }
 </script>

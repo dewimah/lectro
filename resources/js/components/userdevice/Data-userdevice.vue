@@ -11,9 +11,8 @@
                                 <thead>
                                     <tr>
                                         <th>No</th>
-                                        <th>ID</th>
-                                        <th>ID Baterai</th>
-                                        <th>ID User</th>
+                                        <th>Nama BMS</th>
+                                        <th>Nama User</th>
                                         <th>Status</th>
                                         <th>Aksi</th>
                                     </tr>
@@ -22,10 +21,11 @@
                                 <tbody>
                                     <tr v-for="(BatteryUser, index) in BatteryUser" :key="BatteryUser.id">
                                         <td>{{ index+1 }}</td>
-                                        <td>{{ BatteryUser.id }}</td>
-                                        <td>{{ BatteryUser.battery_id }}</td>
-                                        <td>{{ BatteryUser.user_id }}</td>
-                                        <td>{{ BatteryUser.is_active }}</td>
+                                        <td>{{ BatteryUser.battery.name }}</td>
+                                        <td>{{ BatteryUser.user.name }}</td>
+                                        <td v-if="(BatteryUser.is_active == 0)">Non Aktif</td>
+                                        <td v-else>Aktif</td>
+                                        
                                         <td>
                                             <router-link 
                                             :to="{ name: 'edit-userdevice', params: { id: BatteryUser.id } }" 
@@ -55,7 +55,7 @@ export default {
     },
     created(){
         this.axios
-        .get('http://127.0.0.1:8000/api/userdevice/')
+        .get('http://127.0.0.1:8000/api/admin/userdevice/')
         .then((response) =>{
             this.BatteryUser = response.data;
         })
@@ -76,7 +76,7 @@ export default {
             }).then(result => {
                 if (result.value) {
                     this.axios
-                        .delete('http://127.0.0.1:8000/api/userdevice/' + id)
+                        .delete('http://127.0.0.1:8000/api/admin/userdevice/' + id)
                         .then(()=> {
                             Swal.fire(
                                 "Terhapus",
@@ -95,20 +95,6 @@ export default {
                         });
                 }
             });
-        //     this.axios
-        //         .delete('http://127.0.0.1:8000/api/userdevice/' + id)
-        //         .then(response => {
-        //             let i = this.User.map(data => data.id).indexOf(id);
-        //             this.User.splice(i,1)
-        //         })
-        //         .then(function (){
-        //             var msg = "Apakah anda yakin untuk menghapusnya"
-        //             agree = confirm(msg)
-        //             if (agree)
-        //                 return true
-        //             else
-        //                 return false
-        //         });
         }
     }
 }
