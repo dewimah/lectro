@@ -14,7 +14,7 @@ class MonitoringController extends Controller
     }
 
     public function all(){
-        return Monitoring::all();
+        return Monitoring::with(['battery'])->get();
     }
 
     public function show ($id){

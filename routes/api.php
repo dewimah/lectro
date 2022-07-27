@@ -24,22 +24,52 @@ use App\Helpers\ResponseFormatter;
 //});
 
 //Route Auth
+
 Route::post('/register', 'App\Http\Controllers\RegisterController@register');
 Route::post('/login', [AuthController::class, 'login'])->name('login');
 
-//Route User
 Route::group(['middleware' => ['auth:sanctum']], function () {
+<<<<<<< Updated upstream
     Route::post('/logout', 'App\Http\Controllers\LogoutController@logout')->name('logout');
     Route::get('/user', 'App\Http\Controllers\UserController@all');
     Route::get('/user/{id}', 'App\Http\Controllers\UserController@show');
     Route::post('/user','App\Http\Controllers\UserController@store');
     Route::put('/user/{id}', 'App\Http\Controllers\UserController@update');
     Route::delete('/user/{id}', 'App\Http\Controllers\UserController@delete');
+=======
+    Route::get('/logout', 'App\Http\Controllers\LogoutController@logout');
+>>>>>>> Stashed changes
 });
+
+//Route User
+//Route::group(['middleware' => ['auth:sanctum']], function () {
+    Route::group(['middleware' => ['auth:sanctum']], function (){
+        Route::group(['middleware' => ['is.admin']], function (){
+            Route::group(['prefix' =>'/admin'], function (){
+        //Route::middleware('is.admin')->group{ function(){
+        //Route::prefix('/admin')->group{ function(){
+            Route::get('/user', 'App\Http\Controllers\UserController@all');
+            Route::get('/user/{id}', 'App\Http\Controllers\UserController@show');
+            Route::post('/user','App\Http\Controllers\UserController@store');
+            Route::put('/user/{id}', 'App\Http\Controllers\UserController@update');
+            Route::delete('/user/{id}', 'App\Http\Controllers\UserController@delete');
+        });
+    });
+    //Route::middleware('is.user')->group{ function(){
+       // Route::prefix('/user')->group{ function(){
+        Route::group(['middleware' => ['is.user']], function (){
+            Route::group(['prefix' =>'/user'], function (){
+
+            });
+        });
+});
+
+
 
 //Route BMS
 Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('/battery', 'App\Http\Controllers\BatteryController@all');
+    Route::get('/coba', 'App\Http\Controllers\BatteryController@getdata');
     Route::get('/battery/{id}', 'App\Http\Controllers\BatteryController@show');
     Route::post('/battery','App\Http\Controllers\BatteryController@store');
     Route::put('/battery/{id}', 'App\Http\Controllers\BatteryController@update');
@@ -81,6 +111,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::post('/userdevice','App\Http\Controllers\UserDeviceController@store');
     Route::put('/userdevice/{id}','App\Http\Controllers\UserDeviceController@update');
     Route::delete('/userdevice/{id}', 'App\Http\Controllers\UserDeviceController@delete');
+    Route::get('/lagi', 'App\Http\Controllers\UserDeviceController@getdata');
 });
 
 //Route Setting
@@ -91,3 +122,5 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::put('/setting/{id}','App\Http\Controllers\SettingController@update');
     Route::delete('/setting/{id}', 'App\Http\Controllers\SettingController@delete');
 });
+
+

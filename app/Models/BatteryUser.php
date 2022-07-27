@@ -24,6 +24,13 @@ class BatteryUser extends Model
     ];
 
     public function monitoring(){
-        return $this->belongsTo(Monitoring::class);
+      // return $this->belongsTo(Monitoring::class);
+    }
+    public function battery(){
+        return $this->belongsTo(Battery::class);
+     }
+
+    public function user(){
+        return $this->belongsTo(User::class);
     }
 }
