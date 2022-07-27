@@ -9,24 +9,23 @@
                                 <thead>
                                     <tr>
                                         <th>No</th>
-                                        <th>ID</th>
-                                        <th>User</th>
-                                        <th>BMS</th>
+                                        <th>ID Baterai</th>
+                                        <th>ID User</th>
+                                        <!-- <th>BMS</th> -->
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
                                 
                                 <tbody>
-                                    <tr>
-                                        <td>x</td>
-                                        <td>x</td>
-                                        <td>x</td>
-                                        <td>x</td>
+                                    <tr v-for="(BatteryUser, index) in BatteryUser" :key="BatteryUser.id">
+                                        <td>{{ index+1 }}</td>
+                                        <td>{{ BatteryUser.battery_id }}</td>
+                                        <td>{{ BatteryUser.id }}</td>
                                         <td>
                                             <router-link to="halaman-detail" class="btn btn-sm btn-primary">
                                                 <i class="fa-solid fa-circle-info"></i>
                                             </router-link>
-                                            <button class="btn btn-danger btn-sm">
+                                            <button class="btn btn-danger btn-sm" @click="deleteUserdevice(BatteryUser.id)">
                                                 <i class="fa-solid fa-trash"></i>
                                             </button>
                                         </td>
@@ -44,21 +43,30 @@
 export default {
     data() {
         return{
-            Monitoring: {},
-            currentUser: {},
+            // Monitoring: {},
+            // currentUser: {},
+            BatteryUser: {},
             token: localStorage.getItem('token')
         }
     },
 
     created(){
         this.axios
-            .get("http://127.0.0.1:8000/api/monitoring/")
-            .then((response) => {
-                this.Monitoring = response.data;
-            })
-            .then(function(){
-                $(".DataTable").DataTable();
-            });
+        .get('http://127.0.0.1:8000/api/userdevice/')
+        .then((response) =>{
+            this.BatteryUser = response.data;
+        })
+        .then(function (){
+            $(".DataTable").DataTable();
+        });
+        // this.axios
+        //     .get("http://127.0.0.1:8000/api/monitoring/")
+        //     .then((response) => {
+        //         this.Monitoring = response.data;
+        //     })
+        //     .then(function(){
+        //         $(".DataTable").DataTable();
+        //     });
     },
 
     mounted(){
@@ -69,6 +77,55 @@ export default {
             console.log(errors)
         })
     },
+
+    methods: {
+        deleteUserdevice(id){
+            Swal.fire({
+                title: "Anda yakin ingin menghapus data ini?",
+                text: "Klik batal untuk membatalkan hapus data",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#ddd",
+                confirmButtonText: "Hapus"
+            }).then(result => {
+                if (result.value) {
+                    this.axios
+                        .delete('http://127.0.0.1:8000/api/userdevice/' + id)
+                        .then(()=> {
+                            Swal.fire(
+                                "Terhapus",
+                                "Data sudah terhapus",
+                                "success"
+                            );
+                            let i = this.BatteryUser.map(data => data.id).indexOf(id);
+                            this.BatteryUser.splice(i,1)
+                        })
+                        .catch(() => {
+                            Swal.fire (
+                                "Gagal",
+                                "Data gagal terhapus",
+                                "warning"
+                            );
+                        });
+                }
+            });
+        //     this.axios
+        //         .delete('http://127.0.0.1:8000/api/userdevice/' + id)
+        //         .then(response => {
+        //             let i = this.User.map(data => data.id).indexOf(id);
+        //             this.User.splice(i,1)
+        //         })
+        //         .then(function (){
+        //             var msg = "Apakah anda yakin untuk menghapusnya"
+        //             agree = confirm(msg)
+        //             if (agree)
+        //                 return true
+        //             else
+        //                 return false
+        //         });
+        }
+    }
     
 }
 </script>

@@ -10,14 +10,14 @@
                     <p class="login-box-msg">Log in to start your session</p>
                     <ValidationObserver v-slot="{handleSubmit}">
                         <form  @submit.prevent="handleSubmit(login)">
-                            <div class="input-group mb-3 " style="width:100%">
+                            <div class="form-group mb-3">
                                 <ValidationProvider name="email" rules="required|email" v-slot="{ errors }">
                                 <input type="email" class="form-control" v-model="User.email" placeholder="Email">
                                 <span class="invalid-feedback d-block">{{ errors[0] }}</span>
                                 </ValidationProvider>
                             </div>
 
-                            <div class="input-group mb-3">
+                            <div class="form-group mb-3">
                                 <ValidationProvider name="password" rules="min:8" v-slot="{ errors }">
                                 <input type="password" class="form-control" v-model="User.password" placeholder="Password">
                                 <span class="invalid-feedback d-block">{{ errors[0] }}</span>
@@ -25,7 +25,7 @@
                             </div>
                             
                             <div class="form-group">
-                                    <button type="submit" class="btn btn-success btn-block" color="#1c3b10">Log In</button>
+                                <button type="submit" class="btn btn-success btn-block" color="#1c3b10">Log In</button>
                             </div>
                         </form>
                     </ValidationObserver>

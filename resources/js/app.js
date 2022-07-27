@@ -121,6 +121,14 @@ require('./bootstrap');
         }
       },
       {
+        path: '/edit-cell',
+        name: 'edit-cell',
+        component:require('./components/bms/Edit-cell.vue').default,
+        meta: {
+            auth: false
+        }
+      },
+      {
           path: '/edit-bms/:id',
           name: 'edit-bms',
           component:require('./components/bms/Edit-bms.vue').default,

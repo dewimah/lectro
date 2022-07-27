@@ -27,7 +27,9 @@
                                         <td>{{ BatteryUser.user_id }}</td>
                                         <td>{{ BatteryUser.is_active }}</td>
                                         <td>
-                                            <router-link :to="{name: 'edit-userdevice', params: {id: User.id}}" class="btn btn-sm btn-warning">
+                                            <router-link 
+                                            :to="{ name: 'edit-userdevice', params: { id: BatteryUser.id } }" 
+                                            class="btn btn-sm btn-warning">
                                                 <i class="fas fa-edit"></i>
                                             </router-link>
                                             <button class="btn btn-danger btn-sm" @click="deleteUserdevice(BatteryUser.id)">
@@ -53,16 +55,16 @@ export default {
     },
     created(){
         this.axios
-        .get('http://127.0.0.1:8000/api/userdevice')
-        .then(response =>{
-            this.User = response.data;
+        .get('http://127.0.0.1:8000/api/userdevice/')
+        .then((response) =>{
+            this.BatteryUser = response.data;
         })
         .then(function (){
             $(".DataTable").DataTable();
         });
     },
     methods: {
-        deleteUser(id){
+        deleteUserdevice(id){
             Swal.fire({
                 title: "Anda yakin ingin menghapus data ini?",
                 text: "Klik batal untuk membatalkan hapus data",

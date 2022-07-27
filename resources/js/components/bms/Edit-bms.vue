@@ -87,7 +87,7 @@ export default {
                     this.$router.push({ name:'data-bms'})
                 })
         },
-         loadDataCell(){
+        loadDataCell(){
             this.axios
                 .get('http://127.0.0.1:8000/api/cell/')
                 .then(({data}) => {this.cell = data});

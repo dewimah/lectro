@@ -22,15 +22,15 @@
                                 </thead>
                                 
                                 <tbody>
-                                    <tr>
-                                        <td>x</td>
-                                        <td>x</td>
-                                        <td>x</td>
-                                        <td>x</td>
-                                        <td>X</td>
-                                        <td>x</td>
-                                        <td>x</td>
-                                        <td>x</td>
+                                    <tr v-for="(Monitoring) in Monitoring" :key="Monitoring.id">
+                                        <td>{{ Monitoring.soc }}</td>
+                                        <td>{{ Monitoring.soh }}</td>
+                                        <td>{{ Monitoring.arus }}</td>
+                                        <td>{{ Monitoring.temp_1 }}</td>
+                                        <td>{{ Monitoring.temp_2 }}</td>
+                                        <td>{{ Monitoring.temp_2 }}</td>
+                                        <td>{{ Monitoring.tegangan_cell }}</td>
+                                        <td>{{ Monitoring.tegangan_tot }}</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -53,6 +53,9 @@ export default {
         .get('http://127.0.0.1:8000/api/monitoring/')
         .then(response =>{
             this.Monitoring = response.data;
+        })
+        .then(function (){
+            $(".DataTable").DataTable();
         });
     },
     methods: {

@@ -67,6 +67,7 @@
             <button type="submit" class="btn btn-success" style="background-color:#1c3b10">Update</button>
         </div>
     </form>
+    </ValidationObserver>
 </div>
 </template>
 

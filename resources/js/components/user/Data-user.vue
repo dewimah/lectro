@@ -14,7 +14,6 @@
                                         <th>ID</th>
                                         <th>Nama</th>
                                         <th>Email</th>
-                                        <!--<th>Password</th>-->
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
@@ -25,9 +24,8 @@
                                         <td>{{ User.id }}</td>
                                         <td>{{ User.name }}</td>
                                         <td>{{ User.email }}</td>
-                                        <!--<td>{{ User.password }}</td>-->
                                         <td>
-                                            <router-link :to="{name: 'edit-user', params: {id: User.id}}" class="btn btn-sm btn-warning">
+                                            <router-link :to="{ name: 'edit-user', params: {id: User.id} }" class="btn btn-sm btn-warning">
                                                 <i class="fas fa-edit"></i>
                                             </router-link>
                                             <button class="btn btn-danger btn-sm" @click="deleteUser(User.id)">

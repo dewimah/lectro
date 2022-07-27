@@ -35,6 +35,12 @@
                   <td>{{ cell.id }}</td>
                   <td>{{ cell.cellbaterai }}</td>
                   <td>
+                    <router-link
+                      :to="{ name: 'edit-cell', params: { id: cell.id } }"
+                      class="btn btn-sm btn-warning"
+                    >
+                      <i class="fas fa-edit"></i>
+                    </router-link>
                     <button
                       class="btn btn-danger btn-sm"
                       @click="deleteCell(cell.id)"
@@ -81,7 +87,7 @@
               </thead>
 
               <tbody>
-                <tr v-for="(Setting, index) in Setting" :key="Setting.id">
+                <tr v-for="(Setting) in Setting" :key="Setting.id">
                   <!-- <td>{{ index + 1 }}</td> -->
                   <td>{{ Setting.temp_min }}</td>
                   <td>{{ Setting.temp_max }}</td>

@@ -5,7 +5,7 @@
         </div>
 
 
-        <form @submit.prevent="tambahUserdevice">
+        <form @submit.prevent="tambahUserdevice"> 
             <div class="card-body">
                 <div class="form-group">
                     <label for="baterai_id">Nama Baterai</label>
@@ -24,8 +24,8 @@
                 <div class="form-group">
                     <label for="is_active">Status</label>
                     <select name="is_active" class="form-control" v-model="BatteryUser.is_active">
-                        <option :value="{ number:1 }">Aktif</option>
-                        <option :value="{ number:0 }">Non Aktif</option>
+                        <option value=1>Aktif</option>
+                        <option value=0>Non Aktif</option>
                     </select>
                 </div>
             </div>

@@ -29,8 +29,8 @@
                 <div class="form-group">
                     <label for="is_active">Status</label>
                     <select name="is_active" class="form-control" v-model="BatteryUser.is_active">
-                        <option :value="{ number:1 }">Aktif</option>
-                        <option :value="{ number:0 }">Non Aktif</option>
+                        <option value=1>Aktif</option>
+                        <option value=2>Non Aktif</option>
                     </select>
                 </div>
             </div>
@@ -54,10 +54,12 @@ export default {
     },
     created() {
         this.axios
-             .get('http://127.0.0.1:8000/api/userdevice/', this.$route.params.id)
+             .get('http://127.0.0.1:8000/api/userdevice/' + this.$route.params.id)
              .then((response) => {
                 this.BatteryUser = response.data;
-            })
+            }),
+        this.loadDataBattery();
+        this.loadDataUser();
     },
     methods: {
         updateUserdevice(){
@@ -70,6 +72,16 @@ export default {
                     }),
                     this.$router.push({ name:'data-userdevice'})
                 })
+        },
+        loadDataBattery(){
+            this.axios
+                .get('http://127.0.0.1:8000/api/battery/')
+                .then(({data}) => {this.Battery = data});
+        },
+        loadDataUser(){
+            this.axios
+                .get('http://127.0.0.1:8000/api/user/')
+                .then(({data}) => {this.User = data});
         }
     }
 }

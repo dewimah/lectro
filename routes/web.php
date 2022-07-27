@@ -23,7 +23,9 @@ Route::get('/', function () {
 // Route::get('/', function () {
 //     return view('welcome');
 // });
-
+Route::get('habib', function(){
+    return csrf_token();
+});  
 
 Route::get('/{any}', function () {
     return view('home');

@@ -29,7 +29,9 @@ class UserDeviceController extends Controller
             //'token_device' => Str::random(40),
         ]);
 
-        return ResponseFormatter::success($userdevice->load('batteries'),'Akun User Berhasil Dibuat');
+        return response()->json([
+            'succes' => true
+        ]);
     }
 
     public function show($id){
