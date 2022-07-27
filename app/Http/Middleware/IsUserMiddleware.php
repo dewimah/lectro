@@ -7,7 +7,7 @@ use Auth;
 use Illuminate\Http\Request;
 use App\Helpers\ResponseFormatter;
 
-class IsSiswaMiddleware
+class IsUserMiddleware
 {
     /**
      * Handle an incoming request.

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\User;
+use App\Models\Battery;
 use App\Helpers\ResponseFormatter;
 use Auth;
 
@@ -23,7 +24,8 @@ class UserController extends Controller
         {
             return ResponseFormatter::error(null,'Anda tidak memiliki kewenangan',401);
         }*/
-        return $user= User::all();
+        return User::all();
+
        //s return ResponseFormatter::success($user,'Data Berhasil didapatkan');
     }
 

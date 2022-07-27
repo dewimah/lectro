@@ -55,7 +55,7 @@ class User extends Authenticatable
         return $this->belongsToMany(Battery::class,'battery_user','user_id','battery_id');
     }
 
-    public function hasRole($roles)
+  /*  public function hasRole($roles)
     {
         $this->have_role = $this->getUserRole();
 
@@ -78,5 +78,5 @@ class User extends Authenticatable
     private function cekUserRole($role)
     {
         return (strtolower($role)==strtolower($this->have_role->nama)) ? true : false;
-    }
+    }*/
 }

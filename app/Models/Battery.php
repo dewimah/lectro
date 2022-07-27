@@ -24,7 +24,7 @@ class Battery extends Model
     ];
 
     public function monitoring(){
-        return $this->belongsTo(Monitoring::class);
+        //return $this->belongsTo(Monitoring::class);
     }
 
    public function users(){
