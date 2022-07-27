@@ -32,11 +32,13 @@ class Battery extends Model
    }
 
    public function setting(){
-    return $this->hasOne(Setting::class);
+    //return $this->hasOne(Setting::class);
+    return $this->belongsTo(Setting::class);
 }
 
     public function cell(){
-    return $this->hasOne(cell::class);
+   // return $this->hasOne(cell::class);
+   return $this->belongsTo(cell::class);
 }
 }
 

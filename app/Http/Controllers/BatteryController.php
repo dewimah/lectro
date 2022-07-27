@@ -54,7 +54,8 @@ class BatteryController extends Controller
       //mengambil semua data
       public function all()
       {
-          return Battery::all();
+          return Battery::with(['cell','setting'])->get();
+
 
       }
 
@@ -62,6 +63,9 @@ class BatteryController extends Controller
       public function show ($id){
           return Battery::find($id);
       }
+
+      //getdata
+
 
       //menambah data
       public function store(Request $request){

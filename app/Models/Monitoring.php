@@ -36,7 +36,8 @@ class Monitoring extends Model
 
     //hasmany
     public function battery(){
-        return $this->hasOne(Battery::class);
+        //return $this->hasOne(Battery::class);
+        return $this->belongsTo(Battery::class);
     }
 
     public function batteryuser(){

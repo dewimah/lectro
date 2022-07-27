@@ -18,7 +18,13 @@ class UserController extends Controller
     //mengambil semua data
     public function all()
     {
-        return User::all();
+        $user->request()->user();
+        if(!$user->hasRole('admin'))
+        {
+            return ResponseFormatter::error(null,'Anda tidak memiliki kewenangan',401);
+        }
+        $user= User::all();
+        return ResponseFormatter::success($user,'Data Berhasil didapatkan');
     }
 
     //mengambil data by id

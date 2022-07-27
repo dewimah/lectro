@@ -6,6 +6,7 @@ use App\Models\BatteryUser;
 use App\Models\User;
 use App\Models\Battery;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\DB;
 
 use Illuminate\Http\Request;
 
@@ -18,7 +19,25 @@ class UserDeviceController extends Controller
 
     public function all()
     {
-        return BatteryUser::all();
+        return BatteryUser::with(['user','battery'])
+        //->join(['setting', 'setting.id', '=', 'battery.setting_id'])
+        ->get();
+        /*return DB::table('battery_user')
+        ->join('users','battery_user.user_id', '=', 'users.id')
+        ->join('batteries','battery_user.battery_id','=','batteries.id')
+        ->join('settings','batteries.setting_id', '=', 'settings.id')
+        ->join('cells','batteries.cell_id', '=', 'cells.id')
+        ->join('users','users.user_id', '=', 'users.id')
+        ->select(
+            'users.name as name',
+            'batteries.name as namabattery',
+            'cellbaterai',
+            'email',
+            'tipe',
+            'serial',
+        )
+        ->get();*/
+
     }
 
     public function store(Request $request){
