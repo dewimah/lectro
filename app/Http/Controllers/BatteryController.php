@@ -51,60 +51,42 @@ class BatteryController extends Controller
         $this->middleware('auth');
     }
 
-      //mengambil semua data
-      public function all()
-      {
-          return Battery::with(['cell','setting'])->get();
+    //mengambil semua data
+    public function all(){
+        return Battery::with(['cell','setting'])->get();
+    }
 
+    //mengambil data by id
+    public function show ($id){
+        return Battery::find($id);
+    }
 
-      }
+    //menambah data
+    public function store(Request $request){
+        $battery = Battery::create($request->all());
+        return ResponseFormatter::success($battery,'Data Battery Berhasil di Tambahkan',201);
+    }
 
-      //mengambil data by id
-      public function show ($id){
-          return Battery::find($id);
-      }
-
-      //getdata
-
-
-      //menambah data
-      public function store(Request $request){
-          $battery = Battery::create($request->all());
-
-          return ResponseFormatter::success($battery,'Data Battery Berhasil di Tambahkan',201);
-      }
-
-      //mengubah data
-      public function update( Request $request, $id){
-
-          $battery = Battery::find($id);
-          $battery->update($request->all());
-            //return $request->all();
-          return ResponseFormatter::success(
+    //mengubah data
+    public function update( Request $request, $id){
+        $battery = Battery::find($id);
+        $battery->update($request->all());
+         //return $request->all();
+        return ResponseFormatter::success(
             'Success Edit',
             Battery::find($id),
             200
         );
     }
 
-      //menghapus data
-      public function delete($id){
-          $battery=Battery::find($id);
-          $battery->delete();
+    //menghapus data
+    public function delete($id){
+        $battery=Battery::find($id);
+        $battery->delete();
 
-          return ResponseFormatter::success(
+        return ResponseFormatter::success(
             'Data Berhasil Di Hapus',
             200
         );
     }
-
-    /*public function check ($token) {
-        $res = false;
-        $data = Battery::where('token', $token)->first();
-
-        if $data {
-            $res = true;
-        }
-        return $res;
-    }*/
 }

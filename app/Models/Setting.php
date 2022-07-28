@@ -12,6 +12,7 @@ class Setting extends Model
     protected $table='settings';
     protected $guarded = ['id'];
     protected $fillable = [
+        'name',
         'temp_min',
         'temp_max',
         'tegangan_min',

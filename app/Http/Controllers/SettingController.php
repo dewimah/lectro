@@ -9,14 +9,12 @@ use Illuminate\Support\Facades\Validator;
 
 class SettingController extends Controller
 {
-    public function __construct()
-    {
+    public function __construct(){
         $this->middleware('auth');
     }
 
     //mengambil semua data
-    public function all()
-    {
+    public function all(){
         return Setting::all();
     }
 
@@ -32,6 +30,7 @@ class SettingController extends Controller
 
     public function store(Request $request) {
          $validateData = $request->validate([
+            'name' => 'required',
             'temp_min' => 'required|numeric|gt:20|lt:60',
             'temp_max' => 'required|numeric|gt:20|lt:60',
             'tegangan_min' => 'required|numeric|gt:20|lt:60',
@@ -39,9 +38,7 @@ class SettingController extends Controller
             'arus_min' =>'required|numeric|gt:20|lt:60',
             'arus_max' =>'required|numeric|gt:20|lt:60'
         ]);
-
         return Setting::create($validateData);
-
     }
 
     //mengubah data

@@ -24,10 +24,6 @@ Route::post('/register', 'App\Http\Controllers\RegisterController@register');
 Route::post('/login', [AuthController::class, 'login'])->name('login');
 //Route::post('/login', 'App\Http\Controllers\AuthController@login')->name('login');
 
-Route::group(['middleware' => ['auth:sanctum']], function () {
-
-});
-
 //Route User
 Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('/logout', 'App\Http\Controllers\LogoutController@logout')->name('logout');
@@ -88,7 +84,3 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
        });
     });
 });
-
-
-
-
