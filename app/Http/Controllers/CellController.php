@@ -14,44 +14,40 @@ class CellController extends Controller
         $this->middleware('auth');
     }
 
-      //mengambil semua data
-      public function all()
-      {
-          return cell::all();
+    //mengambil semua data
+    public function all()
+    {
+        return cell::all();
+    }
 
-      }
+    //mengambil data by id
+    public function show ($id){
+        return cell::find($id);
+    }
 
-      //mengambil data by id
-      public function show ($id){
-          return cell::find($id);
-      }
+    //menambah data
+    public function store(Request $request){
+        $cell = cell::create($request->all());
+        return ResponseFormatter::success($cell,'Jumlah Cell Berhasil di Tambahkan',201);
+    }
 
-      //menambah data
-      public function store(Request $request){
-          $cell = cell::create($request->all());
-
-          return ResponseFormatter::success($cell,'Jumlah Cell Berhasil di Tambahkan',201);
-      }
-
-      //mengubah data
-      public function update($id, Request $request){
-
-          $cell = cell::find($id);
-          $cell->update($request->all());
-           // return $request->all();
-          return ResponseFormatter::success(
+    //mengubah data
+    public function update($id, Request $request){
+        $cell = cell::find($id);
+        $cell->update($request->all());
+        // return $request->all();
+        return ResponseFormatter::success(
             'Success Edit',
             cell::find($id),
             200
         );
     }
 
-      //menghapus data
-      public function delete($id){
-          $battery=cell::find($id);
-          $battery->delete();
-
-          return ResponseFormatter::success(
+    //menghapus data
+    public function delete($id){
+        $battery=cell::find($id);
+        $battery->delete();
+        return ResponseFormatter::success(
             'Data Berhasil Di Hapus',
             200
         );

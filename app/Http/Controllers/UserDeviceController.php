@@ -6,7 +6,7 @@ use App\Models\BatteryUser;
 use App\Models\User;
 use App\Models\Battery;
 use Illuminate\Support\Str;
-use Illuminate\Support\Facades\DB;
+use DB;
 
 use Illuminate\Http\Request;
 
@@ -19,15 +19,13 @@ class UserDeviceController extends Controller
 
     public function all()
     {
-        return BatteryUser::with(['user','battery'])
-        //->join(['setting', 'setting.id', '=', 'battery.setting_id'])
-        ->get();
-        /*return DB::table('battery_user')
+        /*return BatteryUser::with(['user','battery'])
+        ->get();*/
+        return DB::table('battery_user')
         ->join('users','battery_user.user_id', '=', 'users.id')
         ->join('batteries','battery_user.battery_id','=','batteries.id')
         ->join('settings','batteries.setting_id', '=', 'settings.id')
         ->join('cells','batteries.cell_id', '=', 'cells.id')
-        ->join('users','users.user_id', '=', 'users.id')
         ->select(
             'users.name as name',
             'batteries.name as namabattery',
@@ -35,19 +33,23 @@ class UserDeviceController extends Controller
             'email',
             'tipe',
             'serial',
+            'settings.name as namasetting',
+            'temp_min',
+            'temp_max',
+            'arus_min',
+            'arus_max',
+            'tegangan_min',
+            'tegangan_max'
         )
-        ->get();*/
-
+        ->get();
     }
 
     public function store(Request $request){
-        $userdevice=BatteryUser::create([
-            'user_id' => request()->user_id,
-            'battery_id' => request()->battery_id,
-            'is_active' => request()->is_active,
-            //'token_device' => Str::random(40),
-        ]);
-
+    $userdevice=BatteryUser::create([
+        'user_id' => request()->user_id,
+        'battery_id' => request()->battery_id,
+        'is_active' => request()->is_active,
+    ]);
         return response()->json([
             'succes' => true
         ]);
@@ -56,10 +58,9 @@ class UserDeviceController extends Controller
     public function show($id){
         return BatteryUser::find($id);
         $results = BatteryUser::with('users')->get();
-            foreach ($results as $userrecord) {
-            echo $userrecord->id; //access table2 data
-            echo $userrecord->users->booktitle; //access table1 data
-
+        foreach ($results as $userrecord) {
+        echo $userrecord->id; //access table2 data
+        echo $userrecord->users->booktitle; //access table1 data
         }
     }
 

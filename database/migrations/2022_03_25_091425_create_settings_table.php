@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('settings', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
             $table->integer('temp_min');
             $table->integer('temp_max');
             $table->integer('tegangan_min');
