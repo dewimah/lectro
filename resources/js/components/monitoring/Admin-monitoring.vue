@@ -95,6 +95,7 @@ export default {
     this.axios
       .get("http://127.0.0.1:8000/api/admin/userdevice/")
       .then((response) => {
+        console.log(response)
         this.BatteryUser = response.data;
         // console.log(this.BatteryUser)
       })

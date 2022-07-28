@@ -265,7 +265,7 @@ export default {
         this.dataSetting = response.data;
         // const lastData = this.Monitoring.slice(-1)[0];
         const lastData = this.Monitoring;
-        console.log(lastData)
+        // console.log(lastData)
 
         this.dataSetting.map((a) => {
           if (a.id === lastData.battery.setting_id) {

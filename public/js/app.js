@@ -6816,6 +6816,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     var _this = this;
 
     this.axios.get("http://127.0.0.1:8000/api/admin/userdevice/").then(function (response) {
+      console.log(response);
       _this.BatteryUser = response.data; // console.log(this.BatteryUser)
     }).then(function () {
       $(".DataTable").DataTable();
@@ -7206,8 +7207,7 @@ __webpack_require__.r(__webpack_exports__);
     this.axios.get("http://127.0.0.1:8000/api/admin/setting/").then(function (response) {
       _this.dataSetting = response.data; // const lastData = this.Monitoring.slice(-1)[0];
 
-      var lastData = _this.Monitoring;
-      console.log(lastData);
+      var lastData = _this.Monitoring; // console.log(lastData)
 
       _this.dataSetting.map(function (a) {
         if (a.id === lastData.battery.setting_id) {
@@ -7635,7 +7635,7 @@ __webpack_require__.r(__webpack_exports__);
     tambahUser: function tambahUser() {
       var _this = this;
 
-      this.axios.post('http://127.0.0.1:8000/api/admin/register/', this.User).then(function (response) {
+      this.axios.post('http://127.0.0.1:8000/api/register/', this.User).then(function (response) {
         return Toast.fire({
           icon: 'success',
           title: 'Data Berhasil Tersimpan'
