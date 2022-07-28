@@ -45,7 +45,6 @@ class SettingController extends Controller
     public function update($id, Request $request){
         $user = Setting::find($id);
         $user->update($request->all());
-
         return ResponseFormatter::success(
             'Success Edit',
             $user = Setting::find($id),

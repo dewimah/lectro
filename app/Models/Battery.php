@@ -23,21 +23,15 @@ class Battery extends Model
         'serial'
     ];
 
-    public function monitoring(){
-        //return $this->belongsTo(Monitoring::class);
-    }
-
    public function users(){
         return $this->belongsToMany(User::class);
    }
 
    public function setting(){
-    //return $this->hasOne(Setting::class);
     return $this->belongsTo(Setting::class);
 }
 
     public function cell(){
-   // return $this->hasOne(cell::class);
    return $this->belongsTo(cell::class);
 }
 }
