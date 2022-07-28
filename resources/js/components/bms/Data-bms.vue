@@ -210,7 +210,13 @@ export default {
         this.Battery = response.data;
       })
       .then(function () {
-        $(".DataTable2").DataTable();
+        $(".DataTable2").DataTable({
+          dom: 'Bfrtip',
+                // lengthChange: false,
+                buttons: [
+                    'excel'
+                ]
+        });
       });
     this.axios
       .get("http://127.0.0.1:8000/api/admin/cell/")
@@ -218,7 +224,13 @@ export default {
         this.cell = response.data;
       })
       .then(function () {
-        $(".DataTable1").DataTable();
+        $(".DataTable1").DataTable({
+          dom: 'Bfrtip',
+                // lengthChange: false,
+                buttons: [
+                    'excel'
+                ]
+        });
       });
     this.axios
       .get("http://127.0.0.1:8000/api/admin/setting/")
@@ -226,7 +238,13 @@ export default {
         this.Setting = response.data;
       })
       .then(function () {
-        $(".DataTable3").DataTable();
+        $(".DataTable3").DataTable({
+          dom: 'Bfrtip',
+                // lengthChange: false,
+                buttons: [
+                    'excel'
+                ]
+        });
       });
   },
 

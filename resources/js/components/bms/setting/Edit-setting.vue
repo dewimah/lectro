@@ -80,7 +80,7 @@ export default {
     },
     created(){
         this.axios
-            .get('http://127.0.0.1:8000/api/admin/setting/' + this.$route.params.id)
+            .get(' http://127.0.0.1:8000/api/admin/setting/' + this.$route.params.id)
             .then ((response) => {
                 this.Setting = response.data;
             })
@@ -88,7 +88,7 @@ export default {
     methods: {
         updateSetting(){
             this.axios
-                .put('http://127.0.0.1:8000/api/admin/setting/' + this.$route.params.id, this.Setting)
+                .put(' http://127.0.0.1:8000/api/admin/setting/' + this.$route.params.id, this.Setting)
                 .then((response) => {
                     Toast.fire({
                         icon: 'success',

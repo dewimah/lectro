@@ -5529,7 +5529,7 @@ __webpack_require__.r(__webpack_exports__);
           window.location.href = "/admin-monitoring";
         } else if (response.data.data.user.roles[0].name === "user") {
           window.location.href = "/user-monitoring";
-        } // console.log(response)
+        } //console.log(response)
         // this.$router.push({ name: "admin-monitoring"});
 
       })["catch"](function (errors) {
@@ -5611,7 +5611,7 @@ __webpack_require__.r(__webpack_exports__);
     tambahBms: function tambahBms() {
       var _this = this;
 
-      this.axios.post('http://127.0.0.1:8000/api/admin/battery/', this.Battery).then(function (response) {
+      this.axios.post(' http://127.0.0.1:8000/api/admin/battery/', this.Battery).then(function (response) {
         return Toast.fire({
           icon: 'success',
           title: 'Data Berhasil Tersimpan'
@@ -5625,7 +5625,7 @@ __webpack_require__.r(__webpack_exports__);
     loadDataCell: function loadDataCell() {
       var _this2 = this;
 
-      this.axios.get('http://127.0.0.1:8000/api/admin/cell/').then(function (_ref) {
+      this.axios.get(' http://127.0.0.1:8000/api/admin/cell/').then(function (_ref) {
         var data = _ref.data;
         _this2.cell = data;
       });
@@ -5633,7 +5633,7 @@ __webpack_require__.r(__webpack_exports__);
     loadDataSetting: function loadDataSetting() {
       var _this3 = this;
 
-      this.axios.get('http://127.0.0.1:8000/api/admin/setting/').then(function (_ref2) {
+      this.axios.get(' http://127.0.0.1:8000/api/admin/setting/').then(function (_ref2) {
         var data = _ref2.data;
         _this3.Setting = data;
       });
@@ -5691,7 +5691,7 @@ __webpack_require__.r(__webpack_exports__);
     tambahCell: function tambahCell() {
       var _this = this;
 
-      this.axios.post('http://127.0.0.1:8000/api/admin/cell/', this.cell).then(function (response) {
+      this.axios.post(' http://127.0.0.1:8000/api/admin/cell/', this.cell).then(function (response) {
         return Toast.fire({
           icon: 'success',
           title: 'Data Berhasil Tersimpan'
@@ -5931,17 +5931,29 @@ __webpack_require__.r(__webpack_exports__);
       console.log(response);
       _this.Battery = response.data;
     }).then(function () {
-      $(".DataTable2").DataTable();
+      $(".DataTable2").DataTable({
+        dom: 'Bfrtip',
+        // lengthChange: false,
+        buttons: ['excel']
+      });
     });
     this.axios.get("http://127.0.0.1:8000/api/admin/cell/").then(function (response) {
       _this.cell = response.data;
     }).then(function () {
-      $(".DataTable1").DataTable();
+      $(".DataTable1").DataTable({
+        dom: 'Bfrtip',
+        // lengthChange: false,
+        buttons: ['excel']
+      });
     });
     this.axios.get("http://127.0.0.1:8000/api/admin/setting/").then(function (response) {
       _this.Setting = response.data;
     }).then(function () {
-      $(".DataTable3").DataTable();
+      $(".DataTable3").DataTable({
+        dom: 'Bfrtip',
+        // lengthChange: false,
+        buttons: ['excel']
+      });
     });
   },
   methods: {
@@ -6372,7 +6384,7 @@ __webpack_require__.r(__webpack_exports__);
   created: function created() {
     var _this = this;
 
-    this.axios.get('http://127.0.0.1:8000/api/admin/battery/' + this.$route.params.id).then(function (response) {
+    this.axios.get('http://192.168.19.33:8000/api/admin/battery/' + this.$route.params.id).then(function (response) {
       _this.Battery = response.data;
     }), this.loadDataCell();
     this.loadDataSetting();
@@ -6381,7 +6393,7 @@ __webpack_require__.r(__webpack_exports__);
     updateBms: function updateBms() {
       var _this2 = this;
 
-      this.axios.put('http://127.0.0.1:8000/api/admin/battery/' + this.$route.params.id, this.Battery).then(function (response) {
+      this.axios.put('http://192.168.19.33:8000/api/admin/battery/' + this.$route.params.id, this.Battery).then(function (response) {
         Toast.fire({
           icon: 'success',
           title: 'Data Berhasil Tersimpan'
@@ -6393,7 +6405,7 @@ __webpack_require__.r(__webpack_exports__);
     loadDataCell: function loadDataCell() {
       var _this3 = this;
 
-      this.axios.get('http://127.0.0.1:8000/api/admin/cell/').then(function (_ref) {
+      this.axios.get('http://192.168.19.33:8000/api/admin/cell/').then(function (_ref) {
         var data = _ref.data;
         _this3.cell = data;
       });
@@ -6401,7 +6413,7 @@ __webpack_require__.r(__webpack_exports__);
     loadDataSetting: function loadDataSetting() {
       var _this4 = this;
 
-      this.axios.get('http://127.0.0.1:8000/api/admin/setting/').then(function (_ref2) {
+      this.axios.get('http://192.168.19.33:8000/api/admin/setting/').then(function (_ref2) {
         var data = _ref2.data;
         _this4.Setting = data;
       });
@@ -6454,7 +6466,7 @@ __webpack_require__.r(__webpack_exports__);
   created: function created() {
     var _this = this;
 
-    this.axios.get('http://127.0.0.1:8000/api/admin/cell/' + this.$route.params.id).then(function (response) {
+    this.axios.get('http://192.168.19.33:8000/api/admin/cell/' + this.$route.params.id).then(function (response) {
       _this.cell = response.data;
     });
   },
@@ -6462,7 +6474,7 @@ __webpack_require__.r(__webpack_exports__);
     updateCell: function updateCell() {
       var _this2 = this;
 
-      this.axios.put('http://127.0.0.1:8000/api/admin/cell/' + this.$route.params.id, this.cell).then(function (response) {
+      this.axios.put('http://192.168.19.33:8000/api/admin/cell/' + this.$route.params.id, this.cell).then(function (response) {
         Toast.fire({
           icon: 'success',
           title: 'Data Berhasil Tersimpan'
@@ -6674,7 +6686,7 @@ __webpack_require__.r(__webpack_exports__);
   created: function created() {
     var _this = this;
 
-    this.axios.get('http://127.0.0.1:8000/api/admin/setting/' + this.$route.params.id).then(function (response) {
+    this.axios.get(' http://127.0.0.1:8000/api/admin/setting/' + this.$route.params.id).then(function (response) {
       _this.Setting = response.data;
     });
   },
@@ -6682,7 +6694,7 @@ __webpack_require__.r(__webpack_exports__);
     updateSetting: function updateSetting() {
       var _this2 = this;
 
-      this.axios.put('http://127.0.0.1:8000/api/admin/setting/' + this.$route.params.id, this.Setting).then(function (response) {
+      this.axios.put(' http://127.0.0.1:8000/api/admin/setting/' + this.$route.params.id, this.Setting).then(function (response) {
         Toast.fire({
           icon: 'success',
           title: 'Data Berhasil Tersimpan'
@@ -6707,6 +6719,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 //
 //
 //
@@ -6747,37 +6761,79 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_defineProperty({
   data: function data() {
     return {
       BatteryUser: {},
-      token: localStorage.getItem('token')
+      dataSettings: [],
+      dataMonitoring: [],
+      dataNotifikasi: [],
+      token: localStorage.getItem("token")
     };
   },
   created: function created() {
     var _this = this;
 
-    this.axios.get('http://127.0.0.1:8000/api/admin/userdevice/').then(function (response) {
-      _this.BatteryUser = response.data;
+    this.axios.get("http://127.0.0.1:8000/api/admin/userdevice/").then(function (response) {
+      _this.BatteryUser = response.data; // console.log(this.BatteryUser)
     }).then(function () {
       $(".DataTable").DataTable();
     });
   },
-  mounted: function mounted() {
-    localStorage.setItem('token', response.data.data.Token);
-    localStorage.setItem('role', response.data.data.user.roles[0].name);
-
-    if (response.data.data.user.roles[0].role === "admin") {
-      window.location.href = "/admin-monitoring";
-    } else if (response.data.data.user.roles[0].role === "user") {
-      window.location.href = "/login";
-    } // window.axios.defaults.headers.common['Authorization'] = `Bearer ${this.token}`
+  mounted: function mounted() {// localStorage.setItem('token', response.data.data.Token)
+    //         localStorage.setItem('role', response.data.data.user.roles[0].name)
+    //         if (response.data.data.user.roles[0].role === "admin") {
+    //             window.location.href = "/admin-monitoring"
+    //         } else if (response.data.data.user.roles[0].role === "user") {
+    //             window.location.href = "/login"
+    //         }
+    // window.axios.defaults.headers.common['Authorization'] = `Bearer ${this.token}`
     // axios.get('http://127.0.0.1:8000/api/admin/user').then((response)=>{
     //     this.currentUser = response.data
     // }).catch((errors) => {
     //     console.log(errors)
     // })
-
   },
   methods: {
     deleteUserdevice: function deleteUserdevice(id) {
@@ -6793,7 +6849,7 @@ __webpack_require__.r(__webpack_exports__);
         confirmButtonText: "Hapus"
       }).then(function (result) {
         if (result.value) {
-          _this2.axios["delete"]('http://127.0.0.1:8000/api/admin/userdevice/' + id).then(function () {
+          _this2.axios["delete"]("http://127.0.0.1:8000/api/admin/userdevice/" + id).then(function () {
             Swal.fire("Terhapus", "Data sudah terhapus", "success");
 
             var i = _this2.BatteryUser.map(function (data) {
@@ -6806,9 +6862,78 @@ __webpack_require__.r(__webpack_exports__);
           });
         }
       });
+    },
+    fetchMonitor: function fetchMonitor() {
+      var _this3 = this;
+
+      //Fetch data montitor dengan interval
+      setInterval(function () {
+        _this3.axios.get("http://127.0.0.1:8000/api/admin/monitoring/").then(function (response) {
+          _this3.dataMonitoring = response.data;
+        })["catch"](function (err) {
+          alert(err);
+        });
+      }, 5000);
+    },
+    fetchSettings: function fetchSettings() {
+      var _this4 = this;
+
+      // Fetch data settings
+      this.axios.get("http://127.0.0.1:8000/api/admin/setting/").then(function (response) {
+        _this4.dataSettings = response.data;
+      })["catch"](function (err) {
+        alert(err);
+      });
+    },
+    check: function check() {
+      var _this5 = this;
+
+      setInterval(function () {
+        //Set Interval cek
+        _this5.dataNotifikasi = []; // reset data notifikasi tiap interval detik
+
+        _this5.dataSettings.forEach(function (obj) {
+          // Loop pengecekan tiap settings
+          _this5.dataMonitoring.map(function (a) {
+            // Map data monitoring
+            if (a.battery.setting_id === obj.id) {
+              // pengecekan ketika data bms setting dengan id setting
+              if (a.temp_1 > obj.temp_max) {
+                // cek ketika temp 1 over
+                _this5.dataNotifikasi.push( // push ke array dataNotifikasi
+                "Battery ".concat(a.battery.name, " Overheat (temp1)"));
+              }
+
+              if (a.temp_2 > obj.temp_max) {
+                // cek ketika temp 2 over
+                _this5.dataNotifikasi.push("Battery ".concat(a.battery.name, " Overheat (temp2)"));
+              }
+
+              if (a.temp_3 > obj.temp_max) {
+                // cek ketika temp 3 over
+                _this5.dataNotifikasi.push("Battery ".concat(a.battery.name, " Overheat (temp3)"));
+              }
+
+              if (a.tegangan_tot > obj.tegangan_max) {
+                // cek ketika tegangan over
+                _this5.dataNotifikasi.push("Battery ".concat(a.battery.name, " Over Volt"));
+              }
+
+              if (a.arus > obj.arus_max) {
+                // cek ketika temp arus over
+                _this5.dataNotifikasi.push("Battery ".concat(a.battery.name, " Over Arus"));
+              }
+            }
+          });
+        });
+      }, 5000); //interval 
     }
   }
-});
+}, "mounted", function mounted() {
+  this.fetchSettings();
+  this.fetchMonitor();
+  this.check();
+}));
 
 /***/ }),
 
@@ -6855,6 +6980,27 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
@@ -6870,7 +7016,7 @@ __webpack_require__.r(__webpack_exports__);
       chartOptions: {
         chart: {
           height: 340,
-          type: 'radialBar'
+          type: "radialBar"
         },
         plotOptions: {
           radialBar: {
@@ -6879,8 +7025,8 @@ __webpack_require__.r(__webpack_exports__);
             endAngle: 270,
             hollow: {
               margin: 5,
-              size: '30%',
-              background: 'transparent',
+              size: "30%",
+              background: "transparent",
               image: undefined
             },
             dataLabels: {
@@ -6893,15 +7039,15 @@ __webpack_require__.r(__webpack_exports__);
             }
           }
         },
-        colors: ['#1ab7ea', '#0084ff', '#39539E', '#0077B5'],
-        labels: ['Maks', 'T1', 'T2', 'T3', 'Min'],
+        colors: ["#1c3b11", "#32681d", "#54892d", "#699d38"],
+        labels: ["Batas Suhu Max", "Suhu1", "Suhu2", "Suhu3"],
         legend: {
           show: true,
           floating: true,
-          fontSize: '16px',
-          position: 'left',
+          fontSize: "12px",
+          position: "left",
           offsetX: 0,
-          offsetY: -10,
+          offsetY: -12,
           labels: {
             useSeriesColors: true
           },
@@ -6928,7 +7074,7 @@ __webpack_require__.r(__webpack_exports__);
       chartOptions2: {
         chart: {
           height: 340,
-          type: 'radialBar'
+          type: "radialBar"
         },
         plotOptions: {
           radialBar: {
@@ -6937,8 +7083,8 @@ __webpack_require__.r(__webpack_exports__);
             endAngle: 270,
             hollow: {
               margin: 5,
-              size: '30%',
-              background: 'transparent',
+              size: "30%",
+              background: "transparent",
               image: undefined
             },
             dataLabels: {
@@ -6951,15 +7097,15 @@ __webpack_require__.r(__webpack_exports__);
             }
           }
         },
-        colors: ['#1ab7ea', '#39539E', '#0077B5'],
-        labels: ['Maks', 'VTotal', 'Min'],
+        colors: ["#1c3b11", "#32681d", "#54892d"],
+        labels: ["V Batas Max", "V Output BMS", "V Min"],
         legend: {
           show: true,
           floating: true,
-          fontSize: '16px',
-          position: 'left',
+          fontSize: "12px",
+          position: "left",
           offsetX: 0,
-          offsetY: -10,
+          offsetY: 10,
           labels: {
             useSeriesColors: true
           },
@@ -6986,7 +7132,7 @@ __webpack_require__.r(__webpack_exports__);
       chartOptions3: {
         chart: {
           height: 340,
-          type: 'radialBar'
+          type: "radialBar"
         },
         plotOptions: {
           radialBar: {
@@ -6995,8 +7141,8 @@ __webpack_require__.r(__webpack_exports__);
             endAngle: 270,
             hollow: {
               margin: 5,
-              size: '30%',
-              background: 'transparent',
+              size: "30%",
+              background: "transparent",
               image: undefined
             },
             dataLabels: {
@@ -7009,15 +7155,15 @@ __webpack_require__.r(__webpack_exports__);
             }
           }
         },
-        colors: ['#1ab7ea', '#0084ff', '#0077B5'],
-        labels: ['Maks', 'Arus', 'Min'],
+        colors: ["#1c3b11", "#32681d"],
+        labels: ["I Batas Max", "I Output"],
         legend: {
           show: true,
           floating: true,
-          fontSize: '16px',
-          position: 'left',
+          fontSize: "12px",
+          position: "left",
           offsetX: 0,
-          offsetY: -10,
+          offsetY: 23,
           labels: {
             useSeriesColors: true
           },
@@ -7043,25 +7189,28 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   components: {
-    'apexchart': (vue_apexcharts__WEBPACK_IMPORTED_MODULE_0___default())
+    apexchart: (vue_apexcharts__WEBPACK_IMPORTED_MODULE_0___default())
   },
   created: function created() {},
   mounted: function mounted() {
     var _this = this;
 
-    // setInterval(() => {
-    this.axios.get('http://127.0.0.1:8000/api/admin/monitoring/').then(function (response) {
+    console.log(this.$route.params.id); // setInterval(() => {
+
+    this.axios.get("http://127.0.0.1:8000/api/admin/monitoring/" + this.$route.params.id).then(function (response) {
       _this.Monitoring = response.data;
+      console.log(_this.Monitoring);
     }).then(function () {
       $(".DataTable").DataTable();
     });
-    this.axios.get('http://127.0.0.1:8000/api/admin/setting/').then(function (response) {
-      _this.dataSetting = response.data;
+    this.axios.get("http://127.0.0.1:8000/api/admin/setting/").then(function (response) {
+      _this.dataSetting = response.data; // const lastData = this.Monitoring.slice(-1)[0];
 
-      var lastData = _this.Monitoring.slice(-1)[0];
+      var lastData = _this.Monitoring;
+      console.log(lastData);
 
       _this.dataSetting.map(function (a) {
-        if (a.id === lastData.battery_id) {
+        if (a.id === lastData.battery.setting_id) {
           _this.dataSettingMatch = a;
         }
       }); // console.log(this.dataSettingMatch);
@@ -7074,9 +7223,9 @@ __webpack_require__.r(__webpack_exports__);
 
       _this.series.push(lastData.temp_2);
 
-      _this.series.push(lastData.temp_3);
+      _this.series.push(lastData.temp_3); // console.log(this.series)
+      //this.series.push(this.dataSettingMatch.temp_min);
 
-      _this.series.push(_this.dataSettingMatch.temp_min);
 
       _this.seriestegangan.push(_this.dataSettingMatch.tegangan_max);
 
@@ -7086,9 +7235,8 @@ __webpack_require__.r(__webpack_exports__);
 
       _this.seriesarus.push(_this.dataSettingMatch.arus_max);
 
-      _this.seriesarus.push(lastData.arus);
+      _this.seriesarus.push(lastData.arus); //this.seriesarus.push(this.dataSettingMatch.arus_min);
 
-      _this.seriesarus.push(_this.dataSettingMatch.arus_min);
     }).then(function () {
       $(".DataTable").DataTable();
     }); // }, 1000)
@@ -7097,7 +7245,7 @@ __webpack_require__.r(__webpack_exports__);
     deleteSetting: function deleteSetting(id) {
       var _this2 = this;
 
-      this.axios["delete"]('http://127.0.0.1:8000/api/admin/monitoring/' + id).then(function (response) {
+      this.axios["delete"]("http://127.0.0.1:8000/api/admin/monitoring/" + id).then(function (response) {
         var i = _this2.Monitoring.map(function (data) {
           return data.id;
         }).indexOf(id);
@@ -7571,7 +7719,12 @@ __webpack_require__.r(__webpack_exports__);
     this.axios.get('http://127.0.0.1:8000/api/admin/user').then(function (response) {
       _this.User = response.data;
     }).then(function () {
-      $(".DataTable").DataTable();
+      $(".DataTable").DataTable({
+        dom: 'Bfrtip',
+        // lengthChange: false,
+        buttons: ['excel']
+      }); // table.buttons().container()
+      // .appendTo( '#example_wrapper .col-md-6:eq(0)' );
     });
   },
   methods: {
@@ -7852,7 +8005,12 @@ __webpack_require__.r(__webpack_exports__);
     this.axios.get('http://127.0.0.1:8000/api/admin/userdevice/').then(function (response) {
       _this.BatteryUser = response.data;
     }).then(function () {
-      $(".DataTable").DataTable();
+      $(".DataTable").DataTable({
+        dom: 'Bfrtip',
+        //lengthChange: false,
+        buttons: ['excel', 'copy', 'pdf']
+      }); // table.buttons().container()
+      // .appendTo( '#example_wrapper .col-md-6:eq(0)' );
     });
   },
   methods: {
@@ -8063,7 +8221,9 @@ vue__WEBPACK_IMPORTED_MODULE_0__["default"].component('ValidationProvider', vee_
 
 vue__WEBPACK_IMPORTED_MODULE_0__["default"].use(vue_router__WEBPACK_IMPORTED_MODULE_6__["default"]);
 vue__WEBPACK_IMPORTED_MODULE_0__["default"].use(vue_axios__WEBPACK_IMPORTED_MODULE_4__["default"], (axios__WEBPACK_IMPORTED_MODULE_5___default()));
-vue__WEBPACK_IMPORTED_MODULE_0__["default"].use(vuex__WEBPACK_IMPORTED_MODULE_7__["default"]); //LOGIN FUNCTION
+vue__WEBPACK_IMPORTED_MODULE_0__["default"].use(vuex__WEBPACK_IMPORTED_MODULE_7__["default"]); //BASE URL
+// Axios.defaults.baseURL = "http://192.168.19.33:80/api/";
+//LOGIN FUNCTION
 // function loggedIn()
 // {
 //   return localStorage.getItem('token')
@@ -8185,7 +8345,7 @@ var routes = [//   {
     auth: false
   }
 }, {
-  path: '/halaman-detail',
+  path: '/halaman-detail/:id',
   name: 'halaman-detail',
   component: (__webpack_require__(/*! ./components/monitoring/Detail.vue */ "./resources/js/components/monitoring/Detail.vue")["default"]),
   meta: {
@@ -55541,7 +55701,43 @@ var render = function () {
   return _c("div", { staticClass: "container" }, [
     _c("div", { staticClass: "row justify-content-center" }, [
       _c("div", { staticClass: "card" }, [
-        _vm._m(0),
+        _c("div", { staticClass: "card-header" }, [
+          _c("div", { staticClass: "row mt-1" }, [
+            _vm._m(0),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-md-1" }, [
+              _c("div", { staticClass: "dropdown float-right" }, [
+                _vm._m(1),
+                _vm._v(" "),
+                _c(
+                  "ul",
+                  {
+                    staticClass: "dropdown-menu",
+                    attrs: { "aria-labelledby": "dropdownMenuLink" },
+                  },
+                  [
+                    _vm.dataNotifikasi.length < 1
+                      ? _c("li", { staticClass: "dropdown-item" }, [
+                          _vm._v(
+                            "\n                  Tidak ada Notifikasi\n                "
+                          ),
+                        ])
+                      : _vm._e(),
+                    _vm._v(" "),
+                    _vm._l(_vm.dataNotifikasi, function (data) {
+                      return _c("li", { key: data.id }, [
+                        _c("span", { staticClass: "dropdown-item" }, [
+                          _vm._v(_vm._s(data)),
+                        ]),
+                      ])
+                    }),
+                  ],
+                  2
+                ),
+              ]),
+            ]),
+          ]),
+        ]),
         _vm._v(" "),
         _c("div", { staticClass: "card-body" }, [
           _c("div", { staticClass: "table-responsive" }, [
@@ -55552,7 +55748,7 @@ var render = function () {
                 attrs: { id: "example1" },
               },
               [
-                _vm._m(1),
+                _vm._m(2),
                 _vm._v(" "),
                 _c(
                   "tbody",
@@ -55571,7 +55767,9 @@ var render = function () {
                             "router-link",
                             {
                               staticClass: "btn btn-sm btn-primary",
-                              attrs: { to: "halaman-detail" },
+                              attrs: {
+                                to: "/halaman-detail/" + BatteryUser.battery_id,
+                              },
                             },
                             [
                               _c("i", {
@@ -55612,9 +55810,27 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "card-header" }, [
+    return _c("div", { staticClass: "col-md-11" }, [
       _c("h5", [_vm._v("Monitoring BMS - Admin")]),
     ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "a",
+      {
+        attrs: {
+          href: "#",
+          role: "button",
+          id: "dropdownMenuLink",
+          "data-bs-toggle": "dropdown",
+          "aria-expanded": "false",
+        },
+      },
+      [_c("i", { staticClass: "fa-solid fa-bell" })]
+    )
   },
   function () {
     var _vm = this
@@ -55669,9 +55885,9 @@ var render = function () {
               {
                 staticClass: "btn btn-success",
                 staticStyle: { "background-color": "#1c3b10" },
-                attrs: { to: "admin-monitoring", type: "button" },
+                attrs: { to: "/admin-monitoring" },
               },
-              [_vm._v("\n                    Kembali")]
+              [_vm._v("\n          Kembali")]
             ),
             _vm._v(" "),
             _c("br"),
@@ -55684,7 +55900,7 @@ var render = function () {
                   { staticClass: "col-md-4" },
                   [
                     _c("div", { staticClass: "text-center" }, [
-                      _vm._v("Chart Suhu"),
+                      _vm._v("Grafik Suhu BMS (Celcius)"),
                     ]),
                     _vm._v(" "),
                     _c("apexchart", {
@@ -55704,7 +55920,7 @@ var render = function () {
                   { staticClass: "col-md-4" },
                   [
                     _c("div", { staticClass: "text-center" }, [
-                      _vm._v("Chart Tegangan"),
+                      _vm._v("Grafik Tegangan BMS (Volt)"),
                     ]),
                     _vm._v(" "),
                     _c("apexchart", {
@@ -55724,7 +55940,7 @@ var render = function () {
                   { staticClass: "col-md-4" },
                   [
                     _c("div", { staticClass: "text-center" }, [
-                      _vm._v("Chart Arus"),
+                      _vm._v("Grafik Arus BMS (Ampere)"),
                     ]),
                     _vm._v(" "),
                     _c("apexchart", {
@@ -55753,7 +55969,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "card-header" }, [
-      _c("h5", [_vm._v("Detail Monitoring")]),
+      _c("h1", [_vm._v("Detail Monitoring")]),
     ])
   },
 ]

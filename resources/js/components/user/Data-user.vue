@@ -56,7 +56,15 @@ export default {
             this.User = response.data;
         })
         .then(function (){
-            $(".DataTable").DataTable();
+            $(".DataTable").DataTable({
+                dom: 'Bfrtip',
+                // lengthChange: false,
+                buttons: [
+                    'excel'
+                ]
+            });
+            // table.buttons().container()
+            // .appendTo( '#example_wrapper .col-md-6:eq(0)' );
         });
     },
     methods: {

@@ -45,7 +45,7 @@ export default {
             BatteryUser: {},
             Battery: {},
             User: {}
-        }
+    }
     },
     methods: {
         tambahUserdevice(){

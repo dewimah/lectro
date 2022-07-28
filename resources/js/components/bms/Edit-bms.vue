@@ -61,7 +61,7 @@ export default {
     },
     created(){
         this.axios
-            .get('http://127.0.0.1:8000/api/admin/battery/' + this.$route.params.id)
+            .get('http://192.168.19.33:8000/api/admin/battery/' + this.$route.params.id)
             .then ((response) => {
                 this.Battery = response.data;
             }),
@@ -71,7 +71,7 @@ export default {
     methods: {
         updateBms(){
             this.axios
-                .put('http://127.0.0.1:8000/api/admin/battery/' + this.$route.params.id, this.Battery)
+                .put('http://192.168.19.33:8000/api/admin/battery/' + this.$route.params.id, this.Battery)
                 .then((response) => {
                     Toast.fire({
                         icon: 'success',
@@ -82,12 +82,12 @@ export default {
         },
         loadDataCell(){
             this.axios
-                .get('http://127.0.0.1:8000/api/admin/cell/')
+                .get('http://192.168.19.33:8000/api/admin/cell/')
                 .then(({data}) => {this.cell = data});
         },
         loadDataSetting(){
             this.axios
-                .get('http://127.0.0.1:8000/api/admin/setting/')
+                .get('http://192.168.19.33:8000/api/admin/setting/')
                 .then(({data}) => {this.Setting = data});
         }
     },

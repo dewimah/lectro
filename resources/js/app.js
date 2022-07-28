@@ -49,11 +49,14 @@ require('./bootstrap');
   import VueRouter from 'vue-router'
   import VueAxios from 'vue-axios';
   import Vuex from 'vuex'
-  import axios from 'axios';
+  import axios, { Axios } from 'axios';
   Vue.use(VueRouter)
   Vue.use(VueAxios, axios)
-  
   Vue.use(Vuex)
+
+  //BASE URL
+  // Axios.defaults.baseURL = "http://192.168.19.33:80/api/";
+  
   
   //LOGIN FUNCTION
   // function loggedIn()
@@ -193,7 +196,7 @@ require('./bootstrap');
         }
       },
       {
-        path: '/halaman-detail',
+        path: '/halaman-detail/:id',
         name: 'halaman-detail',
         component:require('./components/monitoring/Detail.vue').default,
         meta: {
@@ -233,6 +236,7 @@ require('./bootstrap');
       mode: 'history',
       history: true
   });
+
 
   // router.beforeEach((to, from, next) => {
   //   const isAuthenticated = JSON.parse(localStorage.getItem("token"));

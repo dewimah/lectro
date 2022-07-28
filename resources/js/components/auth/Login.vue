@@ -84,7 +84,7 @@ export default {
                 } else if (response.data.data.user.roles[0].name === "user") {
                     window.location.href = "/user-monitoring"
                 }
-                // console.log(response)
+                //console.log(response)
                 // this.$router.push({ name: "admin-monitoring"});
             }).catch((errors) => {
                 this.errors = errors.response.data.errors;
