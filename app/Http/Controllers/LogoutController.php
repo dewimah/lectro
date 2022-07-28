@@ -29,9 +29,8 @@ class LogoutController extends Controller
             // $request->user()->currentAccessToken()->delete();
             // $user->tokens()->delete();
             // Auth::logout();
- 
+
             $request->session()->invalidate();
-        
             $request->session()->regenerateToken();
         }
         // $user = auth()->user();
@@ -40,4 +39,11 @@ class LogoutController extends Controller
 
         // return ResponseFormatter::success(null, 'Token Revoked',200);
     }
+    /*$token = request()->user()->currentAccessToken()->delete();
+
+        return ResponseFormatter::success(
+            $token,
+            'Token Revoked'
+        );
+}*/
 }

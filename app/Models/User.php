@@ -54,29 +54,4 @@ class User extends Authenticatable
     public function batteries(){
         return $this->belongsToMany(Battery::class,'battery_user','user_id','battery_id');
     }
-
-  /*  public function hasRole($roles)
-    {
-        $this->have_role = $this->getUserRole();
-
-        if(is_array($roles)){
-            foreach($roles as $need_role){
-                if($this->cekUserRole($need_role)) {
-                    return true;
-                }
-            }
-        } else{
-            return $this->cekUserRole($roles);
-        }
-        return false;
-    }
-    private function getUserRole()
-    {
-       return $this->role()->getResults();
-    }
-
-    private function cekUserRole($role)
-    {
-        return (strtolower($role)==strtolower($this->have_role->nama)) ? true : false;
-    }*/
 }

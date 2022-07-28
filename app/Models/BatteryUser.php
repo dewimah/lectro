@@ -16,16 +16,12 @@ class BatteryUser extends Model
         'user_id',
         'battery_id',
         'is_active',
-       // 'token_device',
     ];
     protected $hidden = [
         'password',
         'remember_token',
     ];
 
-    public function monitoring(){
-      //return $this->belongsTo(Monitoring::class);
-    }
     public function battery(){
         return $this->belongsTo(Battery::class);
      }

@@ -26,25 +26,17 @@ class Monitoring extends Model
         'soh',
     ];
 
-    /*public function setting(){
-        return $this->hasOne(Setting::class);
-    }*/
-
     public function erorrs(){
-    return $this->hasMany(Erorrs::class);
+        return $this->hasMany(Erorrs::class);
     }
 
     //hasmany
     public function battery(){
-        //return $this->hasOne(Battery::class);
         return $this->belongsTo(Battery::class);
     }
 
     public function batteryuser(){
         return $this->hasOne(BatteryUser::class);
     }
-    /*public function batteryuser(){
-        return $this->hasOne(BatteryUser::class);
-    }*/
 }
 
