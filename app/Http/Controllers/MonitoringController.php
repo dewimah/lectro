@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Monitoring;
 use App\Helpers\ResponseFormatter;
+use DB;
 
 class MonitoringController extends Controller
 {
@@ -14,7 +15,25 @@ class MonitoringController extends Controller
     }
 
     public function all(){
-        return Monitoring::with(['battery'])->get();
+        //return Monitoring::with(['battery'])->get();
+        return DB::table('monitorings')
+        ->join('batteries','monitorings.battery_id','=','batteries.id')
+        ->join('settings','batteries.setting_id', '=', 'settings.id')
+        ->join('cells','batteries.cell_id', '=', 'cells.id')
+        ->select(
+            'battery_id',
+            'setting_id',
+            'batteries.name as namabattery',
+            'cellbaterai',
+            'settings.name as namasetting',
+            'temp_min',
+            'temp_max',
+            'arus_min',
+            'arus_max',
+            'tegangan_min',
+            'tegangan_max'
+        )
+        ->get();
     }
 
     public function show ($id){
