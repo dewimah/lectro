@@ -27,14 +27,14 @@ Route::post('/login', [AuthController::class, 'login'])->name('login');
 //Route User
 Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('/logout', 'App\Http\Controllers\LogoutController@logout')->name('logout');
-    Route::get('monitoring','App\Http\Controllers\MonitoringController@all');
-    Route::post('input','App\Http\Controllers\MonitoringController@datamasuk');
+    Route::get('/monitoring','App\Http\Controllers\MonitoringController@all');
+    Route::post('/input','App\Http\Controllers\MonitoringController@datamasuk');
     Route::get('/setting','App\Http\Controllers\SettingController@all');
         Route::middleware('is.admin')->group( function(){
         //Route::prefix('/admin')->group( function(){
             Route::get('/admin', 'App\Http\Controllers\UserController@showCurrentUser');
             //User
-            Route::get('/user', [UserController::class, 'all'])->name('all');
+            Route::get('/dewi','App\Http\Controllers\UserController@ambil');
             Route::get('/user/{id}', 'App\Http\Controllers\UserController@show');
             Route::post('/user','App\Http\Controllers\UserController@store');
             Route::put('/user/{id}', 'App\Http\Controllers\UserController@update');
@@ -72,16 +72,18 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
             Route::delete('/userdevice/{id}', 'App\Http\Controllers\UserDeviceController@delete');
             Route::get('/lagi', 'App\Http\Controllers\UserDeviceController@getdata');
             //monitorings
-            Route::get('monitoring','App\Http\Controllers\MonitoringController@all');
+           // Route::get('monitoring','App\Http\Controllers\MonitoringController@all');
             Route::get('monitoring/{id}','App\Http\Controllers\MonitoringController@show');
             //Route::post('monitoring','App\Http\Controllers\MonitoringController@store');
-            Route::post('input','App\Http\Controllers\MonitoringController@datamasuk');
+            //Route::post('input','App\Http\Controllers\MonitoringController@datamasuk');
             Route::put('monitoring/{id}','App\Http\Controllers\MonitoringController@update');
             Route::delete('monitoring/{id}','App\Http\Controllers\MonitoringController@delete');
         });
         Route::middleware('is.user')->group( function(){
             Route::get('/user', 'App\Http\Controllers\UserController@showCurrentUser');
         //Route::prefix('/user')->group( function(){
-
+            //Route::get('/monitoring','App\Http\Controllers\MonitoringController@all');
+            //Route::post('/input','App\Http\Controllers\MonitoringController@datamasuk');
+            //Route::get('/setting','App\Http\Controllers\SettingController@all');
        });
 });

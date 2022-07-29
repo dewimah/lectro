@@ -53,40 +53,91 @@ class BatteryController extends Controller
 
     //mengambil semua data
     public function all(){
-        return Battery::with(['cell','setting'])->get();
+        $user=request()->user();
+        if(!$user->hasRole('admin'))
+        {
+            return ResponseFormatter:: error(null, 'Anda Tidak Punya Kewenangan', 403);
+        }
+        $battery=Battery::with(['cell','setting'])->get();
+        return ResponseFormatter::success($battery, 'Data Didapatkan');
+        //return Battery::with(['cell','setting'])->get();
     }
 
     //mengambil data by id
     public function show ($id){
-        return Battery::find($id);
+        $user=request()->user();
+        if(!$user->hasRole('admin'))
+        {
+            return ResponseFormatter:: error(null, 'Anda Tidak Punya Kewenangan', 403);
+        }
+        $battery=Battery::find($id);
+        if(!$battery){
+            return ResponseFormatter:: error(null, 'Data Tidak Ada', 403);
+        }
+        return ResponseFormatter::success($battery, 'Data Didapatkan');
+        //return Battery::find($id);
     }
 
     //menambah data
     public function store(Request $request){
+        $user=request()->user();
+        if(!$user->hasRole('admin'))
+        {
+            return ResponseFormatter:: error(null, 'Anda Tidak Punya Kewenangan', 403);
+        }
         $battery = Battery::create($request->all());
         return ResponseFormatter::success($battery,'Data Battery Berhasil di Tambahkan',201);
     }
 
     //mengubah data
     public function update( Request $request, $id){
+        $user=request()->user();
+        if(!$user->hasRole('admin'))
+        {
+            return ResponseFormatter:: error(null, 'Anda Tidak Punya Kewenangan', 403);
+        }
         $battery = Battery::find($id);
+        $battery->update($request->all());
+        //return ResponseFormatter::success($cell,'Jumlah Cell Berhasil di Tambahkan',201);
+        /*$cell = cell::find($id);
+        $cell->update($request->all());*/
+        //return $request->all();
+        return ResponseFormatter::success(
+            'Success Edit',
+            Battery::find($id),
+            200
+        );
+        /*$battery = Battery::find($id);
         $battery->update($request->all());
          //return $request->all();
         return ResponseFormatter::success(
             'Success Edit',
             Battery::find($id),
             200
-        );
+        );*/
     }
 
     //menghapus data
     public function delete($id){
-        $battery=Battery::find($id);
+        $user=request()->user();
+        if(!$user->hasRole('admin'))
+        {
+            return ResponseFormatter:: error(null, 'Anda Tidak Punya Kewenangan', 403);
+        }
+        $battery = Battery::find($id);
+        $battery->delete();
+        /*$battery=cell::find($id);
+        $battery->delete();*/
+        return ResponseFormatter::success(
+            'Data Berhasil Di Hapus',
+            200
+        );
+        /* $battery=Battery::find($id);
         $battery->delete();
 
         return ResponseFormatter::success(
             'Data Berhasil Di Hapus',
             200
-        );
+        );*/
     }
 }
