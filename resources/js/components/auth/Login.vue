@@ -75,7 +75,7 @@ export default {
 
     methods: {
         login(){
-            axios.post('http://127.0.0.1:8000/api/login/', this.User).then((response) =>{
+            axios.post(process.env.MIX_API_KEY+'login/', this.User).then((response) =>{
                 console.log(response)
                 localStorage.setItem('token', response.data.data.Token)
                 localStorage.setItem('role', response.data.data.user.roles[0].name)

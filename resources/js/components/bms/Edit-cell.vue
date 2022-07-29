@@ -31,16 +31,16 @@ export default {
 
     created() {
         this.axios
-             .get('http://192.168.19.33:8000/api/admin/cell/' + this.$route.params.id)
+             .get(process.env.MIX_API_KEY+'cell/' + this.$route.params.id)
              .then((response) => {
-                this.cell = response.data;
+                this.cell = response.data.data;
             })
     },
 
     methods: {
         updateCell(){
             this.axios
-                .put('http://192.168.19.33:8000/api/admin/cell/' + this.$route.params.id, this.cell)
+                .put(process.env.MIX_API_KEY+'cell/' + this.$route.params.id, this.cell)
                 .then((response) => {
                     Toast.fire({
                         icon: 'success',

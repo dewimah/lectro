@@ -8841,14 +8841,13 @@ body,
   border-bottom: 1px solid #dee2e6;
 }
 
-.brand-image {
-  float: left;
+.brand-image { 
   line-height: .8;
-  max-height: 34px;
+  max-height: 47px;
   width: auto;
   margin-left: .8rem;
   margin-right: .5rem;
-  margin-top: -3px;
+  margin-bottom: 3px;
 }
 
 /**

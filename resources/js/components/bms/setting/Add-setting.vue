@@ -8,6 +8,14 @@
     <form @submit.prevent="handleSubmit(tambahSetting)">
         <div class="card-body">
             <div class="form-group">
+                <label for="name">Nama Setting</label>
+                <ValidationProvider name="name" rules="required" v-slot="{ errors }">
+                <input type="text" class="form-control" v-model="Setting.name">
+                <span class="invalid-feedback d-block">{{ errors[0] }}</span>
+                </ValidationProvider>
+            </div>
+
+            <div class="form-group">
                 <label for="temp_min">Suhu Mininum</label>
                 <ValidationProvider name="temp_min" rules="batasmin" v-slot="{ errors }">
                 <input type="number" class="form-control" v-model="Setting.temp_min">
@@ -56,7 +64,7 @@
         </div>
 
         <div class="card-footer">
-            <router-link to="halaman-detail" class="btn btn-danger" type="button">Cancel</router-link>
+            <router-link to="/data-bms" class="btn btn-danger" type="button">Cancel</router-link>
             <button type="submit" class="btn btn-success" style="background-color:#1c3b10">Simpan</button>
         </div>
     </form>
@@ -74,7 +82,7 @@ export default {
     methods: {
         tambahSetting(){
             this.axios
-                .post('http://127.0.0.1:8000/api/admin/setting/', this.Setting)
+                .post(process.env.MIX_API_KEY+'setting/', this.Setting)
                 .then(response => (
                     Toast.fire({
                         icon: 'success',

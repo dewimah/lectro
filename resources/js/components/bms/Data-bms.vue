@@ -75,6 +75,7 @@
             >
               <thead>
                 <tr>
+                  <th>Setting</th>
                   <th>Suhu Min</th>
                   <th>Suhu Max</th>
                   <th>V Min</th>
@@ -86,13 +87,14 @@
               </thead>
 
               <tbody>
-                <tr v-for="(Setting) in Setting" :key="Setting.id">
-                  <td>{{ Setting.temp_min }} C </td>
-                  <td>{{ Setting.temp_max }} C </td>
-                  <td>{{ Setting.tegangan_min }} V </td>
-                  <td>{{ Setting.tegangan_max }} V </td>
-                  <td>{{ Setting.arus_min }} A </td>
-                  <td>{{ Setting.arus_max }} A </td>
+                <tr v-for="Setting in Setting" :key="Setting.id">
+                  <td>{{ Setting.name }}</td>
+                  <td>{{ Setting.temp_min }} C</td>
+                  <td>{{ Setting.temp_max }} C</td>
+                  <td>{{ Setting.tegangan_min }} V</td>
+                  <td>{{ Setting.tegangan_max }} V</td>
+                  <td>{{ Setting.arus_min }} A</td>
+                  <td>{{ Setting.arus_max }} A</td>
                   <td>
                     <router-link
                       :to="{ name: 'edit-setting', params: { id: Setting.id } }"
@@ -155,7 +157,7 @@
               </thead>
 
               <tbody>
-                <tr v-for="(Battery) in Battery" :key="Battery.id">
+                <tr v-for="Battery in Battery" :key="Battery.id">
                   <td>{{ Battery.name }}</td>
                   <td>{{ Battery.cell.cellbaterai }}</td>
                   <td>{{ Battery.tipe }}</td>
@@ -198,175 +200,186 @@ export default {
       cell: {},
       Setting: {},
       // getDataPosts,
-      token: localStorage.getItem('token')
+      token: localStorage.getItem("token"),
     };
   },
 
   created() {
     this.axios
-      .get("http://127.0.0.1:8000/api/admin/battery/")
+      .get(process.env.MIX_API_KEY + "battery/")
       .then((response) => {
-        console.log(response);
+        // console.log(response);
         this.Battery = response.data;
       })
       .then(function () {
         $(".DataTable2").DataTable({
-          dom: 'Bfrtip',
-                // lengthChange: false,
-                buttons: [
-                    'excel'
-                ]
+          dom: "Bfrtip",
+          // lengthChange: false,
+          buttons: ["excel", "pdf"],
         });
       });
     this.axios
-      .get("http://127.0.0.1:8000/api/admin/cell/")
+      .get(process.env.MIX_API_KEY + "cell/")
       .then((response) => {
-        this.cell = response.data;
+        this.cell = response.data.data;
+        // console.log(response.data)
+        // console.log(response.data.data)
       })
       .then(function () {
         $(".DataTable1").DataTable({
-          dom: 'Bfrtip',
-                // lengthChange: false,
-                buttons: [
-                    'excel'
-                ]
+          dom: "Bfrtip",
+          // lengthChange: false,
+          buttons: ["excel", "pdf"],
         });
       });
     this.axios
-      .get("http://127.0.0.1:8000/api/admin/setting/")
+      .get(process.env.MIX_API_KEY + "setting/")
       .then((response) => {
+        // console.log(response.data)
         this.Setting = response.data;
       })
       .then(function () {
         $(".DataTable3").DataTable({
-          dom: 'Bfrtip',
-                // lengthChange: false,
-                buttons: [
-                    'excel'
-                ]
+          dom: "Bfrtip",
+          // lengthChange: false,
+          buttons: ["excel", "pdf"],
         });
       });
   },
 
   methods: {
     deleteBms(id) {
-            Swal.fire({
-                title: "Anda yakin ingin menghapus data ini?",
-                text: "Klik batal untuk membatalkan hapus data",
-                icon: "warning",
-                showCancelButton: true,
-                confirmButtonColor: "#3085d6",
-                cancelButtonColor: "#ddd",
-                confirmButtonText: "Hapus"
-            }).then(result => {
-                if (result.value) {
-                    this.axios
-                        .delete('http://127.0.0.1:8000/api/admin/battery/' + id)
-                        .then(()=> {
-                            Swal.fire(
-                                "Terhapus",
-                                "Data sudah terhapus",
-                                "success"
-                            );
-                            let i = this.Battery.map(data => data.id).indexOf(id);
-                            this.Battery.splice(i,1)
-                        })
-                        .catch(() => {
-                            Swal.fire (
-                                "Gagal",
-                                "Data gagal terhapus",
-                                "warning"
-                            );
-                        });
-                }
+      Swal.fire({
+        title: "Anda yakin ingin menghapus data ini?",
+        text: "Klik batal untuk membatalkan hapus data",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#ddd",
+        confirmButtonText: "Hapus",
+      }).then((result) => {
+        if (result.value) {
+          this.axios
+            .delete(process.env.MIX_API_KEY + "battery/" + id)
+            .then(() => {
+              Swal.fire("Terhapus", "Data sudah terhapus", "success");
+              let i = this.Battery.map((data) => data.id).indexOf(id);
+              this.Battery.splice(i, 1);
+            })
+            .catch(() => {
+              Swal.fire("Gagal", "Data gagal terhapus", "warning");
             });
+        }
+      });
     },
 
     tambahCell() {
       this.axios
-        .post("http://127.0.0.1:8000/api/admin/cell/", this.cell)
+        .post(process.env.MIX_API_KEY + "cell/", this.cell)
         .then((response) => this.$router.push({ name: "data-bms" }))
         .catch((err) => console.log(err))
         .finally(() => (this.loading = false));
     },
 
     deleteSetting(id) {
-            Swal.fire({
-                title: "Anda yakin ingin menghapus data ini?",
-                text: "Klik batal untuk membatalkan hapus data",
-                icon: "warning",
-                showCancelButton: true,
-                confirmButtonColor: "#3085d6",
-                cancelButtonColor: "#ddd",
-                confirmButtonText: "Hapus"
-            }).then(result => {
-                if (result.value) {
-                    this.axios
-                        .delete('http://127.0.0.1:8000/api/admin/setting/' + id)
-                        .then(()=> {
-                            Swal.fire(
-                                "Terhapus",
-                                "Data sudah terhapus",
-                                "success"
-                            );
-                            let i = this.Setting.map(data => data.id).indexOf(id);
-                            this.Setting.splice(i,1)
-                        })
-                        .catch(() => {
-                            Swal.fire (
-                                "Gagal",
-                                "Data gagal terhapus",
-                                "warning"
-                            );
-                        });
-                }
+      Swal.fire({
+        title: "Anda yakin ingin menghapus data ini?",
+        text: "Klik batal untuk membatalkan hapus data",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#ddd",
+        confirmButtonText: "Hapus",
+      }).then((result) => {
+        if (result.value) {
+          this.axios
+            .delete(process.env.MIX_API_KEY+"setting/"+id)
+            .then(() => {
+              Swal.fire("Terhapus", "Data sudah terhapus", "success");
+              let i = this.Setting.map((data) => data.id).indexOf(id);
+              this.Setting.splice(i, 1);
+            })
+            .catch(() => {
+              Swal.fire("Gagal", "Data gagal terhapus", "warning");
             });
+        }
+      });
     },
     deleteCell(id) {
-            Swal.fire({
-                title: "Anda yakin ingin menghapus data ini?",
-                text: "Klik batal untuk membatalkan hapus data",
-                icon: "warning",
-                showCancelButton: true,
-                confirmButtonColor: "#3085d6",
-                cancelButtonColor: "#ddd",
-                confirmButtonText: "Hapus"
-            }).then(result => {
-                if (result.value) {
-                    this.axios
-                        .delete('http://127.0.0.1:8000/api/admin/cell/' + id)
-                        .then(()=> {
-                            Swal.fire(
-                                "Terhapus",
-                                "Data sudah terhapus",
-                                "success"
-                            );
-                            let i = this.cell.map(data => data.id).indexOf(id);
-                            this.cell.splice(i,1)
-                        })
-                        .catch(() => {
-                            Swal.fire (
-                                "Gagal",
-                                "Data gagal terhapus",
-                                "warning"
-                            );
-                        });
-                }
+      Swal.fire({
+        title: "Anda yakin ingin menghapus data ini?",
+        text: "Klik batal untuk membatalkan hapus data",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#ddd",
+        confirmButtonText: "Hapus",
+      }).then((result) => {
+        if (result.value) {
+          this.axios
+            .delete(process.env.MIX_API_KEY + "cell/" + id)
+            .then(() => {
+              Swal.fire("Terhapus", "Data sudah terhapus", "success");
+              let i = this.cell.map((data) => data.id).indexOf(id);
+              this.cell.splice(i, 1);
+            })
+            .catch(() => {
+              Swal.fire("Gagal", "Data gagal terhapus", "warning");
             });
+        }
+      });
     },
   },
-  mounted(){
+  mounted() {
+    // console.log(process.env.MIX_API_KEY)
     //window.axios.defaults.headers.common['Authorization'] = 'Bearer $(this.token)'
-    localStorage.setItem('token', response.data.data.Token)
-                localStorage.setItem('role', response.data.data.user.roles[0].name)
-                if (response.data.data.user.roles[0].role === "admin") {
-                    window.location.href = "/admin-monitoring"
-                } else if (response.data.data.user.roles[0].role === "user") {
-                    window.location.href = "/login"
-                }
+    localStorage.setItem("token", response.data.data.Token);
+    localStorage.setItem("role", response.data.data.user.roles[0].name);
+    if (response.data.data.user.roles[0].role === "admin") {
+      window.location.href = "/admin-monitoring";
+    } else if (response.data.data.user.roles[0].role === "user") {
+      window.location.href = "/login";
+    }
   },
 };
 </script>
+
+<style>
+.buttons-excel {
+  display: inline-block;
+  font-weight: 400;
+  line-height: 1.6;
+  color: #212529;
+  text-align: center;
+  text-decoration: none;
+  vertical-align: middle;
+  background-color: transparent;
+  border: 1px solid transparent;
+  padding: 0.375rem 0.75rem;
+  font-size: 0.9rem;
+  border-radius: 0.25rem;
+  color: #fff;
+  background-color: #007e0f;
+  border-color: #005a21;
+}
+.buttons-pdf {
+  display: inline-block;
+  font-weight: 400;
+  line-height: 1.6;
+  color: #212529;
+  text-align: center;
+  text-decoration: none;
+  vertical-align: middle;
+  background-color: transparent;
+  border: 1px solid transparent;
+  padding: 0.375rem 0.75rem;
+  font-size: 0.9rem;
+  border-radius: 0.25rem;
+  color: #fff;
+  background-color: #c20000;
+  border-color: #f30000;
+}
+</style>
 
 
 

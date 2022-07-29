@@ -1,7 +1,12 @@
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
+            <!-- <a href="#" class="brand-link">
+                <img src="{{asset('img/logoputih.png')}}" alt="" class="brand-image" style="opacity: .8">
+                <span class="brand-text font-weight-light"></span>
+            </a> -->
+
             <a href="#" class="brand-link">
-                <img src="dist/img/logo.png" alt="" class="brand-image" style="opacity: .8">
-                <span class="brand-text font-weight-light">LECTRO</span>
+                <img src="{{asset('img/logoputih.png')}}" alt="Logo" class="brand-image img" style="opacity: .8">
+                <span class="brand-text font-weight-light"></span>
             </a>
 
             <div class="sidebar">
@@ -9,7 +14,7 @@
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
 
                         <li class="nav-item">
-                            <div class="info">
+                            <div class="info mb-4">
                                 @if(Auth::user() != null)
                                 <h5 style="color:#fff">
                                     {{Auth::user()->name}}
@@ -54,7 +59,7 @@
                                 <i class="fa-solid fa-arrow-right-from-bracket"></i>
                                 <p>Logout</p>
                             </form>
-                        </li>
+                        </li> 
 
                     </ul>
                 </nav>

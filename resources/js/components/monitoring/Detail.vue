@@ -251,7 +251,7 @@ export default {
     console.log(this.$route.params.id)
     // setInterval(() => {
     this.axios
-      .get("http://127.0.0.1:8000/api/admin/monitoring/" + this.$route.params.id)
+      .get(process.env.MIX_API_KEY+"monitoring/" + this.$route.params.id)
       .then((response) => {
         this.Monitoring = response.data;
         console.log(this.Monitoring)
@@ -260,7 +260,7 @@ export default {
         $(".DataTable").DataTable();
       });
     this.axios
-      .get("http://127.0.0.1:8000/api/admin/setting/")
+      .get("setting/")
       .then((response) => {
         this.dataSetting = response.data;
         // const lastData = this.Monitoring.slice(-1)[0];
@@ -297,7 +297,7 @@ export default {
   methods: {
     deleteSetting(id) {
       this.axios
-        .delete("http://127.0.0.1:8000/api/admin/monitoring/" + id)
+        .delete(process.env.MIX_API_KEY+"monitoring/" + id)
         .then((response) => {
           let i = this.Monitoring.map((data) => data.id).indexOf(id);
           this.Monitoring.splice(i, 1);

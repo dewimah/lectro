@@ -3,7 +3,9 @@
 <html lang="en">
 <head>
     @include('template.head')
+    <link rel="shortcut icon" href="{{asset('img/favicon4.png')}}">
     <title>BMS | LECTRO</title>
+
 </head>
 
 <!-- <body class="hold-transition sidebar-mini" onload="loadRole()"> -->

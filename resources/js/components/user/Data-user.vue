@@ -51,7 +51,7 @@ export default {
     },
     created(){
         this.axios
-        .get('http://127.0.0.1:8000/api/admin/user')
+        .get(process.env.MIX_API_KEY+'user')
         .then(response =>{
             this.User = response.data;
         })
@@ -60,7 +60,7 @@ export default {
                 dom: 'Bfrtip',
                 // lengthChange: false,
                 buttons: [
-                    'excel'
+                    'excel', 'pdf'
                 ]
             });
             // table.buttons().container()
@@ -80,7 +80,7 @@ export default {
             }).then(result => {
                 if (result.value) {
                     this.axios
-                        .delete('http://127.0.0.1:8000/api/admin/user/' + id)
+                        .delete(process.env.MIX_API_KEY+'user/' + id)
                         .then(()=> {
                             Swal.fire(
                                 "Terhapus",
@@ -103,3 +103,40 @@ export default {
     }
 }
 </script>
+
+<style>
+.buttons-excel {
+  display: inline-block;
+  font-weight: 400;
+  line-height: 1.6;
+  color: #212529;
+  text-align: center;
+  text-decoration: none;
+  vertical-align: middle;
+  background-color: transparent;
+  border: 1px solid transparent;
+  padding: 0.375rem 0.75rem;
+  font-size: 0.9rem;
+  border-radius: 0.25rem;
+  color: #fff;
+  background-color: #007e0f;
+  border-color: #005a21;
+}
+.buttons-pdf {
+  display: inline-block;
+  font-weight: 400;
+  line-height: 1.6;
+  color: #212529;
+  text-align: center;
+  text-decoration: none;
+  vertical-align: middle;
+  background-color: transparent;
+  border: 1px solid transparent;
+  padding: 0.375rem 0.75rem;
+  font-size: 0.9rem;
+  border-radius: 0.25rem;
+  color: #fff;
+  background-color: #c20000;
+  border-color: #f30000;
+}
+</style>

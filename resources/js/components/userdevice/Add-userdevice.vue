@@ -50,7 +50,7 @@ export default {
     methods: {
         tambahUserdevice(){
             this.axios
-                .post('http://127.0.0.1:8000/api/admin/userdevice/', this.BatteryUser)
+                .post(process.env.MIX_API_KEY+'userdevice/', this.BatteryUser)
                 .then(response => (
                     Toast.fire({
                         icon: 'success',
@@ -62,12 +62,12 @@ export default {
         },
         loadDataBattery(){
             this.axios
-                .get('http://127.0.0.1:8000/api/admin/battery/')
+                .get(process.env.MIX_API_KEY+'battery/')
                 .then(({data}) => {this.Battery = data});
         },
         loadDataUser(){
             this.axios
-                .get('http://127.0.0.1:8000/api/admin/user/')
+                .get(process.env.MIX_API_KEY+'user/')
                 .then(({data}) => {this.User = data});
         }
     },

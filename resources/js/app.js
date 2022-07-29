@@ -180,7 +180,7 @@ require('./bootstrap');
           }
       },
       {
-        path: '/add-setting',
+        path: '/add-setting/:id',
         name: 'add-setting',
         component:require('./components/bms/setting/Add-setting.vue').default,
         meta: {

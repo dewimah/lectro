@@ -93,7 +93,7 @@ export default {
 
   created() {
     this.axios
-      .get("http://127.0.0.1:8000/api/admin/userdevice/")
+      .get(process.env.MIX_API_KEY+"userdevice/")
       .then((response) => {
         console.log(response)
         this.BatteryUser = response.data;
@@ -113,7 +113,7 @@ export default {
     //             window.location.href = "/login"
     //         }
     // window.axios.defaults.headers.common['Authorization'] = `Bearer ${this.token}`
-    // axios.get('http://127.0.0.1:8000/api/admin/user').then((response)=>{
+    // axios.get(process.env.MIX_API_KEY+'admin/user').then((response)=>{
     //     this.currentUser = response.data
     // }).catch((errors) => {
     //     console.log(errors)
@@ -133,7 +133,7 @@ export default {
       }).then((result) => {
         if (result.value) {
           this.axios
-            .delete("http://127.0.0.1:8000/api/admin/userdevice/" + id)
+            .delete(process.env.MIX_API_KEY+"userdevice/" + id)
             .then(() => {
               Swal.fire("Terhapus", "Data sudah terhapus", "success");
               let i = this.BatteryUser.map((data) => data.id).indexOf(id);
@@ -149,7 +149,7 @@ export default {
         //Fetch data montitor dengan interval
       setInterval(() => {
         this.axios
-          .get("http://127.0.0.1:8000/api/admin/monitoring/")
+          .get(process.env.MIX_API_KEY+"monitoring/")
           .then((response) => {
             this.dataMonitoring = response.data;
           })
@@ -161,7 +161,7 @@ export default {
     fetchSettings() {
         // Fetch data settings
       this.axios
-        .get("http://127.0.0.1:8000/api/admin/setting/")
+        .get(process.env.MIX_API_KEY+"setting/")
         .then((response) => {
           this.dataSettings = response.data;
         })

@@ -40,7 +40,7 @@ export default {
     },
     created(){
         this.axios
-            .get('http://127.0.0.1:8000/api/admin/user/' + this.$route.params.id)
+            .get(process.env.MIX_API_KEY+'user/' + this.$route.params.id)
             .then ((response) => {
                 this.User = response.data;
             });
@@ -48,7 +48,7 @@ export default {
     methods: {
         updateUser(){
             this.axios
-                .put('http://127.0.0.1:8000/api/admin/user/' + this.$route.params.id, this.User)
+                .put(process.env.MIX_API_KEY+'user/' + this.$route.params.id, this.User)
                 .then((response) => {
                     Toast.fire({
                         icon: 'success',

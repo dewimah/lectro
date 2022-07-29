@@ -54,7 +54,7 @@ export default {
     },
     created() {
         this.axios
-             .get('http://127.0.0.1:8000/api/admin/userdevice/' + this.$route.params.id)
+             .get(process.env.MIX_API_KEY+'userdevice/' + this.$route.params.id)
              .then((response) => {
                 this.BatteryUser = response.data;
             }),
@@ -64,7 +64,7 @@ export default {
     methods: {
         updateUserdevice(){
             this.axios
-                .put('http://127.0.0.1:8000/api/admin/userdevice/' + this.$route.params.id, this.BatteryUser)
+                .put(process.env.MIX_API_KEY+'userdevice/' + this.$route.params.id, this.BatteryUser)
                 .then((response) => {
                     Toast.fire({
                         icon: 'success',
@@ -75,12 +75,12 @@ export default {
         },
         loadDataBattery(){
             this.axios
-                .get('http://127.0.0.1:8000/api/admin/battery/')
+                .get(process.env.MIX_API_KEY+'battery/')
                 .then(({data}) => {this.Battery = data});
         },
         loadDataUser(){
             this.axios
-                .get('http://127.0.0.1:8000/api/admin/user/')
+                .get(process.env.MIX_API_KEY+'user/')
                 .then(({data}) => {this.User = data});
         }
     }

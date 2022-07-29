@@ -68,7 +68,7 @@ export default {
     methods: {
         tambahUser(){
             this.axios
-                .post('http://127.0.0.1:8000/api/register/', this.User)
+                .post(process.env.MIX_API_KEY+'register/', this.User)
                 .then(response => (
                     Toast.fire({
                         icon: 'success',

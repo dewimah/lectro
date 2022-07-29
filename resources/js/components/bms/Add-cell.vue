@@ -31,7 +31,7 @@ export default {
     methods: {
         tambahCell(){
             this.axios
-                .post(' http://127.0.0.1:8000/api/admin/cell/', this.cell)
+                .post(process.env.MIX_API_KEY+'cell/', this.cell)
                 .then(response => (
                     Toast.fire({
                         icon: 'success',
