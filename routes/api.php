@@ -27,8 +27,12 @@ Route::post('/login', [AuthController::class, 'login'])->name('login');
 //Route User
 Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('/logout', 'App\Http\Controllers\LogoutController@logout')->name('logout');
+    Route::get('monitoring','App\Http\Controllers\MonitoringController@all');
+    Route::post('input','App\Http\Controllers\MonitoringController@datamasuk');
+    Route::get('/setting','App\Http\Controllers\SettingController@all');
         Route::middleware('is.admin')->group( function(){
-        Route::prefix('/admin')->group( function(){
+        //Route::prefix('/admin')->group( function(){
+            Route::get('/admin', 'App\Http\Controllers\UserController@showCurrentUser');
             //User
             Route::get('/user', [UserController::class, 'all'])->name('all');
             Route::get('/user/{id}', 'App\Http\Controllers\UserController@show');
@@ -49,7 +53,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
             Route::put('/cell/{id}', 'App\Http\Controllers\CellController@update');
             Route::delete('/cell/{id}', 'App\Http\Controllers\CellController@delete');
             //setting
-            Route::get('/setting','App\Http\Controllers\SettingController@all');
+            //Route::get('/setting','App\Http\Controllers\SettingController@all');
             Route::get('/setting/{id}','App\Http\Controllers\SettingController@show');
             Route::post('/setting','App\Http\Controllers\SettingController@store');
             Route::put('/setting/{id}','App\Http\Controllers\SettingController@update');
@@ -75,12 +79,9 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
             Route::put('monitoring/{id}','App\Http\Controllers\MonitoringController@update');
             Route::delete('monitoring/{id}','App\Http\Controllers\MonitoringController@delete');
         });
-});
         Route::middleware('is.user')->group( function(){
-        Route::prefix('/user')->group( function(){
-                Route::get('monitoring','App\Http\Controllers\MonitoringController@all');
-                Route::post('input','App\Http\Controllers\MonitoringController@datamasuk');
-                Route::get('/setting','App\Http\Controllers\SettingController@all');
+            Route::get('/user', 'App\Http\Controllers\UserController@showCurrentUser');
+        //Route::prefix('/user')->group( function(){
+
        });
-    });
 });

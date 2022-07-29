@@ -11,15 +11,26 @@ use Auth;
 
 class UserController extends Controller
 {
-    public function __construct()
+    /*public function __construct()
     {
         $this->middleware('auth');
-    }
+    }*/
 
     //mengambil semua data
     public function all()
     {
-        return User::all();
+        $user=request()->user();
+        if(!$user->hasRole('admin'))
+        {
+            return ResponseFormatter:: error(null, 'Anda Tidak Punya Kewenangan', 403);
+        }
+        $member=User::all();
+        return ResponseFormatter::success($member, 'Data Didapatkan');
+    }
+
+    public function showCurrentUser(){
+        $user = request()->user();
+        return ResponseFormatter::success($user, 'Data Didapatkan');
     }
 
     //mengambil data by id

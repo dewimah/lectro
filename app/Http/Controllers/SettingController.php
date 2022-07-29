@@ -15,21 +15,38 @@ class SettingController extends Controller
 
     //mengambil semua data
     public function all(){
+       /* $user=request()->user();
+        if(!$user->hasRole('admin'))
+        {
+            return ResponseFormatter:: error(null, 'Anda Tidak Punya Kewenangan', 403);
+        }
+        $setting=Setting::all();
+        return ResponseFormatter::success($setting, 'Data Didapatkan');*/
         return Setting::all();
     }
 
     //mengambil data by id
     public function show ($id){
-        return Setting::find($id);
+        $user=request()->user();
+        if(!$user->hasRole('admin'))
+        {
+            return ResponseFormatter:: error(null, 'Anda Tidak Punya Kewenangan', 403);
+        }
+        $setting=Setting::find($id);
+        if(!$setting){
+            return ResponseFormatter:: error(null, 'Data Tidak Ada', 403);
+        }
+        return ResponseFormatter::success($setting, 'Data Didapatkan');
+        //return Setting::find($id);
     }
 
-    //menambah data
-    /*public function store(Request $request){
-        return Setting::create($request->all());
-    }*/
-
     public function store(Request $request) {
-         $validateData = $request->validate([
+        $user=request()->user();
+        if(!$user->hasRole('admin'))
+        {
+            return ResponseFormatter:: error(null, 'Anda Tidak Punya Kewenangan', 403);
+        }
+        $validateData = $request->validate([
             'name' => 'required',
             'temp_min' => 'required|numeric|gt:20|lt:60',
             'temp_max' => 'required|numeric|gt:20|lt:60',
@@ -43,20 +60,29 @@ class SettingController extends Controller
 
     //mengubah data
     public function update($id, Request $request){
-        $user = Setting::find($id);
-        $user->update($request->all());
+        $user=request()->user();
+        if(!$user->hasRole('admin'))
+        {
+            return ResponseFormatter:: error(null, 'Anda Tidak Punya Kewenangan', 403);
+        }
+        $setting = Setting::find($id);
+        $setting->update($request->all());
         return ResponseFormatter::success(
             'Success Edit',
-            $user = Setting::find($id),
+            Setting::find($id),
             200
         );
     }
 
     //menghapus data
     public function delete($id){
-        $user=Setting::find($id);
-        $user->delete();
-
+        $user=request()->user();
+        if(!$user->hasRole('admin'))
+        {
+            return ResponseFormatter:: error(null, 'Anda Tidak Punya Kewenangan', 403);
+        }
+        $setting = Setting::find($id);
+        $setting->delete();
         return ResponseFormatter::success(
             'Data Berhasil Di Hapus',
             200
