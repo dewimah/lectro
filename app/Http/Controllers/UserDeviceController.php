@@ -27,8 +27,10 @@ class UserDeviceController extends Controller
         ->join('settings','batteries.setting_id', '=', 'settings.id')
         ->join('cells','batteries.cell_id', '=', 'cells.id')
         ->select(
+            'battery_user.id',
             'battery_id',
             'setting_id',
+            'cell_id',
             'users.name as name',
             'batteries.name as namabattery',
             'cellbaterai',

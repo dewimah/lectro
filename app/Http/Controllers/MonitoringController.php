@@ -21,6 +21,7 @@ class MonitoringController extends Controller
         ->join('settings','batteries.setting_id', '=', 'settings.id')
         ->join('cells','batteries.cell_id', '=', 'cells.id')
         ->select(
+           // 'monitorings_id',
             'battery_id',
             'setting_id',
             'batteries.name as namabattery',
