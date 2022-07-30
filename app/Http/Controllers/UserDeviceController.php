@@ -89,7 +89,8 @@ class UserDeviceController extends Controller
             'users.name as namauser',
         );
 
-        $data = $data->join('monitorings', 'battery_user.monitoring_id', '=', 'monitorings.id')
+        $data = $data
+        ->leftJoin('monitorings', 'battery_user.monitoring_id', '=', 'monitorings.id')
         ->join('batteries', 'battery_user.battery_id', '=', 'batteries.id')
         ->join('settings', 'batteries.setting_id', '=', 'settings.id')
         ->join('cells', 'batteries.cell_id', '=', 'cells.id')
@@ -128,7 +129,7 @@ class UserDeviceController extends Controller
             'monitorings.id as monnn'
         )->where('battery_user.id', $id);
 
-        $data = $data->join('monitorings', 'battery_user.monitoring_id', '=', 'monitorings.id')
+        $data = $data->leftJoin('monitorings', 'battery_user.monitoring_id', '=', 'monitorings.id')
         ->join('batteries', 'battery_user.battery_id', '=', 'batteries.id')
         ->join('users', 'battery_user.user_id', '=', 'users.id')->get();
 
