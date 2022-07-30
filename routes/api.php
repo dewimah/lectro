@@ -67,7 +67,8 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
             Route::delete('/erorrs/{id}', 'App\Http\Controllers\ErorrsController@delete');
             //userdevice
             Route::get('/userdevice','App\Http\Controllers\UserDeviceController@all');
-            Route::get('/userdevice/{id}','App\Http\Controllers\UserDeviceController@show');
+            Route::get('/userdevice/{id}','App\Http\Controllers\UserDeviceController@kabeh');
+            //Route::get('/userdevice/{id}','App\Http\Controllers\UserDeviceController@show');
             Route::post('/userdevice','App\Http\Controllers\UserDeviceController@store');
             Route::put('/userdevice/{id}','App\Http\Controllers\UserDeviceController@update');
             Route::delete('/userdevice/{id}', 'App\Http\Controllers\UserDeviceController@delete');

@@ -25,8 +25,9 @@ class UserDeviceController extends Controller
         $data = DB::table('battery_user')
         ->select(
             'battery_user.id',
-            'battery_id',
+            //'battery_id',
             'setting_id',
+            'monitorings.*',
             'cell_id',
             'is_active',
             'users.name as name',
@@ -41,9 +42,18 @@ class UserDeviceController extends Controller
             'arus_min',
             'arus_max',
             'tegangan_min',
-            'tegangan_max'
+            'tegangan_max',
+            /*'tegangan_tot',
+            'tegangan_cell',
+            'temp_1',
+            'temp_2',
+            'temp_3',
+            'arus',
+            'soc',
+            'soh'*/
         )
         ->join('users','battery_user.user_id', '=', 'users.id')
+        ->join('monitorings','battery_user.monitoring_id', '=', 'monitoring.id')
         ->join('batteries','battery_user.battery_id','=','batteries.id')
         ->join('settings','batteries.setting_id', '=', 'settings.id')
         ->join('cells','batteries.cell_id', '=', 'cells.id')
@@ -64,6 +74,32 @@ class UserDeviceController extends Controller
         return response()->json([
             'succes' => true
         ]);
+    }
+
+    public function kabeh($id){
+        $data = DB::table('battery_user')->select(
+            'battery_user.is_active', 'monitorings.tegangan_tot',
+            'monitorings.tegangan_cell',
+            'monitorings.temp_1',
+            'monitorings.temp_2',
+            'monitorings.temp_3',
+            'monitorings.arus',
+            'monitorings.soc',
+            'monitorings.soh',
+            'batteries.name',
+            'batteries.tipe',
+            'batteries.serial',
+            'users.name',
+            'battery_user.id as bttt',
+            'users.id as usss',
+            'monitorings.id as monnn'
+        )->where('battery_user.id', $id);
+
+        $data = $data->join('monitorings', 'battery_user.monitoring_id', '=', 'monitorings.id')
+        ->join('batteries', 'battery_user.battery_id', '=', 'batteries.id')
+        ->join('users', 'battery_user.user_id', '=', 'users.id')->get();
+
+        return $data;
     }
 
     public function show($id){
