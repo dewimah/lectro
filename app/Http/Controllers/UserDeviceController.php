@@ -80,13 +80,13 @@ class UserDeviceController extends Controller
             'settings.arus_min',
             'settings.arus_max',
             'cells.cellbaterai',
-            'batteries.name',
             'batteries.tipe',
             'batteries.serial',
-            'users.name',
             'battery_user.id as bttt',
             'users.id as usss',
-            'monitorings.id as monnn'
+            'monitorings.id as monnn',
+            'batteries.name as namabattery',
+            'users.name as namauser',
         );
 
         $data = $data->join('monitorings', 'battery_user.monitoring_id', '=', 'monitorings.id')

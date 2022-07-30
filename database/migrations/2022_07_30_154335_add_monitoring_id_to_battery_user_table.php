@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::table('battery_user', function (Blueprint $table) {
-            $table->string('monitoring_id')->nullable();
+            //
         });
     }
 
@@ -26,7 +26,7 @@ return new class extends Migration
     public function down()
     {
         Schema::table('battery_user', function (Blueprint $table) {
-            $table->dropColumn('monitoring_id');
+            //
         });
     }
 };
