@@ -9,19 +9,19 @@
                 <div class="card-body">
                     <div class="form-group">
                     <label for="id">ID</label>
-                    <input type="text" class="form-control" v-model="BatteryUser.id" disabled>
+                    <input type="text" class="form-control" v-model="BatteryUser.bttt" disabled>
                 </div>
 
                 <div class="form-group">
                     <label for="baterai_id">Nama Baterai</label>
-                    <select name="baterai_id" class="form-control" v-model="BatteryUser.battery_id">
+                    <select name="baterai_id" class="form-control" v-model="BatteryUser.bttt">
                         <option v-for="Battery in Battery" :key="Battery.id" :value="Battery.id">{{Battery.name}}</option>
                     </select>
                 </div>
 
                 <div class="form-group">
                     <label for="user_id">Nama User</label>
-                    <select name="user_id" class="form-control" v-model="BatteryUser.user_id">
+                    <select name="user_id" class="form-control" v-model="BatteryUser.usss">
                         <option v-for="User in User" :key="User.id" :value="User.id">{{User.name}}</option>
                     </select>
                 </div>
@@ -29,8 +29,8 @@
                 <div class="form-group">
                     <label for="is_active">Status</label>
                     <select name="is_active" class="form-control" v-model="BatteryUser.is_active">
-                        <option value=1>Aktif</option>
-                        <option value=2>Non Aktif</option>
+                        <option value='aktif'>Aktif</option>
+                        <option value='non-aktif'>Non Aktif</option>
                     </select>
                 </div>
             </div>
@@ -71,7 +71,7 @@ export default {
             })
             .then((response) => {
                 this.BatteryUser = response.data[0];
-                // console.log(response)
+                console.log(response)
             })
 
     },
@@ -101,7 +101,7 @@ export default {
                 }
             })
                 .then(({data}) => {
-                    // console.log(data)
+                    console.log(data)
                     this.Battery = data.data
                     // console.log(this.Battery)
                     });

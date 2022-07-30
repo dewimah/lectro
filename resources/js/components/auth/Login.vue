@@ -79,12 +79,16 @@ export default {
                 console.log(response)
                 localStorage.setItem('token', response.data.data.Token)
                 localStorage.setItem('role', response.data.data.user.roles[0].name)
+                localStorage.setItem('id', response.data.data.user.id)
+                if (response.data.data.battery.length !== 0) {
+                    localStorage.setItem('battery_id', response.data.data.battery[0].battery_id)
+                }
                 if (response.data.data.user.roles[0].name === "admin") {
                     window.location.href = "/admin-monitoring"
                 } else if (response.data.data.user.roles[0].name === "user") {
                     window.location.href = "/user-monitoring"
                 }
-                //console.log(response)
+                //console.log(response.data)
                 // this.$router.push({ name: "admin-monitoring"});
             }).catch((errors) => {
                 this.errors = errors.response.data.errors;

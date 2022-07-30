@@ -2,21 +2,21 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="card">
-                <div class="card-header"><h5>User - Monitoring</h5></div>
+                <div class="card-header"><h1>Monitoring {{ namaBatery }}</h1></div>
                 <div class="card-body">
                     <div class="table-responsive">
                         <div class="row">
                             <div class="col-md-4">
-                                <div class="text-center">Chart Suhu</div>
-<apexchart type="radialBar" height="340" :options="chartOptions" :series="series"></apexchart>
+                                <div class="text-center">Grafik Suhu BMS (Celcius)</div>
+                                <apexchart type="radialBar" height="340" :options="chartOptions" :series="series"></apexchart>
                             </div>
                             <div class="col-md-4">
-                                <div class="text-center">Chart Tegangan</div>
-<apexchart type="radialBar" height="340" :options="chartOptions2" :series="seriestegangan"></apexchart>
+                                <div class="text-center">Grafik Tegangan BMS (Volt)</div>
+                                <apexchart type="radialBar" height="340" :options="chartOptions2" :series="seriestegangan"></apexchart>
                             </div>
                             <div class="col-md-4">
-                                <div class="text-center">Chart Arus</div>
-<apexchart type="radialBar" height="340" :options="chartOptions3" :series="seriesarus"></apexchart>
+                                <div class="text-center">Grafik Arus BMS (Ampere)</div>
+                                <apexchart type="radialBar" height="340" :options="chartOptions3" :series="seriesarus"></apexchart>
                             </div>
                         </div>
                     </div>
@@ -37,6 +37,8 @@ export default {
             dataJoin: [],
             series: [],
             seriestegangan: [],
+            namaBatery: null,
+            monitoring_id: null,
             seriesarus: [],
             // CHART 1 (SUHU)
           chartOptions: {
@@ -65,8 +67,8 @@ export default {
                 }
               }
             },
-            colors: ['#1ab7ea', '#0084ff', '#39539E', '#0077B5'],
-            labels: ['Maks', 'T1', 'T2', 'T3', 'Min'],
+            colors: ["#1c3b11", "#32681d", "#54892d", "#699d38"],
+            labels: ["Batas Suhu Max", "Suhu1", "Suhu2", "Suhu3"],
             legend: {
               show: true,
               floating: true,
@@ -123,15 +125,15 @@ export default {
                 }
               }
             },
-            colors: ['#1ab7ea', '#39539E', '#0077B5'],
-            labels: ['Maks', 'VTotal', 'Min'],
+            colors: ["#1c3b11", "#32681d", "#54892d"],
+            labels: ["V Batas Max", "V Output BMS", "V Min"],
             legend: {
               show: true,
               floating: true,
               fontSize: '16px',
               position: 'left',
               offsetX: 0,
-              offsetY: -10,
+              offsetY: 10,
               labels: {
                 useSeriesColors: true,
               },
@@ -181,8 +183,8 @@ export default {
                 }
               }
             },
-            colors: ['#1ab7ea', '#0084ff', '#0077B5'],
-            labels: ['Maks', 'Arus', 'Min'],
+            colors: ["#1c3b11", "#32681d"],
+            labels: ["I Batas Max", "I Output"],
             legend: {
               show: true,
               floating: true,
@@ -215,26 +217,42 @@ export default {
         }
     },
     components:{
-       'apexchart': VueApexCharts
+       apexchart: VueApexCharts,
     },
-    created(){
-
-    },
+    created(){},
     mounted() {
         // setInterval(() => {
         this.axios
-        .get(process.env.MIX_API_KEY+'monitoring/', {
+        .get(process.env.MIX_API_KEY+'asik/' + localStorage.getItem("battery_id"), {
                 headers: {
                     "Content-Type": "application/json",
                     Authorization: "Bearer " + localStorage.getItem("token")
                 }
             })
         .then(response =>{
-            this.Monitoring = response.data;
+            this.Monitoring = response.data[0];
+            // console.log(response.data[0])
         })
         .then(function (){
             $(".DataTable").DataTable();
         });
+
+        //    this.axios
+        // .get(process.env.MIX_API_KEY+'monitoring/' + this.monitoring_id, {
+        //         headers: {
+        //             "Content-Type": "application/json",
+        //             Authorization: "Bearer " + localStorage.getItem("token")
+        //         }
+        //     })
+        // .then(response =>{
+        //     // console.log(response)
+        //     this.Monitoring = response.data[0];
+        //     console.log(this.Monitoring)
+        // })
+        // .then(function (){
+        //     $(".DataTable").DataTable();
+        // });
+      
         this.axios
         .get(process.env.MIX_API_KEY+'setting/', {
                 headers: {
@@ -244,42 +262,49 @@ export default {
             })
         .then(response =>{
             this.dataSetting = response.data;
-            const lastData = this.Monitoring.slice(-1)[0];
+            console.log(response)
+            //const lastData = this.Monitoring.slice(-1)[0];
+            const lastData = this.Monitoring;
+            //console.log(lastData)
+            // this.namaBatery = lastData[0].battery.name
+            // console.log(lastData)
+            // console.log(lastData)
+
             this.dataSetting.map(a => {
-                if(a.id === lastData.battery_id){
+                if(a.id === lastData[0].setting_id){
                     this.dataSettingMatch = a;
                 }
             });
             // console.log(this.dataSettingMatch);
             // console.log(lastData);
             this.series.push(this.dataSettingMatch.temp_max);
-            this.series.push(lastData.temp_1);
-            this.series.push(lastData.temp_2);
-            this.series.push(lastData.temp_3);
-            this.series.push(this.dataSettingMatch.temp_min);
+            this.series.push(lastData[0].temp_1);
+            this.series.push(lastData[0].temp_2);
+            this.series.push(lastData[0].temp_3);
+            //this.series.push(this.dataSettingMatch.temp_min);
 
             this.seriestegangan.push(this.dataSettingMatch.tegangan_max);
-            this.seriestegangan.push(lastData.tegangan_tot);
+            this.seriestegangan.push(lastData[0].tegangan_tot);
             this.seriestegangan.push(this.dataSettingMatch.tegangan_min);
 
             this.seriesarus.push(this.dataSettingMatch.arus_max);
-            this.seriesarus.push(lastData.arus);
-            this.seriesarus.push(this.dataSettingMatch.arus_min);
+            this.seriesarus.push(lastData[0].arus);
+            //this.seriesarus.push(this.dataSettingMatch.arus_min);
         })
         .then(function (){
             $(".DataTable").DataTable();
         });
 // }, 1000)
     },
-    methods: {
-        deleteSetting(id){
-            this.axios
-                .delete(process.env.MIX_API_KEY+'monitoring/' + id)
-                .then(response => {
-                    let i = this.Monitoring.map(data => data.id).indexOf(id);
-                    this.Monitoring.splice(i,1)
-                });
-        }
-    }
+    // methods: {
+    //     deleteSetting(id){
+    //         this.axios
+    //             .delete(process.env.MIX_API_KEY+'monitoring/' + id)
+    //             .then(response => {
+    //                 let i = this.Monitoring.map(data => data.id).indexOf(id);
+    //                 this.Monitoring.splice(i,1)
+    //             });
+    //     }
+    // }
 }
 </script>;

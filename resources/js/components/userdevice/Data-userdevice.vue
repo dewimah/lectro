@@ -21,18 +21,17 @@
                                 <tbody>
                                     <tr v-for="(BatteryUser, index) in BatteryUser" :key="BatteryUser.id">
                                         <td>{{ index+1 }}</td>
-                                        <td>{{ BatteryUser.name }}</td>
+                                        <td>{{ BatteryUser.namauser }}</td>
                                         <td>{{ BatteryUser.namabattery }}</td>
                                         <td v-if="(BatteryUser.is_active == 0)">Non Aktif</td>
                                         <td v-else>Aktif</td> 
                                         
                                         <td>
-                                            <router-link 
-                                            :to="{ name: 'edit-userdevice', params: {id: BatteryUser.id} }" 
+                                            <router-link :to="{ name: 'edit-userdevice', params: {id: BatteryUser.bttt} }" 
                                             class="btn btn-sm btn-warning">
                                                 <i class="fas fa-edit"></i>
                                             </router-link>
-                                            <button class="btn btn-danger btn-sm" @click="deleteUserdevice(BatteryUser.id)">
+                                            <button class="btn btn-danger btn-sm" @click="deleteUserdevice(BatteryUser.bttt)">
                                                 <i class="fa-solid fa-trash"></i>
                                             </button>
                                         </td>
@@ -60,8 +59,8 @@ export default {
                     Authorization: "Bearer " + localStorage.getItem("token")
                 }
             }).then((response) => {
-            // console.log(response)
-            this.BatteryUser = response.data.data
+            console.log(response)
+            this.BatteryUser = response.data
         })
         .then(function (){
             $(".DataTable").DataTable({

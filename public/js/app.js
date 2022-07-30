@@ -5524,12 +5524,17 @@ __webpack_require__.r(__webpack_exports__);
         console.log(response);
         localStorage.setItem('token', response.data.data.Token);
         localStorage.setItem('role', response.data.data.user.roles[0].name);
+        localStorage.setItem('id', response.data.data.user.id);
+
+        if (response.data.data.battery.length !== 0) {
+          localStorage.setItem('battery_id', response.data.data.battery[0].battery_id);
+        }
 
         if (response.data.data.user.roles[0].name === "admin") {
           window.location.href = "/admin-monitoring";
         } else if (response.data.data.user.roles[0].name === "user") {
           window.location.href = "/user-monitoring";
-        } //console.log(response)
+        } //console.log(response.data)
         // this.$router.push({ name: "admin-monitoring"});
 
       })["catch"](function (errors) {
@@ -6943,7 +6948,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }
     }).then(function (response) {
       console.log(response);
-      _this.BatteryUser = response.data.data; // console.log(this.BatteryUser)
+      _this.BatteryUser = response.data; // console.log(this.BatteryUser)
     }).then(function () {
       $(".DataTable").DataTable();
     });
@@ -7137,6 +7142,7 @@ __webpack_require__.r(__webpack_exports__);
       dataJoin: [],
       series: [],
       seriestegangan: [],
+      namaBatery: null,
       seriesarus: [],
       // CHART 1 (SUHU)
       chartOptions: {
@@ -7345,7 +7351,8 @@ __webpack_require__.r(__webpack_exports__);
       // const lastData = this.Monitoring.slice(-1)[0];
 
       var lastData = _this.Monitoring;
-      console.log(lastData); // console.log(lastData)
+      console.log(lastData);
+      _this.namaBatery = lastData[0].battery.name; // console.log(lastData)
       // console.log(lastData)
 
       _this.dataSetting.map(function (a) {
@@ -7448,6 +7455,8 @@ __webpack_require__.r(__webpack_exports__);
       dataJoin: [],
       series: [],
       seriestegangan: [],
+      namaBatery: null,
+      monitoring_id: null,
       seriesarus: [],
       // CHART 1 (SUHU)
       chartOptions: {
@@ -7476,8 +7485,8 @@ __webpack_require__.r(__webpack_exports__);
             }
           }
         },
-        colors: ['#1ab7ea', '#0084ff', '#39539E', '#0077B5'],
-        labels: ['Maks', 'T1', 'T2', 'T3', 'Min'],
+        colors: ["#1c3b11", "#32681d", "#54892d", "#699d38"],
+        labels: ["Batas Suhu Max", "Suhu1", "Suhu2", "Suhu3"],
         legend: {
           show: true,
           floating: true,
@@ -7534,15 +7543,15 @@ __webpack_require__.r(__webpack_exports__);
             }
           }
         },
-        colors: ['#1ab7ea', '#39539E', '#0077B5'],
-        labels: ['Maks', 'VTotal', 'Min'],
+        colors: ["#1c3b11", "#32681d", "#54892d"],
+        labels: ["V Batas Max", "V Output BMS", "V Min"],
         legend: {
           show: true,
           floating: true,
           fontSize: '16px',
           position: 'left',
           offsetX: 0,
-          offsetY: -10,
+          offsetY: 10,
           labels: {
             useSeriesColors: true
           },
@@ -7592,8 +7601,8 @@ __webpack_require__.r(__webpack_exports__);
             }
           }
         },
-        colors: ['#1ab7ea', '#0084ff', '#0077B5'],
-        labels: ['Maks', 'Arus', 'Min'],
+        colors: ["#1c3b11", "#32681d"],
+        labels: ["I Batas Max", "I Output"],
         legend: {
           show: true,
           floating: true,
@@ -7626,23 +7635,38 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   components: {
-    'apexchart': (vue_apexcharts__WEBPACK_IMPORTED_MODULE_0___default())
+    apexchart: (vue_apexcharts__WEBPACK_IMPORTED_MODULE_0___default())
   },
   created: function created() {},
   mounted: function mounted() {
     var _this = this;
 
     // setInterval(() => {
-    this.axios.get("http://127.0.0.1:8000/api/" + 'monitoring/', {
+    this.axios.get("http://127.0.0.1:8000/api/" + 'asik/' + localStorage.getItem("battery_id"), {
       headers: {
         "Content-Type": "application/json",
         Authorization: "Bearer " + localStorage.getItem("token")
       }
     }).then(function (response) {
-      _this.Monitoring = response.data;
+      _this.Monitoring = response.data[0]; // console.log(response.data[0])
     }).then(function () {
       $(".DataTable").DataTable();
-    });
+    }); //    this.axios
+    // .get(process.env.MIX_API_KEY+'monitoring/' + this.monitoring_id, {
+    //         headers: {
+    //             "Content-Type": "application/json",
+    //             Authorization: "Bearer " + localStorage.getItem("token")
+    //         }
+    //     })
+    // .then(response =>{
+    //     // console.log(response)
+    //     this.Monitoring = response.data[0];
+    //     console.log(this.Monitoring)
+    // })
+    // .then(function (){
+    //     $(".DataTable").DataTable();
+    // });
+
     this.axios.get("http://127.0.0.1:8000/api/" + 'setting/', {
       headers: {
         "Content-Type": "application/json",
@@ -7650,11 +7674,15 @@ __webpack_require__.r(__webpack_exports__);
       }
     }).then(function (response) {
       _this.dataSetting = response.data;
+      console.log(response); //const lastData = this.Monitoring.slice(-1)[0];
 
-      var lastData = _this.Monitoring.slice(-1)[0];
+      var lastData = _this.Monitoring; //console.log(lastData)
+      // this.namaBatery = lastData[0].battery.name
+      // console.log(lastData)
+      // console.log(lastData)
 
       _this.dataSetting.map(function (a) {
-        if (a.id === lastData.battery_id) {
+        if (a.id === lastData[0].setting_id) {
           _this.dataSettingMatch = a;
         }
       }); // console.log(this.dataSettingMatch);
@@ -7663,42 +7691,37 @@ __webpack_require__.r(__webpack_exports__);
 
       _this.series.push(_this.dataSettingMatch.temp_max);
 
-      _this.series.push(lastData.temp_1);
+      _this.series.push(lastData[0].temp_1);
 
-      _this.series.push(lastData.temp_2);
+      _this.series.push(lastData[0].temp_2);
 
-      _this.series.push(lastData.temp_3);
+      _this.series.push(lastData[0].temp_3); //this.series.push(this.dataSettingMatch.temp_min);
 
-      _this.series.push(_this.dataSettingMatch.temp_min);
 
       _this.seriestegangan.push(_this.dataSettingMatch.tegangan_max);
 
-      _this.seriestegangan.push(lastData.tegangan_tot);
+      _this.seriestegangan.push(lastData[0].tegangan_tot);
 
       _this.seriestegangan.push(_this.dataSettingMatch.tegangan_min);
 
       _this.seriesarus.push(_this.dataSettingMatch.arus_max);
 
-      _this.seriesarus.push(lastData.arus);
+      _this.seriesarus.push(lastData[0].arus); //this.seriesarus.push(this.dataSettingMatch.arus_min);
 
-      _this.seriesarus.push(_this.dataSettingMatch.arus_min);
     }).then(function () {
       $(".DataTable").DataTable();
     }); // }, 1000)
-  },
-  methods: {
-    deleteSetting: function deleteSetting(id) {
-      var _this2 = this;
+  } // methods: {
+  //     deleteSetting(id){
+  //         this.axios
+  //             .delete(process.env.MIX_API_KEY+'monitoring/' + id)
+  //             .then(response => {
+  //                 let i = this.Monitoring.map(data => data.id).indexOf(id);
+  //                 this.Monitoring.splice(i,1)
+  //             });
+  //     }
+  // }
 
-      this.axios["delete"]("http://127.0.0.1:8000/api/" + 'monitoring/' + id).then(function (response) {
-        var i = _this2.Monitoring.map(function (data) {
-          return data.id;
-        }).indexOf(id);
-
-        _this2.Monitoring.splice(i, 1);
-      });
-    }
-  }
 });
 
 /***/ }),
@@ -8176,7 +8199,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -8192,8 +8214,8 @@ __webpack_require__.r(__webpack_exports__);
         Authorization: "Bearer " + localStorage.getItem("token")
       }
     }).then(function (response) {
-      // console.log(response)
-      _this.BatteryUser = response.data.data;
+      console.log(response);
+      _this.BatteryUser = response.data;
     }).then(function () {
       $(".DataTable").DataTable({
         dom: 'Bfrtip',
@@ -8338,7 +8360,8 @@ __webpack_require__.r(__webpack_exports__);
         Authorization: "Bearer " + localStorage.getItem("token")
       }
     }).then(function (response) {
-      _this.BatteryUser = response.data[0]; // console.log(response)
+      _this.BatteryUser = response.data[0];
+      console.log(response);
     });
   },
   methods: {
@@ -8369,7 +8392,7 @@ __webpack_require__.r(__webpack_exports__);
         }
       }).then(function (_ref) {
         var data = _ref.data;
-        // console.log(data)
+        console.log(data);
         _this3.Battery = data.data; // console.log(this.Battery)
       });
     },
@@ -56684,7 +56707,7 @@ var render = function () {
                     return _c("tr", { key: BatteryUser.id }, [
                       _c("td", [_vm._v(_vm._s(index + 1))]),
                       _vm._v(" "),
-                      _c("td", [_vm._v(_vm._s(BatteryUser.name))]),
+                      _c("td", [_vm._v(_vm._s(BatteryUser.namauser))]),
                       _vm._v(" "),
                       _c("td", [_vm._v(_vm._s(BatteryUser.namabattery))]),
                       _vm._v(" "),
@@ -56696,7 +56719,7 @@ var render = function () {
                             {
                               staticClass: "btn btn-sm btn-primary",
                               attrs: {
-                                to: "/halaman-detail/" + BatteryUser.battery_id,
+                                to: "/halaman-detail/" + BatteryUser.monnn,
                               },
                             },
                             [
@@ -56712,7 +56735,7 @@ var render = function () {
                               staticClass: "btn btn-danger btn-sm",
                               on: {
                                 click: function ($event) {
-                                  return _vm.deleteUserdevice(BatteryUser.id)
+                                  return _vm.deleteUserdevice(BatteryUser.bttt)
                                 },
                               },
                             },
@@ -56802,7 +56825,9 @@ var render = function () {
   return _c("div", { staticClass: "container" }, [
     _c("div", { staticClass: "row justify-content-center" }, [
       _c("div", { staticClass: "card" }, [
-        _vm._m(0),
+        _c("div", { staticClass: "card-header" }, [
+          _c("h1", [_vm._v("Detail Monitoring " + _vm._s(_vm.namaBatery))]),
+        ]),
         _vm._v(" "),
         _c(
           "div",
@@ -56891,16 +56916,7 @@ var render = function () {
     ]),
   ])
 }
-var staticRenderFns = [
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "card-header" }, [
-      _c("h1", [_vm._v("Detail Monitoring")]),
-    ])
-  },
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -56926,7 +56942,9 @@ var render = function () {
   return _c("div", { staticClass: "container" }, [
     _c("div", { staticClass: "row justify-content-center" }, [
       _c("div", { staticClass: "card" }, [
-        _vm._m(0),
+        _c("div", { staticClass: "card-header" }, [
+          _c("h1", [_vm._v("Monitoring " + _vm._s(_vm.namaBatery))]),
+        ]),
         _vm._v(" "),
         _c("div", { staticClass: "card-body" }, [
           _c("div", { staticClass: "table-responsive" }, [
@@ -56936,7 +56954,7 @@ var render = function () {
                 { staticClass: "col-md-4" },
                 [
                   _c("div", { staticClass: "text-center" }, [
-                    _vm._v("Chart Suhu"),
+                    _vm._v("Grafik Suhu BMS (Celcius)"),
                   ]),
                   _vm._v(" "),
                   _c("apexchart", {
@@ -56956,7 +56974,7 @@ var render = function () {
                 { staticClass: "col-md-4" },
                 [
                   _c("div", { staticClass: "text-center" }, [
-                    _vm._v("Chart Tegangan"),
+                    _vm._v("Grafik Tegangan BMS (Volt)"),
                   ]),
                   _vm._v(" "),
                   _c("apexchart", {
@@ -56976,7 +56994,7 @@ var render = function () {
                 { staticClass: "col-md-4" },
                 [
                   _c("div", { staticClass: "text-center" }, [
-                    _vm._v("Chart Arus"),
+                    _vm._v("Grafik Arus BMS (Ampere)"),
                   ]),
                   _vm._v(" "),
                   _c("apexchart", {
@@ -56997,16 +57015,7 @@ var render = function () {
     ]),
   ])
 }
-var staticRenderFns = [
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "card-header" }, [
-      _c("h5", [_vm._v("User - Monitoring")]),
-    ])
-  },
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -58019,7 +58028,7 @@ var render = function () {
                       return _c("tr", { key: BatteryUser.id }, [
                         _c("td", [_vm._v(_vm._s(index + 1))]),
                         _vm._v(" "),
-                        _c("td", [_vm._v(_vm._s(BatteryUser.name))]),
+                        _c("td", [_vm._v(_vm._s(BatteryUser.namauser))]),
                         _vm._v(" "),
                         _c("td", [_vm._v(_vm._s(BatteryUser.namabattery))]),
                         _vm._v(" "),
@@ -58037,7 +58046,7 @@ var render = function () {
                                 attrs: {
                                   to: {
                                     name: "edit-userdevice",
-                                    params: { id: BatteryUser.id },
+                                    params: { id: BatteryUser.bttt },
                                   },
                                 },
                               },
@@ -58050,7 +58059,9 @@ var render = function () {
                                 staticClass: "btn btn-danger btn-sm",
                                 on: {
                                   click: function ($event) {
-                                    return _vm.deleteUserdevice(BatteryUser.id)
+                                    return _vm.deleteUserdevice(
+                                      BatteryUser.bttt
+                                    )
                                   },
                                 },
                               },
@@ -58146,19 +58157,19 @@ var render = function () {
                 {
                   name: "model",
                   rawName: "v-model",
-                  value: _vm.BatteryUser.id,
-                  expression: "BatteryUser.id",
+                  value: _vm.BatteryUser.bttt,
+                  expression: "BatteryUser.bttt",
                 },
               ],
               staticClass: "form-control",
               attrs: { type: "text", disabled: "" },
-              domProps: { value: _vm.BatteryUser.id },
+              domProps: { value: _vm.BatteryUser.bttt },
               on: {
                 input: function ($event) {
                   if ($event.target.composing) {
                     return
                   }
-                  _vm.$set(_vm.BatteryUser, "id", $event.target.value)
+                  _vm.$set(_vm.BatteryUser, "bttt", $event.target.value)
                 },
               },
             }),
@@ -58176,8 +58187,8 @@ var render = function () {
                   {
                     name: "model",
                     rawName: "v-model",
-                    value: _vm.BatteryUser.battery_id,
-                    expression: "BatteryUser.battery_id",
+                    value: _vm.BatteryUser.bttt,
+                    expression: "BatteryUser.bttt",
                   },
                 ],
                 staticClass: "form-control",
@@ -58194,7 +58205,7 @@ var render = function () {
                       })
                     _vm.$set(
                       _vm.BatteryUser,
-                      "battery_id",
+                      "bttt",
                       $event.target.multiple ? $$selectedVal : $$selectedVal[0]
                     )
                   },
@@ -58221,8 +58232,8 @@ var render = function () {
                   {
                     name: "model",
                     rawName: "v-model",
-                    value: _vm.BatteryUser.user_id,
-                    expression: "BatteryUser.user_id",
+                    value: _vm.BatteryUser.usss,
+                    expression: "BatteryUser.usss",
                   },
                 ],
                 staticClass: "form-control",
@@ -58239,7 +58250,7 @@ var render = function () {
                       })
                     _vm.$set(
                       _vm.BatteryUser,
-                      "user_id",
+                      "usss",
                       $event.target.multiple ? $$selectedVal : $$selectedVal[0]
                     )
                   },
@@ -58291,9 +58302,11 @@ var render = function () {
                 },
               },
               [
-                _c("option", { attrs: { value: "1" } }, [_vm._v("Aktif")]),
+                _c("option", { attrs: { value: "aktif" } }, [_vm._v("Aktif")]),
                 _vm._v(" "),
-                _c("option", { attrs: { value: "2" } }, [_vm._v("Non Aktif")]),
+                _c("option", { attrs: { value: "non-aktif" } }, [
+                  _vm._v("Non Aktif"),
+                ]),
               ]
             ),
           ]),

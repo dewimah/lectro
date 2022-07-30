@@ -53,18 +53,18 @@
                   :key="BatteryUser.id"
                 >
                   <td>{{ index + 1 }}</td>
-                  <td>{{ BatteryUser.name }}</td>
+                  <td>{{ BatteryUser.namauser }}</td>
                   <td>{{ BatteryUser.namabattery }}</td>
                   <td>
                     <router-link
-                      :to="'/halaman-detail/'+BatteryUser.battery_id"
+                      :to="'/halaman-detail/'+BatteryUser.monnn"
                       class="btn btn-sm btn-primary"
                     >
                       <i class="fa-solid fa-circle-info"></i>
                     </router-link>
                     <button
                       class="btn btn-danger btn-sm"
-                      @click="deleteUserdevice(BatteryUser.id)"
+                      @click="deleteUserdevice(BatteryUser.bttt)"
                     >
                       <i class="fa-solid fa-trash"></i>
                     </button>
@@ -101,7 +101,7 @@ export default {
             })
       .then((response) => {
         console.log(response)
-        this.BatteryUser = response.data.data;
+        this.BatteryUser = response.data;
         // console.log(this.BatteryUser)
       })
       .then(function () {

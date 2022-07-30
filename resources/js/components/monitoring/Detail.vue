@@ -2,7 +2,7 @@
   <div class="container">
     <div class="row justify-content-center">
       <div class="card">
-        <div class="card-header"><h1>Detail Monitoring</h1></div>
+        <div class="card-header"><h1>Detail Monitoring {{ namaBatery }}</h1></div>
         <div class="card-body">
           <router-link
             to="/admin-monitoring"
@@ -60,6 +60,7 @@ export default {
       dataJoin: [],
       series: [],
       seriestegangan: [],
+      namaBatery: null,
       seriesarus: [],
       // CHART 1 (SUHU)
       chartOptions: {
@@ -279,6 +280,7 @@ export default {
         // const lastData = this.Monitoring.slice(-1)[0];
         const lastData = this.Monitoring;
         console.log(lastData)
+        this.namaBatery = lastData[0].battery.name
         // console.log(lastData)
         // console.log(lastData)
 
