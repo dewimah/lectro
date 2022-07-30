@@ -29,6 +29,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('/logout', 'App\Http\Controllers\LogoutController@logout')->name('logout');
     Route::get('/monitoring','App\Http\Controllers\MonitoringController@all');
     Route::get('/monitoring/{id}','App\Http\Controllers\MonitoringController@show');
+    Route::get('/asik/{id}','App\Http\Controllers\MonitoringController@lala');
     Route::post('/input','App\Http\Controllers\MonitoringController@datamasuk');
     Route::get('/setting','App\Http\Controllers\SettingController@all');
         Route::middleware('is.admin')->group( function(){
@@ -76,6 +77,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
             //monitorings
            // Route::get('monitoring','App\Http\Controllers\MonitoringController@all');
             Route::get('monitoring/{id}','App\Http\Controllers\MonitoringController@show');
+
             //Route::post('monitoring','App\Http\Controllers\MonitoringController@store');
             //Route::post('input','App\Http\Controllers\MonitoringController@datamasuk');
             Route::put('monitoring/{id}','App\Http\Controllers\MonitoringController@update');

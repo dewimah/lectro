@@ -43,6 +43,15 @@ class MonitoringController extends Controller
         //return Monitoring::find($id)->with('settings','cells');
     }
 
+    public function lala($id){
+         $data = DB::table('monitorings')->select('*')->where('battery_id',$id)->get();
+
+        //return Monitoring::with('battery')->where('id', $id)->get();
+return $data;
+        // return ResponseFormatter::success($data,'Berhasil Melakukan Registrasi');
+       // ->join('batteries','monitorings.battery_id','=','batteries.id')->get();
+    }
+
     //menambah data
     public function store(Request $request){
         return Monitoring::create($request->all());
