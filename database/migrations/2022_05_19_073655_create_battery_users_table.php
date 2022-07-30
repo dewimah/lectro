@@ -19,7 +19,7 @@ return new class extends Migration
             $table->foreignId('user_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
             //$table->primary(['battery_id','user_id']);
             $table->enum('is_active', ['aktif', 'non-aktif']);
-           // $table->foreignId('monitoring_id')->references('id')->on('monitorings')->onUpdate('cascade')->onDelete('cascade');
+            //$table->foreignId('monitoring_id')->references('id')->on('monitorings')->onUpdate('cascade')->onDelete('cascade');
             //$table->string('token_device')->nullable();
             $table->timestamps();
         });

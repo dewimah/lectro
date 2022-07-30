@@ -7,11 +7,13 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
+//use App\Models\Battery;
 //use App\Models\PersonalAccessToken;
 use App\Models\BatteryUser;
 use Illuminate\Support\Facades\Validator;
 use App\Helpers\ResponseFormatter;
 //use Validator;
+use DB;
 
 class AuthController extends Controller
 {
@@ -26,6 +28,10 @@ class AuthController extends Controller
         }
 
         $user = User::where('email', request()->email)->first();
+        $battery = DB::table('battery_user')
+        ->select('battery_user.battery_id');
+            $battery = $battery
+            ->join('batteries', 'battery_user.battery_id', '=', 'batteries.id')->get();
         if($user)
         {
             if(Hash::check(request()->password, $user->password))
@@ -36,6 +42,7 @@ class AuthController extends Controller
                     'Token Type' => 'Bearer Token',
                     'Token' => $token,
                     'user' => $user->load('roles'),
+                    'battery' => $battery
                 ];
                 return ResponseFormatter::success($data,'Login berhasil');
             }
