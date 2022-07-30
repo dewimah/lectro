@@ -31,6 +31,7 @@ class UserDeviceController extends Controller
             'battery_id',
             'setting_id',
             'cell_id',
+            'is_active',
             'users.name as name',
             'batteries.name as namabattery',
             'cellbaterai',
