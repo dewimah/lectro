@@ -21,7 +21,7 @@ class UserDeviceController extends Controller
     {
         /*return BatteryUser::with(['user','battery'])
         ->get();*/
-        // return 
+        // return
         $data = DB::table('battery_user')
         ->select(
             'battery_user.id',
@@ -52,7 +52,7 @@ class UserDeviceController extends Controller
         return response()->json([
             'succes' => true,
             'data' => $data
-        ]); 
+        ]);
     }
 
     public function store(Request $request){
@@ -66,13 +66,14 @@ class UserDeviceController extends Controller
         ]);
     }
 
-    public function show($id){ 
-        return BatteryUser::find($id);
+    public function show($id){
+        /*return BatteryUser::find($id);
         $results = BatteryUser::with('users')->get();
         foreach ($results as $userrecord) {
         echo $userrecord->id; //access table2 data
         echo $userrecord->users->booktitle; //access table1 data
-        }
+        }*/
+        return BatteryUser::with('battery','user')->where('id', $id)->get();
     }
 
     public function delete($id){
