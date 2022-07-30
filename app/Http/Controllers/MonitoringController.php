@@ -44,10 +44,10 @@ class MonitoringController extends Controller
     }
 
     public function lala($id){
-         $data = DB::table('monitorings')->select('*')->where('battery_id',$id)->get();
-
+         //$data = DB::table('monitorings')->select('*')->where('battery_id',$id)->get();
+         return Monitoring::with('battery')>where('battery_id',$id)->get();
         //return Monitoring::with('battery')->where('id', $id)->get();
-return $data;
+        return $data;
         // return ResponseFormatter::success($data,'Berhasil Melakukan Registrasi');
        // ->join('batteries','monitorings.battery_id','=','batteries.id')->get();
     }
