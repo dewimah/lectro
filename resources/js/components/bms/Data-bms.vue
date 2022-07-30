@@ -60,7 +60,7 @@
 
         <div class="card-body">
           <router-link
-            to="add-setting"
+            to="/add-setting"
             class="btn btn-success"
             type="button"
             style="background-color: #1c3b10"
@@ -232,7 +232,7 @@ export default {
             })
       .then((response) => {
         this.cell = response.data.data;
-        console.log(response.data)
+        //console.log(response.data)
         //console.log(response.data.data)
       })
       .then(function () {
@@ -250,7 +250,7 @@ export default {
                 }
             })
       .then((response) => {
-        // console.log(response.data)
+        //console.log(response.data)
         this.Setting = response.data;
       })
       .then(function () {
@@ -275,8 +275,13 @@ export default {
       }).then((result) => {
         if (result.value) {
           this.axios
-            .delete(process.env.MIX_API_KEY + "battery/" + id)
-            .then(() => {
+            .delete(process.env.MIX_API_KEY + "battery/" + id, {
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: "Bearer " + localStorage.getItem("token")
+                }
+            })
+            .then((response) => {
               Swal.fire("Terhapus", "Data sudah terhapus", "success");
               let i = this.Battery.map((data) => data.id).indexOf(id);
               this.Battery.splice(i, 1);
@@ -290,7 +295,12 @@ export default {
 
     tambahCell() {
       this.axios
-        .post(process.env.MIX_API_KEY + "cell/", this.cell)
+        .post(process.env.MIX_API_KEY + "cell/", this.cell, {
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: "Bearer " + localStorage.getItem("token")
+                }
+            })
         .then((response) => this.$router.push({ name: "data-bms" }))
         .catch((err) => console.log(err))
         .finally(() => (this.loading = false));
@@ -308,8 +318,13 @@ export default {
       }).then((result) => {
         if (result.value) {
           this.axios
-            .delete(process.env.MIX_API_KEY+"setting/"+id)
-            .then(() => {
+            .delete(process.env.MIX_API_KEY+"setting/"+id, {
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: "Bearer " + localStorage.getItem("token")
+                }
+            })
+            .then((response) => {
               Swal.fire("Terhapus", "Data sudah terhapus", "success");
               let i = this.Setting.map((data) => data.id).indexOf(id);
               this.Setting.splice(i, 1);
@@ -332,8 +347,13 @@ export default {
       }).then((result) => {
         if (result.value) {
           this.axios
-            .delete(process.env.MIX_API_KEY + "cell/" + id)
-            .then(() => {
+            .delete(process.env.MIX_API_KEY + "cell/" + id, {
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: "Bearer " + localStorage.getItem("token")
+                }
+            })
+            .then((response) => {
               Swal.fire("Terhapus", "Data sudah terhapus", "success");
               let i = this.cell.map((data) => data.id).indexOf(id);
               this.cell.splice(i, 1);
@@ -348,13 +368,13 @@ export default {
   mounted() {
     // console.log(process.env.MIX_API_KEY)
     //window.axios.defaults.headers.common['Authorization'] = 'Bearer $(this.token)'
-    localStorage.setItem("token", response.data.data.Token);
-    localStorage.setItem("role", response.data.data.user.roles[0].name);
-    if (response.data.data.user.roles[0].role === "admin") {
-      window.location.href = "/admin-monitoring";
-    } else if (response.data.data.user.roles[0].role === "user") {
-      window.location.href = "/login";
-    }
+    // localStorage.setItem("token", response.data.data.Token);
+    // localStorage.setItem("role", response.data.data.user.roles[0].name);
+    // if (localStorage.getItem("role") === "admin") {
+    //   window.location.href = "/admin-monitoring";
+    // } else if (localStorage.getItem("role") === "user") {
+    //   window.location.href = "/login";
+    // }
   },
 };
 </script>

@@ -82,7 +82,12 @@ export default {
     methods: {
         tambahSetting(){
             this.axios
-                .post(process.env.MIX_API_KEY+'setting/', this.Setting)
+                .post(process.env.MIX_API_KEY+'setting/', this.Setting, {
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: "Bearer " + localStorage.getItem("token")
+                }
+            })
                 .then(response => (
                     Toast.fire({
                         icon: 'success',
@@ -93,6 +98,7 @@ export default {
                 .catch(err => console.log(err))
                 .finally(() => this.loading = false)
         }
+        
     }
 }
 </script>

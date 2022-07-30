@@ -15,7 +15,7 @@
                 <div class="form-group">
                     <label for="baterai_id">Nama Baterai</label>
                     <select name="baterai_id" class="form-control" v-model="BatteryUser.battery_id">
-                        <option v-for="Battery in Battery" :key="Battery.id" :value="Battery.id">{{Battery.namabattery}}</option>
+                        <option v-for="Battery in Battery" :key="Battery.id" :value="Battery.id">{{Battery.name}}</option>
                     </select>
                 </div>
 
@@ -36,7 +36,7 @@
             </div>
 
             <div class="card-footer">
-                <router-link to="data-userdevice" class="btn btn-danger" type="button">Cancel</router-link>
+                <router-link to="/data-userdevice" class="btn btn-danger" type="button">Cancel</router-link>
                 <button type="submit" class="btn btn-success" style="background-color:#1c3b10">Simpan</button>
             </div>
         </form>
@@ -61,18 +61,29 @@ export default {
         //     }),
         this.loadDataBattery();
         this.loadDataUser();
+        console.log(this.$route.params.id)
         this.axios
-            .get(process.env.MIX_API_KEY+"userdevice/")
+            .get(process.env.MIX_API_KEY+"userdevice/" + this.$route.params.id, {
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: "Bearer " + localStorage.getItem("token")
+                }
+            })
             .then((response) => {
-                this.BatteryUser = response.data;
-                console.log(response.data)
+                this.BatteryUser = response.data[0];
+                // console.log(response)
             })
 
     },
     methods: {
         updateUserdevice(){
             this.axios
-                .put(process.env.MIX_API_KEY+"userdevice/"+this.$route.params.id, this.BatteryUser)
+                .put(process.env.MIX_API_KEY+"userdevice/"+this.$route.params.id, this.BatteryUser, {
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: "Bearer " + localStorage.getItem("token")
+                }
+            })
                 .then((response) => {
                     Toast.fire({
                         icon: 'success',
@@ -83,13 +94,30 @@ export default {
         },
         loadDataBattery(){
             this.axios
-                .get(process.env.MIX_API_KEY+"battery/")
-                .then(({data}) => {this.Battery = data.data});
+                .get(process.env.MIX_API_KEY+"battery/", {
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: "Bearer " + localStorage.getItem("token")
+                }
+            })
+                .then(({data}) => {
+                    // console.log(data)
+                    this.Battery = data.data
+                    // console.log(this.Battery)
+                    });
         },
         loadDataUser(){
             this.axios
-                .get(process.env.MIX_API_KEY+"dewi/")
-                .then(({data}) => {this.User = data.data});
+                .get(process.env.MIX_API_KEY+"dewi/", {
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: "Bearer " + localStorage.getItem("token")
+                }
+            })
+                .then(({data}) => {
+                    console.log(data)
+                    this.User = data
+                    });
         }
     }
 }

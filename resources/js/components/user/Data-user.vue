@@ -51,7 +51,12 @@ export default {
     },
     created(){
         this.axios
-        .get(process.env.MIX_API_KEY+"dewi/")
+        .get(process.env.MIX_API_KEY+"dewi/", {
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: "Bearer " + localStorage.getItem("token")
+                }
+            })
         .then(response =>{
             this.User = response.data;
             console.log(response.data)
@@ -78,7 +83,12 @@ export default {
             }).then(result => {
                 if (result.value) {
                     this.axios
-                        .delete(process.env.MIX_API_KEY+'user/' + id)
+                        .delete(process.env.MIX_API_KEY+'user/' + id,{
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: "Bearer " + localStorage.getItem("token")
+                }
+            })
                         .then(()=> {
                             Swal.fire(
                                 "Terhapus",

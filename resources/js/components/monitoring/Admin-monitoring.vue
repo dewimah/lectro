@@ -53,8 +53,8 @@
                   :key="BatteryUser.id"
                 >
                   <td>{{ index + 1 }}</td>
-                  <td>{{ BatteryUser.namabattery }}</td>
                   <td>{{ BatteryUser.name }}</td>
+                  <td>{{ BatteryUser.namabattery }}</td>
                   <td>
                     <router-link
                       :to="'/halaman-detail/'+BatteryUser.battery_id"

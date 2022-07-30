@@ -88,7 +88,12 @@ export default {
     },
     created(){
         this.axios
-            .get(process.env.MIX_API_KEY+"setting/"+this.$route.params.id)
+            .get(process.env.MIX_API_KEY+"setting/"+this.$route.params.id, {
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: "Bearer " + localStorage.getItem("token")
+                }
+            })
             .then ((response) => {
                 this.Setting = response.data.data;
                 console.log(response.data.data)
@@ -97,7 +102,12 @@ export default {
     methods: {
         updateSetting(){
             this.axios
-                .put(process.env.MIX_API_KEY+'setting/'+this.$route.params.id, this.Setting)
+                .put(process.env.MIX_API_KEY+'setting/'+this.$route.params.id, this.Setting, {
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: "Bearer " + localStorage.getItem("token")
+                }
+            })
                 .then((response) => {
                     Toast.fire({
                         icon: 'success',

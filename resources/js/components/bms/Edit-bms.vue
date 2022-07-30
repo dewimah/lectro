@@ -27,7 +27,7 @@
             <div class="form-group">
                 <label for="jml_sel">Setting</label>
                 <select name="jml_sel" class="form-control" v-model="Battery.setting_id">
-                    <option v-for="Setting in Setting" :key="Setting.id" :value="Setting.id">{{Setting.id}}</option>
+                    <option v-for="Setting in Setting" :key="Setting.id" :value="Setting.id">{{Setting.name}}</option>
                 </select>
             </div>
 
@@ -61,9 +61,14 @@ export default {
     },
     created(){
         this.axios
-            .get(process.env.MIX_API_KEY+"battery/"+this.$route.params.id)
+            .get(process.env.MIX_API_KEY+"battery/"+this.$route.params.id, {
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: "Bearer " + localStorage.getItem("token")
+                }
+            })
             .then ((response) => {
-                this.Battery = response.data;
+                this.Battery = response.data.data;
             }),
         this.loadDataCell();
         this.loadDataSetting();
@@ -71,7 +76,12 @@ export default {
     methods: {
         updateBms(){
             this.axios
-                .put(process.env.MIX_API_KEY+"battery/"+this.$route.params.id, this.Battery)
+                .put(process.env.MIX_API_KEY+"battery/"+this.$route.params.id, this.Battery, {
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: "Bearer " + localStorage.getItem("token")
+                }
+            })
                 .then((response) => {
                     Toast.fire({
                         icon: 'success',
@@ -82,12 +92,25 @@ export default {
         },
         loadDataCell(){
             this.axios
-                .get(process.env.MIX_API_KEY+'cell/')
-                .then(({data}) => {this.cell = data});
+                .get(process.env.MIX_API_KEY+"cell/", {
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: "Bearer " + localStorage.getItem("token")
+                }
+            })
+                .then(({data}) => {
+                    // console.log(data)
+                    this.cell = data.data
+                    });
         },
         loadDataSetting(){
             this.axios
-                .get(process.env.MIX_API_KEY+'setting/')
+                .get(process.env.MIX_API_KEY+'setting/', {
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: "Bearer " + localStorage.getItem("token")
+                }
+            })
                 .then(({data}) => {this.Setting = data});
         }
     },

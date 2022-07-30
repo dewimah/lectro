@@ -50,7 +50,12 @@ export default {
     methods: {
         tambahUserdevice(){
             this.axios
-                .post(process.env.MIX_API_KEY+'userdevice/', this.BatteryUser)
+                .post(process.env.MIX_API_KEY+'userdevice/', this.BatteryUser, {
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: "Bearer " + localStorage.getItem("token")
+                }
+            })
                 .then(response => (
                     Toast.fire({
                         icon: 'success',
@@ -62,12 +67,22 @@ export default {
         },
         loadDataBattery(){
             this.axios
-                .get(process.env.MIX_API_KEY+"battery/")
+                .get(process.env.MIX_API_KEY+"battery/", {
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: "Bearer " + localStorage.getItem("token")
+                }
+            })
                 .then(({data}) => {this.Battery = data.data});
         },
         loadDataUser(){
             this.axios
-                .get(process.env.MIX_API_KEY+"dewi/")
+                .get(process.env.MIX_API_KEY+"dewi/", {
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: "Bearer " + localStorage.getItem("token")
+                }
+            })
                 .then(({data}) => {this.User = data});
         }
     },

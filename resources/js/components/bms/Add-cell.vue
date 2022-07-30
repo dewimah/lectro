@@ -31,7 +31,12 @@ export default {
     methods: {
         tambahCell(){
             this.axios
-                .post(process.env.MIX_API_KEY+'cell/', this.cell)
+                .post(process.env.MIX_API_KEY+'cell/', this.cell,{
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: "Bearer " + localStorage.getItem("token")
+                }
+            })
                 .then(response => (
                     Toast.fire({
                         icon: 'success',

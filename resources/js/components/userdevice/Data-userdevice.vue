@@ -63,6 +63,14 @@ export default {
             // console.log(response)
             this.BatteryUser = response.data.data
         })
+        .then(function (){
+            $(".DataTable").DataTable({
+                dom: 'Bfrtip',
+                buttons: [
+                    'excel', 'pdf'
+                ]
+            });
+        });
 
     },
     created(){
@@ -96,7 +104,12 @@ export default {
             }).then(result => {
                 if (result.value) {
                     this.axios
-                        .delete(process.env.MIX_API_KEY+'userdevice/' + id)
+                        .delete(process.env.MIX_API_KEY+'userdevice/' + id, {
+                            headers: {
+                                "Content-Type": "application/json",
+                                Authorization: "Bearer " + localStorage.getItem("token")
+                            }
+                        })
                         .then(()=> {
                             Swal.fire(
                                 "Terhapus",

@@ -57,7 +57,12 @@ export default {
     methods: {
         tambahBms(){
             this.axios
-                .post(process.env.MIX_API_KEY+'battery/', this.Battery)
+                .post(process.env.MIX_API_KEY+'battery/', this.Battery, {
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: "Bearer " + localStorage.getItem("token")
+                }
+            })
                 .then(response => (
                     Toast.fire({
                         icon: 'success',
@@ -69,12 +74,22 @@ export default {
         },
         loadDataCell(){
             this.axios
-                .get(process.env.MIX_API_KEY+'cell/')
+                .get(process.env.MIX_API_KEY+'cell/', {
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: "Bearer " + localStorage.getItem("token")
+                }
+            })
                 .then(({data}) => {this.cell = data.data});
         },
         loadDataSetting(){
             this.axios
-                .get(process.env.MIX_API_KEY+'setting/')
+                .get(process.env.MIX_API_KEY+'setting/', {
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: "Bearer " + localStorage.getItem("token")
+                }
+            })
                 .then(({data}) => {this.Setting = data});
         }
     },

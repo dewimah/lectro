@@ -223,7 +223,12 @@ export default {
     mounted() {
         // setInterval(() => {
         this.axios
-        .get(process.env.MIX_API_KEY+'monitoring/')
+        .get(process.env.MIX_API_KEY+'monitoring/', {
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: "Bearer " + localStorage.getItem("token")
+                }
+            })
         .then(response =>{
             this.Monitoring = response.data;
         })
@@ -231,7 +236,12 @@ export default {
             $(".DataTable").DataTable();
         });
         this.axios
-        .get(process.env.MIX_API_KEY+'setting/')
+        .get(process.env.MIX_API_KEY+'setting/', {
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: "Bearer " + localStorage.getItem("token")
+                }
+            })
         .then(response =>{
             this.dataSetting = response.data;
             const lastData = this.Monitoring.slice(-1)[0];

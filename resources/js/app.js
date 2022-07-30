@@ -180,7 +180,7 @@ require('./bootstrap');
           }
       },
       {
-        path: '/add-setting/:id',
+        path: '/add-setting',
         name: 'add-setting',
         component:require('./components/bms/setting/Add-setting.vue').default,
         meta: {
@@ -188,7 +188,7 @@ require('./bootstrap');
         }
       },
       {
-        path: '/edit-setting',
+        path: '/edit-setting/:id',
         name: 'edit-setting',
         component:require('./components/bms/setting/Edit-setting.vue').default,
         meta: {
@@ -220,7 +220,7 @@ require('./bootstrap');
         }
       },
       {
-        path: '/edit-userdevice',
+        path: '/edit-userdevice/:id',
         name: 'edit-userdevice',
         component:require('./components/userdevice/Edit-userdevice.vue').default,
         meta: {

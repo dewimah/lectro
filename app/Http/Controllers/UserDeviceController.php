@@ -73,7 +73,7 @@ class UserDeviceController extends Controller
         echo $userrecord->id; //access table2 data
         echo $userrecord->users->booktitle; //access table1 data
         }*/
-        return BatteryUser::with('battery','user')->where('id', $id)->get();
+        return BatteryUser::with('battery','user','monitoring')->where('id', $id)->get();
     }
 
     public function delete($id){

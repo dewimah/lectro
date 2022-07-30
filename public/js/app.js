@@ -5611,7 +5611,12 @@ __webpack_require__.r(__webpack_exports__);
     tambahBms: function tambahBms() {
       var _this = this;
 
-      this.axios.post("http://127.0.0.1:8000/api/" + 'battery/', this.Battery).then(function (response) {
+      this.axios.post("http://127.0.0.1:8000/api/" + 'battery/', this.Battery, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + localStorage.getItem("token")
+        }
+      }).then(function (response) {
         return Toast.fire({
           icon: 'success',
           title: 'Data Berhasil Tersimpan'
@@ -5625,7 +5630,12 @@ __webpack_require__.r(__webpack_exports__);
     loadDataCell: function loadDataCell() {
       var _this2 = this;
 
-      this.axios.get("http://127.0.0.1:8000/api/" + 'cell/').then(function (_ref) {
+      this.axios.get("http://127.0.0.1:8000/api/" + 'cell/', {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + localStorage.getItem("token")
+        }
+      }).then(function (_ref) {
         var data = _ref.data;
         _this2.cell = data.data;
       });
@@ -5633,7 +5643,12 @@ __webpack_require__.r(__webpack_exports__);
     loadDataSetting: function loadDataSetting() {
       var _this3 = this;
 
-      this.axios.get("http://127.0.0.1:8000/api/" + 'setting/').then(function (_ref2) {
+      this.axios.get("http://127.0.0.1:8000/api/" + 'setting/', {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + localStorage.getItem("token")
+        }
+      }).then(function (_ref2) {
         var data = _ref2.data;
         _this3.Setting = data;
       });
@@ -5691,7 +5706,12 @@ __webpack_require__.r(__webpack_exports__);
     tambahCell: function tambahCell() {
       var _this = this;
 
-      this.axios.post("http://127.0.0.1:8000/api/" + 'cell/', this.cell).then(function (response) {
+      this.axios.post("http://127.0.0.1:8000/api/" + 'cell/', this.cell, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + localStorage.getItem("token")
+        }
+      }).then(function (response) {
         return Toast.fire({
           icon: 'success',
           title: 'Data Berhasil Tersimpan'
@@ -5950,8 +5970,8 @@ __webpack_require__.r(__webpack_exports__);
         Authorization: "Bearer " + this.token
       }
     }).then(function (response) {
-      _this.cell = response.data.data;
-      console.log(response.data); //console.log(response.data.data)
+      _this.cell = response.data.data; //console.log(response.data)
+      //console.log(response.data.data)
     }).then(function () {
       $(".DataTable1").DataTable({
         dom: "Bfrtip",
@@ -5965,7 +5985,7 @@ __webpack_require__.r(__webpack_exports__);
         Authorization: "Bearer " + this.token
       }
     }).then(function (response) {
-      // console.log(response.data)
+      //console.log(response.data)
       _this.Setting = response.data;
     }).then(function () {
       $(".DataTable3").DataTable({
@@ -5989,7 +6009,12 @@ __webpack_require__.r(__webpack_exports__);
         confirmButtonText: "Hapus"
       }).then(function (result) {
         if (result.value) {
-          _this2.axios["delete"]("http://127.0.0.1:8000/api/" + "battery/" + id).then(function () {
+          _this2.axios["delete"]("http://127.0.0.1:8000/api/" + "battery/" + id, {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: "Bearer " + localStorage.getItem("token")
+            }
+          }).then(function (response) {
             Swal.fire("Terhapus", "Data sudah terhapus", "success");
 
             var i = _this2.Battery.map(function (data) {
@@ -6006,7 +6031,12 @@ __webpack_require__.r(__webpack_exports__);
     tambahCell: function tambahCell() {
       var _this3 = this;
 
-      this.axios.post("http://127.0.0.1:8000/api/" + "cell/", this.cell).then(function (response) {
+      this.axios.post("http://127.0.0.1:8000/api/" + "cell/", this.cell, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + localStorage.getItem("token")
+        }
+      }).then(function (response) {
         return _this3.$router.push({
           name: "data-bms"
         });
@@ -6029,7 +6059,12 @@ __webpack_require__.r(__webpack_exports__);
         confirmButtonText: "Hapus"
       }).then(function (result) {
         if (result.value) {
-          _this4.axios["delete"]("http://127.0.0.1:8000/api/" + "setting/" + id).then(function () {
+          _this4.axios["delete"]("http://127.0.0.1:8000/api/" + "setting/" + id, {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: "Bearer " + localStorage.getItem("token")
+            }
+          }).then(function (response) {
             Swal.fire("Terhapus", "Data sudah terhapus", "success");
 
             var i = _this4.Setting.map(function (data) {
@@ -6056,7 +6091,12 @@ __webpack_require__.r(__webpack_exports__);
         confirmButtonText: "Hapus"
       }).then(function (result) {
         if (result.value) {
-          _this5.axios["delete"]("http://127.0.0.1:8000/api/" + "cell/" + id).then(function () {
+          _this5.axios["delete"]("http://127.0.0.1:8000/api/" + "cell/" + id, {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: "Bearer " + localStorage.getItem("token")
+            }
+          }).then(function (response) {
             Swal.fire("Terhapus", "Data sudah terhapus", "success");
 
             var i = _this5.cell.map(function (data) {
@@ -6071,17 +6111,15 @@ __webpack_require__.r(__webpack_exports__);
       });
     }
   },
-  mounted: function mounted() {
-    // console.log(process.env.MIX_API_KEY)
+  mounted: function mounted() {// console.log(process.env.MIX_API_KEY)
     //window.axios.defaults.headers.common['Authorization'] = 'Bearer $(this.token)'
-    localStorage.setItem("token", response.data.data.Token);
-    localStorage.setItem("role", response.data.data.user.roles[0].name);
-
-    if (response.data.data.user.roles[0].role === "admin") {
-      window.location.href = "/admin-monitoring";
-    } else if (response.data.data.user.roles[0].role === "user") {
-      window.location.href = "/login";
-    }
+    // localStorage.setItem("token", response.data.data.Token);
+    // localStorage.setItem("role", response.data.data.user.roles[0].name);
+    // if (localStorage.getItem("role") === "admin") {
+    //   window.location.href = "/admin-monitoring";
+    // } else if (localStorage.getItem("role") === "user") {
+    //   window.location.href = "/login";
+    // }
   }
 });
 
@@ -6404,8 +6442,13 @@ __webpack_require__.r(__webpack_exports__);
   created: function created() {
     var _this = this;
 
-    this.axios.get("http://127.0.0.1:8000/api/" + "battery/" + this.$route.params.id).then(function (response) {
-      _this.Battery = response.data;
+    this.axios.get("http://127.0.0.1:8000/api/" + "battery/" + this.$route.params.id, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + localStorage.getItem("token")
+      }
+    }).then(function (response) {
+      _this.Battery = response.data.data;
     }), this.loadDataCell();
     this.loadDataSetting();
   },
@@ -6413,7 +6456,12 @@ __webpack_require__.r(__webpack_exports__);
     updateBms: function updateBms() {
       var _this2 = this;
 
-      this.axios.put("http://127.0.0.1:8000/api/" + "battery/" + this.$route.params.id, this.Battery).then(function (response) {
+      this.axios.put("http://127.0.0.1:8000/api/" + "battery/" + this.$route.params.id, this.Battery, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + localStorage.getItem("token")
+        }
+      }).then(function (response) {
         Toast.fire({
           icon: 'success',
           title: 'Data Berhasil Tersimpan'
@@ -6425,15 +6473,26 @@ __webpack_require__.r(__webpack_exports__);
     loadDataCell: function loadDataCell() {
       var _this3 = this;
 
-      this.axios.get("http://127.0.0.1:8000/api/" + 'cell/').then(function (_ref) {
+      this.axios.get("http://127.0.0.1:8000/api/" + "cell/", {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + localStorage.getItem("token")
+        }
+      }).then(function (_ref) {
         var data = _ref.data;
-        _this3.cell = data;
+        // console.log(data)
+        _this3.cell = data.data;
       });
     },
     loadDataSetting: function loadDataSetting() {
       var _this4 = this;
 
-      this.axios.get("http://127.0.0.1:8000/api/" + 'setting/').then(function (_ref2) {
+      this.axios.get("http://127.0.0.1:8000/api/" + 'setting/', {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + localStorage.getItem("token")
+        }
+      }).then(function (_ref2) {
         var data = _ref2.data;
         _this4.Setting = data;
       });
@@ -6486,7 +6545,12 @@ __webpack_require__.r(__webpack_exports__);
   created: function created() {
     var _this = this;
 
-    this.axios.get("http://127.0.0.1:8000/api/" + 'cell/' + this.$route.params.id).then(function (response) {
+    this.axios.get("http://127.0.0.1:8000/api/" + 'cell/' + this.$route.params.id, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + localStorage.getItem("token")
+      }
+    }).then(function (response) {
       _this.cell = response.data.data;
     });
   },
@@ -6494,7 +6558,12 @@ __webpack_require__.r(__webpack_exports__);
     updateCell: function updateCell() {
       var _this2 = this;
 
-      this.axios.put("http://127.0.0.1:8000/api/" + 'cell/' + this.$route.params.id, this.cell).then(function (response) {
+      this.axios.put("http://127.0.0.1:8000/api/" + 'cell/' + this.$route.params.id, this.cell, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + localStorage.getItem("token")
+        }
+      }).then(function (response) {
         Toast.fire({
           icon: 'success',
           title: 'Data Berhasil Tersimpan'
@@ -6603,7 +6672,12 @@ __webpack_require__.r(__webpack_exports__);
     tambahSetting: function tambahSetting() {
       var _this = this;
 
-      this.axios.post("http://127.0.0.1:8000/api/" + 'setting/', this.Setting).then(function (response) {
+      this.axios.post("http://127.0.0.1:8000/api/" + 'setting/', this.Setting, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + localStorage.getItem("token")
+        }
+      }).then(function (response) {
         return Toast.fire({
           icon: 'success',
           title: 'Data Berhasil Tersimpan'
@@ -6722,7 +6796,12 @@ __webpack_require__.r(__webpack_exports__);
   created: function created() {
     var _this = this;
 
-    this.axios.get("http://127.0.0.1:8000/api/" + "setting/" + this.$route.params.id).then(function (response) {
+    this.axios.get("http://127.0.0.1:8000/api/" + "setting/" + this.$route.params.id, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + localStorage.getItem("token")
+      }
+    }).then(function (response) {
       _this.Setting = response.data.data;
       console.log(response.data.data);
     });
@@ -6731,7 +6810,12 @@ __webpack_require__.r(__webpack_exports__);
     updateSetting: function updateSetting() {
       var _this2 = this;
 
-      this.axios.put("http://127.0.0.1:8000/api/" + 'setting/' + this.$route.params.id, this.Setting).then(function (response) {
+      this.axios.put("http://127.0.0.1:8000/api/" + 'setting/' + this.$route.params.id, this.Setting, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + localStorage.getItem("token")
+        }
+      }).then(function (response) {
         Toast.fire({
           icon: 'success',
           title: 'Data Berhasil Tersimpan'
@@ -7245,8 +7329,8 @@ __webpack_require__.r(__webpack_exports__);
         Authorization: "Bearer " + localStorage.getItem("token")
       }
     }).then(function (response) {
-      _this.Monitoring = response.data;
-      console.log(_this.Monitoring);
+      console.log(response);
+      _this.Monitoring = response.data; // console.log(this.Monitoring)
     }).then(function () {
       $(".DataTable").DataTable();
     });
@@ -7256,15 +7340,16 @@ __webpack_require__.r(__webpack_exports__);
         Authorization: "Bearer " + localStorage.getItem("token")
       }
     }).then(function (response) {
-      console.log(response);
+      // console.log(response)
       _this.dataSetting = response.data; // console.log(response)
       // const lastData = this.Monitoring.slice(-1)[0];
 
-      var lastData = _this.Monitoring; // console.log(lastData)
+      var lastData = _this.Monitoring;
+      console.log(lastData); // console.log(lastData)
       // console.log(lastData)
 
       _this.dataSetting.map(function (a) {
-        if (a.id === lastData.battery.setting_id) {
+        if (a.id === lastData[0].battery.setting_id) {
           _this.dataSettingMatch = a;
         }
       }); // console.log(this.dataSettingMatch);
@@ -7273,23 +7358,23 @@ __webpack_require__.r(__webpack_exports__);
 
       _this.series.push(_this.dataSettingMatch.temp_max);
 
-      _this.series.push(lastData.temp_1);
+      _this.series.push(lastData[0].temp_1);
 
-      _this.series.push(lastData.temp_2);
+      _this.series.push(lastData[0].temp_2);
 
-      _this.series.push(lastData.temp_3); // console.log(this.series)
+      _this.series.push(lastData[0].temp_3); // console.log(this.series)
       //this.series.push(this.dataSettingMatch.temp_min);
 
 
       _this.seriestegangan.push(_this.dataSettingMatch.tegangan_max);
 
-      _this.seriestegangan.push(lastData.tegangan_tot);
+      _this.seriestegangan.push(lastData[0].tegangan_tot);
 
       _this.seriestegangan.push(_this.dataSettingMatch.tegangan_min);
 
       _this.seriesarus.push(_this.dataSettingMatch.arus_max);
 
-      _this.seriesarus.push(lastData.arus); //this.seriesarus.push(this.dataSettingMatch.arus_min);
+      _this.seriesarus.push(lastData[0].arus); //this.seriesarus.push(this.dataSettingMatch.arus_min);
 
     }).then(function () {
       $(".DataTable").DataTable();
@@ -7548,12 +7633,22 @@ __webpack_require__.r(__webpack_exports__);
     var _this = this;
 
     // setInterval(() => {
-    this.axios.get("http://127.0.0.1:8000/api/" + 'monitoring/').then(function (response) {
+    this.axios.get("http://127.0.0.1:8000/api/" + 'monitoring/', {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + localStorage.getItem("token")
+      }
+    }).then(function (response) {
       _this.Monitoring = response.data;
     }).then(function () {
       $(".DataTable").DataTable();
     });
-    this.axios.get("http://127.0.0.1:8000/api/" + 'setting/').then(function (response) {
+    this.axios.get("http://127.0.0.1:8000/api/" + 'setting/', {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + localStorage.getItem("token")
+      }
+    }).then(function (response) {
       _this.dataSetting = response.data;
 
       var lastData = _this.Monitoring.slice(-1)[0];
@@ -7770,7 +7865,12 @@ __webpack_require__.r(__webpack_exports__);
   created: function created() {
     var _this = this;
 
-    this.axios.get("http://127.0.0.1:8000/api/" + "dewi/").then(function (response) {
+    this.axios.get("http://127.0.0.1:8000/api/" + "dewi/", {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + localStorage.getItem("token")
+      }
+    }).then(function (response) {
       _this.User = response.data;
       console.log(response.data);
     }).then(function () {
@@ -7794,7 +7894,12 @@ __webpack_require__.r(__webpack_exports__);
         confirmButtonText: "Hapus"
       }).then(function (result) {
         if (result.value) {
-          _this2.axios["delete"]("http://127.0.0.1:8000/api/" + 'user/' + id).then(function () {
+          _this2.axios["delete"]("http://127.0.0.1:8000/api/" + 'user/' + id, {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: "Bearer " + localStorage.getItem("token")
+            }
+          }).then(function () {
             Swal.fire("Terhapus", "Data sudah terhapus", "success");
 
             var i = _this2.User.map(function (data) {
@@ -7866,7 +7971,12 @@ __webpack_require__.r(__webpack_exports__);
   created: function created() {
     var _this = this;
 
-    this.axios.get("http://127.0.0.1:8000/api/" + "user/" + this.$route.params.id).then(function (response) {
+    this.axios.get("http://127.0.0.1:8000/api/" + "user/" + this.$route.params.id, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + localStorage.getItem("token")
+      }
+    }).then(function (response) {
       _this.User = response.data.data;
       console.log(response.data);
     });
@@ -7875,7 +7985,12 @@ __webpack_require__.r(__webpack_exports__);
     updateUser: function updateUser() {
       var _this2 = this;
 
-      this.axios.put("http://127.0.0.1:8000/api/" + "user/" + this.$route.params.id, this.User).then(function (response) {
+      this.axios.put("http://127.0.0.1:8000/api/" + "user/" + this.$route.params.id, this.User, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + localStorage.getItem("token")
+        }
+      }).then(function (response) {
         Toast.fire({
           icon: 'success',
           title: 'Data Berhasil Tersimpan'
@@ -7952,7 +8067,12 @@ __webpack_require__.r(__webpack_exports__);
     tambahUserdevice: function tambahUserdevice() {
       var _this = this;
 
-      this.axios.post("http://127.0.0.1:8000/api/" + 'userdevice/', this.BatteryUser).then(function (response) {
+      this.axios.post("http://127.0.0.1:8000/api/" + 'userdevice/', this.BatteryUser, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + localStorage.getItem("token")
+        }
+      }).then(function (response) {
         return Toast.fire({
           icon: 'success',
           title: 'Data Berhasil Tersimpan'
@@ -7966,7 +8086,12 @@ __webpack_require__.r(__webpack_exports__);
     loadDataBattery: function loadDataBattery() {
       var _this2 = this;
 
-      this.axios.get("http://127.0.0.1:8000/api/" + "battery/").then(function (_ref) {
+      this.axios.get("http://127.0.0.1:8000/api/" + "battery/", {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + localStorage.getItem("token")
+        }
+      }).then(function (_ref) {
         var data = _ref.data;
         _this2.Battery = data.data;
       });
@@ -7974,7 +8099,12 @@ __webpack_require__.r(__webpack_exports__);
     loadDataUser: function loadDataUser() {
       var _this3 = this;
 
-      this.axios.get("http://127.0.0.1:8000/api/" + "dewi/").then(function (_ref2) {
+      this.axios.get("http://127.0.0.1:8000/api/" + "dewi/", {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + localStorage.getItem("token")
+        }
+      }).then(function (_ref2) {
         var data = _ref2.data;
         _this3.User = data;
       });
@@ -8064,6 +8194,11 @@ __webpack_require__.r(__webpack_exports__);
     }).then(function (response) {
       // console.log(response)
       _this.BatteryUser = response.data.data;
+    }).then(function () {
+      $(".DataTable").DataTable({
+        dom: 'Bfrtip',
+        buttons: ['excel', 'pdf']
+      });
     });
   },
   created: function created() {// this.axios
@@ -8097,7 +8232,12 @@ __webpack_require__.r(__webpack_exports__);
         confirmButtonText: "Hapus"
       }).then(function (result) {
         if (result.value) {
-          _this2.axios["delete"]("http://127.0.0.1:8000/api/" + 'userdevice/' + id).then(function () {
+          _this2.axios["delete"]("http://127.0.0.1:8000/api/" + 'userdevice/' + id, {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: "Bearer " + localStorage.getItem("token")
+            }
+          }).then(function () {
             Swal.fire("Terhapus", "Data sudah terhapus", "success");
 
             var i = _this2.BatteryUser.map(function (data) {
@@ -8191,16 +8331,26 @@ __webpack_require__.r(__webpack_exports__);
     //     }),
     this.loadDataBattery();
     this.loadDataUser();
-    this.axios.get("http://127.0.0.1:8000/api/" + "userdevice/").then(function (response) {
-      _this.BatteryUser = response.data;
-      console.log(response.data);
+    console.log(this.$route.params.id);
+    this.axios.get("http://127.0.0.1:8000/api/" + "userdevice/" + this.$route.params.id, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + localStorage.getItem("token")
+      }
+    }).then(function (response) {
+      _this.BatteryUser = response.data[0]; // console.log(response)
     });
   },
   methods: {
     updateUserdevice: function updateUserdevice() {
       var _this2 = this;
 
-      this.axios.put("http://127.0.0.1:8000/api/" + "userdevice/" + this.$route.params.id, this.BatteryUser).then(function (response) {
+      this.axios.put("http://127.0.0.1:8000/api/" + "userdevice/" + this.$route.params.id, this.BatteryUser, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + localStorage.getItem("token")
+        }
+      }).then(function (response) {
         Toast.fire({
           icon: 'success',
           title: 'Data Berhasil Tersimpan'
@@ -8212,17 +8362,29 @@ __webpack_require__.r(__webpack_exports__);
     loadDataBattery: function loadDataBattery() {
       var _this3 = this;
 
-      this.axios.get("http://127.0.0.1:8000/api/" + "battery/").then(function (_ref) {
+      this.axios.get("http://127.0.0.1:8000/api/" + "battery/", {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + localStorage.getItem("token")
+        }
+      }).then(function (_ref) {
         var data = _ref.data;
-        _this3.Battery = data.data;
+        // console.log(data)
+        _this3.Battery = data.data; // console.log(this.Battery)
       });
     },
     loadDataUser: function loadDataUser() {
       var _this4 = this;
 
-      this.axios.get("http://127.0.0.1:8000/api/" + "dewi/").then(function (_ref2) {
+      this.axios.get("http://127.0.0.1:8000/api/" + "dewi/", {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + localStorage.getItem("token")
+        }
+      }).then(function (_ref2) {
         var data = _ref2.data;
-        _this4.User = data.data;
+        console.log(data);
+        _this4.User = data;
       });
     }
   }
@@ -8409,14 +8571,14 @@ var routes = [//   {
     auth: false
   }
 }, {
-  path: '/add-setting/:id',
+  path: '/add-setting',
   name: 'add-setting',
   component: (__webpack_require__(/*! ./components/bms/setting/Add-setting.vue */ "./resources/js/components/bms/setting/Add-setting.vue")["default"]),
   meta: {
     auth: false
   }
 }, {
-  path: '/edit-setting',
+  path: '/edit-setting/:id',
   name: 'edit-setting',
   component: (__webpack_require__(/*! ./components/bms/setting/Edit-setting.vue */ "./resources/js/components/bms/setting/Edit-setting.vue")["default"]),
   meta: {
@@ -8444,7 +8606,7 @@ var routes = [//   {
     auth: false
   }
 }, {
-  path: '/edit-userdevice',
+  path: '/edit-userdevice/:id',
   name: 'edit-userdevice',
   component: (__webpack_require__(/*! ./components/userdevice/Edit-userdevice.vue */ "./resources/js/components/userdevice/Edit-userdevice.vue")["default"]),
   meta: {
@@ -54286,7 +54448,7 @@ var render = function () {
               {
                 staticClass: "btn btn-success",
                 staticStyle: { "background-color": "#1c3b10" },
-                attrs: { to: "add-setting", type: "button" },
+                attrs: { to: "/add-setting", type: "button" },
               },
               [
                 _c("i", { staticClass: "fa-solid fa-circle-plus" }),
@@ -55100,7 +55262,7 @@ var render = function () {
                 return _c(
                   "option",
                   { key: Setting.id, domProps: { value: Setting.id } },
-                  [_vm._v(_vm._s(Setting.id))]
+                  [_vm._v(_vm._s(Setting.name))]
                 )
               }),
               0
@@ -56522,9 +56684,9 @@ var render = function () {
                     return _c("tr", { key: BatteryUser.id }, [
                       _c("td", [_vm._v(_vm._s(index + 1))]),
                       _vm._v(" "),
-                      _c("td", [_vm._v(_vm._s(BatteryUser.namabattery))]),
-                      _vm._v(" "),
                       _c("td", [_vm._v(_vm._s(BatteryUser.name))]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v(_vm._s(BatteryUser.namabattery))]),
                       _vm._v(" "),
                       _c(
                         "td",
@@ -58042,7 +58204,7 @@ var render = function () {
                 return _c(
                   "option",
                   { key: Battery.id, domProps: { value: Battery.id } },
-                  [_vm._v(_vm._s(Battery.namabattery))]
+                  [_vm._v(_vm._s(Battery.name))]
                 )
               }),
               0
@@ -58145,7 +58307,7 @@ var render = function () {
               "router-link",
               {
                 staticClass: "btn btn-danger",
-                attrs: { to: "data-userdevice", type: "button" },
+                attrs: { to: "/data-userdevice", type: "button" },
               },
               [_vm._v("Cancel")]
             ),

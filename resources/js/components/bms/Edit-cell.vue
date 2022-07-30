@@ -31,7 +31,12 @@ export default {
 
     created() {
         this.axios
-             .get(process.env.MIX_API_KEY+'cell/' + this.$route.params.id)
+             .get(process.env.MIX_API_KEY+'cell/' + this.$route.params.id, {
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: "Bearer " + localStorage.getItem("token")
+                }
+            })
              .then((response) => {
                 this.cell = response.data.data;
             })
@@ -40,7 +45,12 @@ export default {
     methods: {
         updateCell(){
             this.axios
-                .put(process.env.MIX_API_KEY+'cell/' + this.$route.params.id, this.cell)
+                .put(process.env.MIX_API_KEY+'cell/' + this.$route.params.id, this.cell, {
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: "Bearer " + localStorage.getItem("token")
+                }
+            })
                 .then((response) => {
                     Toast.fire({
                         icon: 'success',

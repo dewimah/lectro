@@ -258,8 +258,9 @@ export default {
                 }
             })
       .then((response) => {
+        console.log(response)
         this.Monitoring = response.data;
-        console.log(this.Monitoring)
+        // console.log(this.Monitoring)
       })
       .then(function () {
         $(".DataTable").DataTable();
@@ -272,34 +273,35 @@ export default {
                 }
             })
       .then((response) => {
-        console.log(response)
+        // console.log(response)
         this.dataSetting = response.data;
         // console.log(response)
         // const lastData = this.Monitoring.slice(-1)[0];
         const lastData = this.Monitoring;
+        console.log(lastData)
         // console.log(lastData)
         // console.log(lastData)
 
         this.dataSetting.map((a) => {
-          if (a.id === lastData.battery.setting_id) {
+          if (a.id === lastData[0].battery.setting_id) {
             this.dataSettingMatch = a;
           }
         });
         // console.log(this.dataSettingMatch);
         // console.log(lastData);
         this.series.push(this.dataSettingMatch.temp_max);
-        this.series.push(lastData.temp_1);
-        this.series.push(lastData.temp_2);
-        this.series.push(lastData.temp_3);
+        this.series.push(lastData[0].temp_1);
+        this.series.push(lastData[0].temp_2);
+        this.series.push(lastData[0].temp_3);
         // console.log(this.series)
         //this.series.push(this.dataSettingMatch.temp_min);
 
         this.seriestegangan.push(this.dataSettingMatch.tegangan_max);
-        this.seriestegangan.push(lastData.tegangan_tot);
+        this.seriestegangan.push(lastData[0].tegangan_tot);
         this.seriestegangan.push(this.dataSettingMatch.tegangan_min);
 
         this.seriesarus.push(this.dataSettingMatch.arus_max);
-        this.seriesarus.push(lastData.arus);
+        this.seriesarus.push(lastData[0].arus);
         //this.seriesarus.push(this.dataSettingMatch.arus_min);
       })
       .then(function () {
