@@ -22,12 +22,12 @@ class UserDeviceController extends Controller
         /*return BatteryUser::with(['user','battery'])
         ->get();*/
         // return
-        $data = DB::table('battery_user')
+        /*$data = DB::table('battery_user')
         ->select(
             'battery_user.id',
             //'battery_id',
             'setting_id',
-            'monitorings.*',
+            //'monitorings.*',
             'cell_id',
             'is_active',
             'users.name as name',
@@ -50,7 +50,7 @@ class UserDeviceController extends Controller
             'temp_3',
             'arus',
             'soc',
-            'soh'*/
+            'soh'
         )
         ->join('users','battery_user.user_id', '=', 'users.id')
         ->join('monitorings','battery_user.monitoring_id', '=', 'monitoring.id')
@@ -62,7 +62,40 @@ class UserDeviceController extends Controller
         return response()->json([
             'succes' => true,
             'data' => $data
-        ]);
+        ]);*/
+        $data = DB::table('battery_user')->select(
+            'battery_user.is_active',
+            'monitorings.tegangan_tot',
+            'monitorings.tegangan_cell',
+            'monitorings.temp_1',
+            'monitorings.temp_2',
+            'monitorings.temp_3',
+            'monitorings.arus',
+            'monitorings.soc',
+            'monitorings.soh',
+            'settings.temp_min',
+            'settings.temp_max',
+            'settings.tegangan_min',
+            'settings.tegangan_max',
+            'settings.arus_min',
+            'settings.arus_max',
+            'cells.cellbaterai',
+            'batteries.name',
+            'batteries.tipe',
+            'batteries.serial',
+            'users.name',
+            'battery_user.id as bttt',
+            'users.id as usss',
+            'monitorings.id as monnn'
+        );
+
+        $data = $data->join('monitorings', 'battery_user.monitoring_id', '=', 'monitorings.id')
+        ->join('batteries', 'battery_user.battery_id', '=', 'batteries.id')
+        ->join('settings', 'batteries.setting_id', '=', 'settings.id')
+        ->join('cells', 'batteries.cell_id', '=', 'cells.id')
+        ->join('users', 'battery_user.user_id', '=', 'users.id')->get();
+
+        return $data;
     }
 
     public function store(Request $request){
