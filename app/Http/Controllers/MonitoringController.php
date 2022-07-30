@@ -38,7 +38,9 @@ class MonitoringController extends Controller
     }
 
     public function show ($id){
-        return Monitoring::find($id);
+        return Monitoring::with('battery')->where('id', $id)->get();
+
+        //return Monitoring::find($id)->with('settings','cells');
     }
 
     //menambah data
