@@ -35,20 +35,21 @@
 export default {
     data() {
         return{
-            User: {}
+            User: []
         }
     },
     created(){
         this.axios
-            .get(process.env.MIX_API_KEY+'user/' + this.$route.params.id)
+            .get(process.env.MIX_API_KEY+"user/"+this.$route.params.id)
             .then ((response) => {
-                this.User = response.data;
+                this.User = response.data.data
+                console.log(response.data)
             });
     },
     methods: {
         updateUser(){
             this.axios
-                .put(process.env.MIX_API_KEY+'user/' + this.$route.params.id, this.User)
+                .put(process.env.MIX_API_KEY+"user/"+this.$route.params.id, this.User)
                 .then((response) => {
                     Toast.fire({
                         icon: 'success',

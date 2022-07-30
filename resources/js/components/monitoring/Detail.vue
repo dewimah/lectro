@@ -251,7 +251,12 @@ export default {
     console.log(this.$route.params.id)
     // setInterval(() => {
     this.axios
-      .get(process.env.MIX_API_KEY+"monitoring/" + this.$route.params.id)
+      .get(process.env.MIX_API_KEY+"monitoring/" + this.$route.params.id, {
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: "Bearer " + localStorage.getItem("token")
+                }
+            })
       .then((response) => {
         this.Monitoring = response.data;
         console.log(this.Monitoring)
@@ -260,11 +265,19 @@ export default {
         $(".DataTable").DataTable();
       });
     this.axios
-      .get("setting/")
+      .get(process.env.MIX_API_KEY+"setting/", {
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: "Bearer " + localStorage.getItem("token")
+                }
+            })
       .then((response) => {
+        console.log(response)
         this.dataSetting = response.data;
+        // console.log(response)
         // const lastData = this.Monitoring.slice(-1)[0];
         const lastData = this.Monitoring;
+        // console.log(lastData)
         // console.log(lastData)
 
         this.dataSetting.map((a) => {

@@ -6,7 +6,7 @@ use App\Models\BatteryUser;
 use App\Models\User;
 use App\Models\Battery;
 use Illuminate\Support\Str;
-use DB;
+use Illuminate\Support\Facades\DB;
 
 use Illuminate\Http\Request;
 
@@ -21,16 +21,14 @@ class UserDeviceController extends Controller
     {
         /*return BatteryUser::with(['user','battery'])
         ->get();*/
-        return DB::table('battery_user')
-        ->join('users','battery_user.user_id', '=', 'users.id')
-        ->join('batteries','battery_user.battery_id','=','batteries.id')
-        ->join('settings','batteries.setting_id', '=', 'settings.id')
-        ->join('cells','batteries.cell_id', '=', 'cells.id')
+        // return 
+        $data = DB::table('battery_user')
         ->select(
             'battery_user.id',
             'battery_id',
             'setting_id',
             'cell_id',
+            'is_active',
             'users.name as name',
             'batteries.name as namabattery',
             'cellbaterai',
@@ -45,7 +43,16 @@ class UserDeviceController extends Controller
             'tegangan_min',
             'tegangan_max'
         )
-        ->get();
+        ->join('users','battery_user.user_id', '=', 'users.id')
+        ->join('batteries','battery_user.battery_id','=','batteries.id')
+        ->join('settings','batteries.setting_id', '=', 'settings.id')
+        ->join('cells','batteries.cell_id', '=', 'cells.id')
+        ->get()->toArray();
+
+        return response()->json([
+            'succes' => true,
+            'data' => $data
+        ]); 
     }
 
     public function store(Request $request){
@@ -59,7 +66,7 @@ class UserDeviceController extends Controller
         ]);
     }
 
-    public function show($id){
+    public function show($id){ 
         return BatteryUser::find($id);
         $results = BatteryUser::with('users')->get();
         foreach ($results as $userrecord) {

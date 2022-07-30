@@ -15,7 +15,7 @@
                 <div class="form-group">
                     <label for="baterai_id">Nama Baterai</label>
                     <select name="baterai_id" class="form-control" v-model="BatteryUser.battery_id">
-                        <option v-for="Battery in Battery" :key="Battery.id" :value="Battery.id">{{Battery.name}}</option>
+                        <option v-for="Battery in Battery" :key="Battery.id" :value="Battery.id">{{Battery.namabattery}}</option>
                     </select>
                 </div>
 
@@ -53,18 +53,26 @@ export default {
         }
     },
     created() {
-        this.axios
-             .get(process.env.MIX_API_KEY+'userdevice/' + this.$route.params.id)
-             .then((response) => {
-                this.BatteryUser = response.data;
-            }),
+        // this.axios
+        //      .get(process.env.MIX_API_KEY+"userdevice/"+this.$route.params.id)
+        //      .then((response) => {
+        //         this.BatteryUser = response.data;
+        //         //console.log(response.data)
+        //     }),
         this.loadDataBattery();
         this.loadDataUser();
+        this.axios
+            .get(process.env.MIX_API_KEY+"userdevice/")
+            .then((response) => {
+                this.BatteryUser = response.data;
+                console.log(response.data)
+            })
+
     },
     methods: {
         updateUserdevice(){
             this.axios
-                .put(process.env.MIX_API_KEY+'userdevice/' + this.$route.params.id, this.BatteryUser)
+                .put(process.env.MIX_API_KEY+"userdevice/"+this.$route.params.id, this.BatteryUser)
                 .then((response) => {
                     Toast.fire({
                         icon: 'success',
@@ -75,13 +83,13 @@ export default {
         },
         loadDataBattery(){
             this.axios
-                .get(process.env.MIX_API_KEY+'battery/')
-                .then(({data}) => {this.Battery = data});
+                .get(process.env.MIX_API_KEY+"battery/")
+                .then(({data}) => {this.Battery = data.data});
         },
         loadDataUser(){
             this.axios
-                .get(process.env.MIX_API_KEY+'user/')
-                .then(({data}) => {this.User = data});
+                .get(process.env.MIX_API_KEY+"dewi/")
+                .then(({data}) => {this.User = data.data});
         }
     }
 }

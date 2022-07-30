@@ -61,7 +61,7 @@ export default {
     },
     created(){
         this.axios
-            .get(process.env.MIX_API_KEY+'battery/' + this.$route.params.id)
+            .get(process.env.MIX_API_KEY+"battery/"+this.$route.params.id)
             .then ((response) => {
                 this.Battery = response.data;
             }),
@@ -71,7 +71,7 @@ export default {
     methods: {
         updateBms(){
             this.axios
-                .put(process.env.MIX_API_KEY+'battery/' + this.$route.params.id, this.Battery)
+                .put(process.env.MIX_API_KEY+"battery/"+this.$route.params.id, this.Battery)
                 .then((response) => {
                     Toast.fire({
                         icon: 'success',

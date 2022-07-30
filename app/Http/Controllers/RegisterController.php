@@ -26,6 +26,7 @@ class RegisterController extends Controller
             'name' => request()->name,
             'email' => request()->email,
             'password' => Hash::make(request()->password),
+            'roless' => request()->role
         ]);
         $user->assignRole(request()->role);
         return ResponseFormatter::success($user->load('roles'),'Berhasil Melakukan Registrasi');

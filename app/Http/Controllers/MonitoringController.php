@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Monitoring;
 use App\Helpers\ResponseFormatter;
-use DB;
+use Illuminate\Support\Facades\DB;
 
 class MonitoringController extends Controller
 {

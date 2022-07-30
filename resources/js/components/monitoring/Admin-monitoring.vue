@@ -53,8 +53,8 @@
                   :key="BatteryUser.id"
                 >
                   <td>{{ index + 1 }}</td>
-                  <td>{{ BatteryUser.battery.name }}</td>
-                  <td>{{ BatteryUser.user.name }}</td>
+                  <td>{{ BatteryUser.namabattery }}</td>
+                  <td>{{ BatteryUser.name }}</td>
                   <td>
                     <router-link
                       :to="'/halaman-detail/'+BatteryUser.battery_id"
@@ -93,10 +93,15 @@ export default {
 
   created() {
     this.axios
-      .get(process.env.MIX_API_KEY+"userdevice/")
+      .get(process.env.MIX_API_KEY+"userdevice/", {
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: "Bearer " + this.token
+                }
+            })
       .then((response) => {
         console.log(response)
-        this.BatteryUser = response.data;
+        this.BatteryUser = response.data.data;
         // console.log(this.BatteryUser)
       })
       .then(function () {
@@ -204,9 +209,9 @@ export default {
     },
   },
   mounted() {
-    this.fetchSettings();
-    this.fetchMonitor();
-    this.check();
+    // this.fetchSettings();
+    // this.fetchMonitor();
+    // this.check();
   },
 };
 </script>

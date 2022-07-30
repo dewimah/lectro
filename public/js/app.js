@@ -5520,7 +5520,7 @@ __webpack_require__.r(__webpack_exports__);
     login: function login() {
       var _this = this;
 
-      axios.post("http://127.0.0.1:8000/api/" + 'login/', this.User).then(function (response) {
+      axios.post("http://127.0.0.1:8000/api/" + 'login', this.User).then(function (response) {
         console.log(response);
         localStorage.setItem('token', response.data.data.Token);
         localStorage.setItem('role', response.data.data.user.roles[0].name);
@@ -5627,7 +5627,7 @@ __webpack_require__.r(__webpack_exports__);
 
       this.axios.get("http://127.0.0.1:8000/api/" + 'cell/').then(function (_ref) {
         var data = _ref.data;
-        _this2.cell = data;
+        _this2.cell = data.data;
       });
     },
     loadDataSetting: function loadDataSetting() {
@@ -5929,9 +5929,14 @@ __webpack_require__.r(__webpack_exports__);
   created: function created() {
     var _this = this;
 
-    this.axios.get("http://127.0.0.1:8000/api/" + "battery/").then(function (response) {
+    this.axios.get("http://127.0.0.1:8000/api/" + "battery/", {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + this.token
+      }
+    }).then(function (response) {
       // console.log(response);
-      _this.Battery = response.data;
+      _this.Battery = response.data.data;
     }).then(function () {
       $(".DataTable2").DataTable({
         dom: "Bfrtip",
@@ -5939,9 +5944,14 @@ __webpack_require__.r(__webpack_exports__);
         buttons: ["excel", "pdf"]
       });
     });
-    this.axios.get("http://127.0.0.1:8000/api/" + "cell/").then(function (response) {
-      _this.cell = response.data.data; // console.log(response.data)
-      // console.log(response.data.data)
+    this.axios.get("http://127.0.0.1:8000/api/" + "cell/", {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + this.token
+      }
+    }).then(function (response) {
+      _this.cell = response.data.data;
+      console.log(response.data); //console.log(response.data.data)
     }).then(function () {
       $(".DataTable1").DataTable({
         dom: "Bfrtip",
@@ -5949,7 +5959,12 @@ __webpack_require__.r(__webpack_exports__);
         buttons: ["excel", "pdf"]
       });
     });
-    this.axios.get("http://127.0.0.1:8000/api/" + "setting/").then(function (response) {
+    this.axios.get("http://127.0.0.1:8000/api/" + "setting/", {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + this.token
+      }
+    }).then(function (response) {
       // console.log(response.data)
       _this.Setting = response.data;
     }).then(function () {
@@ -6389,7 +6404,7 @@ __webpack_require__.r(__webpack_exports__);
   created: function created() {
     var _this = this;
 
-    this.axios.get("http://127.0.0.1:8000/api/" + 'battery/' + this.$route.params.id).then(function (response) {
+    this.axios.get("http://127.0.0.1:8000/api/" + "battery/" + this.$route.params.id).then(function (response) {
       _this.Battery = response.data;
     }), this.loadDataCell();
     this.loadDataSetting();
@@ -6398,7 +6413,7 @@ __webpack_require__.r(__webpack_exports__);
     updateBms: function updateBms() {
       var _this2 = this;
 
-      this.axios.put("http://127.0.0.1:8000/api/" + 'battery/' + this.$route.params.id, this.Battery).then(function (response) {
+      this.axios.put("http://127.0.0.1:8000/api/" + "battery/" + this.$route.params.id, this.Battery).then(function (response) {
         Toast.fire({
           icon: 'success',
           title: 'Data Berhasil Tersimpan'
@@ -6837,9 +6852,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   created: function created() {
     var _this = this;
 
-    this.axios.get("http://127.0.0.1:8000/api/" + "userdevice/").then(function (response) {
+    this.axios.get("http://127.0.0.1:8000/api/" + "userdevice/", {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + this.token
+      }
+    }).then(function (response) {
       console.log(response);
-      _this.BatteryUser = response.data; // console.log(this.BatteryUser)
+      _this.BatteryUser = response.data.data; // console.log(this.BatteryUser)
     }).then(function () {
       $(".DataTable").DataTable();
     });
@@ -6952,10 +6972,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }, 5000); //interval 
     }
   }
-}, "mounted", function mounted() {
-  this.fetchSettings();
-  this.fetchMonitor();
-  this.check();
+}, "mounted", function mounted() {// this.fetchSettings();
+  // this.fetchMonitor();
+  // this.check();
 }));
 
 /***/ }),
@@ -7220,16 +7239,29 @@ __webpack_require__.r(__webpack_exports__);
 
     console.log(this.$route.params.id); // setInterval(() => {
 
-    this.axios.get("http://127.0.0.1:8000/api/" + "monitoring/" + this.$route.params.id).then(function (response) {
+    this.axios.get("http://127.0.0.1:8000/api/" + "monitoring/" + this.$route.params.id, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + localStorage.getItem("token")
+      }
+    }).then(function (response) {
       _this.Monitoring = response.data;
       console.log(_this.Monitoring);
     }).then(function () {
       $(".DataTable").DataTable();
     });
-    this.axios.get("setting/").then(function (response) {
-      _this.dataSetting = response.data; // const lastData = this.Monitoring.slice(-1)[0];
+    this.axios.get("http://127.0.0.1:8000/api/" + "setting/", {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + localStorage.getItem("token")
+      }
+    }).then(function (response) {
+      console.log(response);
+      _this.dataSetting = response.data; // console.log(response)
+      // const lastData = this.Monitoring.slice(-1)[0];
 
       var lastData = _this.Monitoring; // console.log(lastData)
+      // console.log(lastData)
 
       _this.dataSetting.map(function (a) {
         if (a.id === lastData.battery.setting_id) {
@@ -7738,15 +7770,14 @@ __webpack_require__.r(__webpack_exports__);
   created: function created() {
     var _this = this;
 
-    this.axios.get("http://127.0.0.1:8000/api/" + 'user').then(function (response) {
+    this.axios.get("http://127.0.0.1:8000/api/" + "dewi/").then(function (response) {
       _this.User = response.data;
+      console.log(response.data);
     }).then(function () {
       $(".DataTable").DataTable({
         dom: 'Bfrtip',
-        // lengthChange: false,
         buttons: ['excel', 'pdf']
-      }); // table.buttons().container()
-      // .appendTo( '#example_wrapper .col-md-6:eq(0)' );
+      });
     });
   },
   methods: {
@@ -7829,21 +7860,22 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
-      User: {}
+      User: []
     };
   },
   created: function created() {
     var _this = this;
 
-    this.axios.get("http://127.0.0.1:8000/api/" + 'user/' + this.$route.params.id).then(function (response) {
-      _this.User = response.data;
+    this.axios.get("http://127.0.0.1:8000/api/" + "user/" + this.$route.params.id).then(function (response) {
+      _this.User = response.data.data;
+      console.log(response.data);
     });
   },
   methods: {
     updateUser: function updateUser() {
       var _this2 = this;
 
-      this.axios.put("http://127.0.0.1:8000/api/" + 'user/' + this.$route.params.id, this.User).then(function (response) {
+      this.axios.put("http://127.0.0.1:8000/api/" + "user/" + this.$route.params.id, this.User).then(function (response) {
         Toast.fire({
           icon: 'success',
           title: 'Data Berhasil Tersimpan'
@@ -7934,15 +7966,15 @@ __webpack_require__.r(__webpack_exports__);
     loadDataBattery: function loadDataBattery() {
       var _this2 = this;
 
-      this.axios.get("http://127.0.0.1:8000/api/" + 'battery/').then(function (_ref) {
+      this.axios.get("http://127.0.0.1:8000/api/" + "battery/").then(function (_ref) {
         var data = _ref.data;
-        _this2.Battery = data;
+        _this2.Battery = data.data;
       });
     },
     loadDataUser: function loadDataUser() {
       var _this3 = this;
 
-      this.axios.get("http://127.0.0.1:8000/api/" + 'user/').then(function (_ref2) {
+      this.axios.get("http://127.0.0.1:8000/api/" + "dewi/").then(function (_ref2) {
         var data = _ref2.data;
         _this3.User = data;
       });
@@ -8021,20 +8053,35 @@ __webpack_require__.r(__webpack_exports__);
       BatteryUser: {}
     };
   },
-  created: function created() {
+  mounted: function mounted() {
     var _this = this;
 
-    this.axios.get("http://127.0.0.1:8000/api/" + 'userdevice/').then(function (response) {
-      console.log(response.data.data);
-      _this.BatteryUser = response.data;
-    }).then(function () {
-      $(".DataTable").DataTable({
-        dom: 'Bfrtip',
-        //lengthChange: false,
-        buttons: ['excel', 'pdf']
-      }); // table.buttons().container()
-      // .appendTo( '#example_wrapper .col-md-6:eq(0)' );
+    this.axios.get("http://127.0.0.1:8000/api/" + "userdevice", {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + localStorage.getItem("token")
+      }
+    }).then(function (response) {
+      // console.log(response)
+      _this.BatteryUser = response.data.data;
     });
+  },
+  created: function created() {// this.axios
+    // .get(process.env.MIX_API_KEY+'userdevice')
+    // // .then(response => (this.BatteryUser=response))
+    // // console.log(response)
+    // .then((response) =>{
+    //     //this.BatteryUser = response.data;
+    //     console.log(response)
+    // })
+    // .then(function (){
+    //     $(".DataTable").DataTable({
+    //         dom: 'Bfrtip',
+    //         buttons: [
+    //             'excel', 'pdf'
+    //         ]
+    //     });
+    // });
   },
   methods: {
     deleteUserdevice: function deleteUserdevice(id) {
@@ -8136,16 +8183,24 @@ __webpack_require__.r(__webpack_exports__);
   created: function created() {
     var _this = this;
 
-    this.axios.get("http://127.0.0.1:8000/api/" + 'userdevice/' + this.$route.params.id).then(function (response) {
-      _this.BatteryUser = response.data;
-    }), this.loadDataBattery();
+    // this.axios
+    //      .get(process.env.MIX_API_KEY+"userdevice/"+this.$route.params.id)
+    //      .then((response) => {
+    //         this.BatteryUser = response.data;
+    //         //console.log(response.data)
+    //     }),
+    this.loadDataBattery();
     this.loadDataUser();
+    this.axios.get("http://127.0.0.1:8000/api/" + "userdevice/").then(function (response) {
+      _this.BatteryUser = response.data;
+      console.log(response.data);
+    });
   },
   methods: {
     updateUserdevice: function updateUserdevice() {
       var _this2 = this;
 
-      this.axios.put("http://127.0.0.1:8000/api/" + 'userdevice/' + this.$route.params.id, this.BatteryUser).then(function (response) {
+      this.axios.put("http://127.0.0.1:8000/api/" + "userdevice/" + this.$route.params.id, this.BatteryUser).then(function (response) {
         Toast.fire({
           icon: 'success',
           title: 'Data Berhasil Tersimpan'
@@ -8157,17 +8212,17 @@ __webpack_require__.r(__webpack_exports__);
     loadDataBattery: function loadDataBattery() {
       var _this3 = this;
 
-      this.axios.get("http://127.0.0.1:8000/api/" + 'battery/').then(function (_ref) {
+      this.axios.get("http://127.0.0.1:8000/api/" + "battery/").then(function (_ref) {
         var data = _ref.data;
-        _this3.Battery = data;
+        _this3.Battery = data.data;
       });
     },
     loadDataUser: function loadDataUser() {
       var _this4 = this;
 
-      this.axios.get("http://127.0.0.1:8000/api/" + 'user/').then(function (_ref2) {
+      this.axios.get("http://127.0.0.1:8000/api/" + "dewi/").then(function (_ref2) {
         var data = _ref2.data;
-        _this4.User = data;
+        _this4.User = data.data;
       });
     }
   }
@@ -53898,7 +53953,7 @@ var render = function () {
                 return _c(
                   "option",
                   { key: Setting.id, domProps: { value: Setting.id } },
-                  [_vm._v(_vm._s(Setting.id))]
+                  [_vm._v(_vm._s(Setting.name))]
                 )
               }),
               0
@@ -56467,9 +56522,9 @@ var render = function () {
                     return _c("tr", { key: BatteryUser.id }, [
                       _c("td", [_vm._v(_vm._s(index + 1))]),
                       _vm._v(" "),
-                      _c("td", [_vm._v(_vm._s(BatteryUser.battery.name))]),
+                      _c("td", [_vm._v(_vm._s(BatteryUser.namabattery))]),
                       _vm._v(" "),
-                      _c("td", [_vm._v(_vm._s(BatteryUser.user.name))]),
+                      _c("td", [_vm._v(_vm._s(BatteryUser.name))]),
                       _vm._v(" "),
                       _c(
                         "td",
@@ -57802,9 +57857,9 @@ var render = function () {
                       return _c("tr", { key: BatteryUser.id }, [
                         _c("td", [_vm._v(_vm._s(index + 1))]),
                         _vm._v(" "),
-                        _c("td", [_vm._v(_vm._s(BatteryUser.battery.name))]),
+                        _c("td", [_vm._v(_vm._s(BatteryUser.name))]),
                         _vm._v(" "),
-                        _c("td", [_vm._v(_vm._s(BatteryUser.user.name))]),
+                        _c("td", [_vm._v(_vm._s(BatteryUser.namabattery))]),
                         _vm._v(" "),
                         BatteryUser.is_active == 0
                           ? _c("td", [_vm._v("Non Aktif")])
@@ -57873,9 +57928,9 @@ var staticRenderFns = [
       _c("tr", [
         _c("th", [_vm._v("No")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Nama BMS")]),
-        _vm._v(" "),
         _c("th", [_vm._v("Nama User")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Nama BMS")]),
         _vm._v(" "),
         _c("th", [_vm._v("Status")]),
         _vm._v(" "),
@@ -57987,7 +58042,7 @@ var render = function () {
                 return _c(
                   "option",
                   { key: Battery.id, domProps: { value: Battery.id } },
-                  [_vm._v(_vm._s(Battery.name))]
+                  [_vm._v(_vm._s(Battery.namabattery))]
                 )
               }),
               0

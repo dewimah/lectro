@@ -51,20 +51,18 @@ export default {
     },
     created(){
         this.axios
-        .get(process.env.MIX_API_KEY+'user')
+        .get(process.env.MIX_API_KEY+"dewi/")
         .then(response =>{
             this.User = response.data;
+            console.log(response.data)
         })
         .then(function (){
             $(".DataTable").DataTable({
                 dom: 'Bfrtip',
-                // lengthChange: false,
                 buttons: [
                     'excel', 'pdf'
                 ]
             });
-            // table.buttons().container()
-            // .appendTo( '#example_wrapper .col-md-6:eq(0)' );
         });
     },
     methods: {

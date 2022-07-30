@@ -62,12 +62,12 @@ export default {
         },
         loadDataBattery(){
             this.axios
-                .get(process.env.MIX_API_KEY+'battery/')
-                .then(({data}) => {this.Battery = data});
+                .get(process.env.MIX_API_KEY+"battery/")
+                .then(({data}) => {this.Battery = data.data});
         },
         loadDataUser(){
             this.axios
-                .get(process.env.MIX_API_KEY+'user/')
+                .get(process.env.MIX_API_KEY+"dewi/")
                 .then(({data}) => {this.User = data});
         }
     },

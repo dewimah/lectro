@@ -11,8 +11,8 @@
                                 <thead>
                                     <tr>
                                         <th>No</th>
-                                        <th>Nama BMS</th>
                                         <th>Nama User</th>
+                                        <th>Nama BMS</th>
                                         <th>Status</th>
                                         <th>Aksi</th>
                                     </tr>
@@ -21,14 +21,14 @@
                                 <tbody>
                                     <tr v-for="(BatteryUser, index) in BatteryUser" :key="BatteryUser.id">
                                         <td>{{ index+1 }}</td>
-                                        <td>{{ BatteryUser.battery.name }}</td>
-                                        <td>{{ BatteryUser.user.name }}</td>
+                                        <td>{{ BatteryUser.name }}</td>
+                                        <td>{{ BatteryUser.namabattery }}</td>
                                         <td v-if="(BatteryUser.is_active == 0)">Non Aktif</td>
-                                        <td v-else>Aktif</td>
+                                        <td v-else>Aktif</td> 
                                         
                                         <td>
                                             <router-link 
-                                            :to="{ name: 'edit-userdevice', params: { id: BatteryUser.id } }" 
+                                            :to="{ name: 'edit-userdevice', params: {id: BatteryUser.id} }" 
                                             class="btn btn-sm btn-warning">
                                                 <i class="fas fa-edit"></i>
                                             </router-link>
@@ -53,24 +53,35 @@ export default {
             BatteryUser: {}
         }
     },
-    created(){
-        this.axios
-        .get(process.env.MIX_API_KEY+'userdevice/')
-        .then((response) =>{
-            console.log(response.data.data)
-            this.BatteryUser = response.data;
+    mounted() {
+        this.axios.get(process.env.MIX_API_KEY + "userdevice", {
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: "Bearer " + localStorage.getItem("token")
+                }
+            }).then((response) => {
+            // console.log(response)
+            this.BatteryUser = response.data.data
         })
-        .then(function (){
-            $(".DataTable").DataTable({
-                dom: 'Bfrtip',
-                //lengthChange: false,
-                buttons: [
-                    'excel', 'pdf'
-                ]
-            });
-            // table.buttons().container()
-            // .appendTo( '#example_wrapper .col-md-6:eq(0)' );
-        });
+
+    },
+    created(){
+        // this.axios
+        // .get(process.env.MIX_API_KEY+'userdevice')
+        // // .then(response => (this.BatteryUser=response))
+        // // console.log(response)
+        // .then((response) =>{
+        //     //this.BatteryUser = response.data;
+        //     console.log(response)
+        // })
+        // .then(function (){
+        //     $(".DataTable").DataTable({
+        //         dom: 'Bfrtip',
+        //         buttons: [
+        //             'excel', 'pdf'
+        //         ]
+        //     });
+        // });
     },
     methods: {
         deleteUserdevice(id){

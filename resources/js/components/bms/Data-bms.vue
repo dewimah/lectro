@@ -206,10 +206,15 @@ export default {
 
   created() {
     this.axios
-      .get(process.env.MIX_API_KEY + "battery/")
+      .get(process.env.MIX_API_KEY + "battery/", {
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: "Bearer " + this.token
+                }
+            })
       .then((response) => {
         // console.log(response);
-        this.Battery = response.data;
+        this.Battery = response.data.data;
       })
       .then(function () {
         $(".DataTable2").DataTable({
@@ -219,11 +224,16 @@ export default {
         });
       });
     this.axios
-      .get(process.env.MIX_API_KEY + "cell/")
+      .get(process.env.MIX_API_KEY+"cell/",{
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: "Bearer " + this.token
+                }
+            })
       .then((response) => {
         this.cell = response.data.data;
-        // console.log(response.data)
-        // console.log(response.data.data)
+        console.log(response.data)
+        //console.log(response.data.data)
       })
       .then(function () {
         $(".DataTable1").DataTable({
@@ -233,7 +243,12 @@ export default {
         });
       });
     this.axios
-      .get(process.env.MIX_API_KEY + "setting/")
+      .get(process.env.MIX_API_KEY + "setting/", {
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: "Bearer " + this.token
+                }
+            })
       .then((response) => {
         // console.log(response.data)
         this.Setting = response.data;

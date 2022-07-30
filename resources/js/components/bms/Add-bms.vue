@@ -22,7 +22,7 @@
                 <div class="form-group">
                     <label for="jml_sel">Setting</label>
                     <select name="jml_sel" class="form-control" v-model="Battery.setting_id">
-                        <option v-for="Setting in Setting" :key="Setting.id" :value="Setting.id">{{Setting.id}}</option>
+                        <option v-for="Setting in Setting" :key="Setting.id" :value="Setting.id">{{Setting.name}}</option>
                     </select>
                 </div>
 
@@ -70,7 +70,7 @@ export default {
         loadDataCell(){
             this.axios
                 .get(process.env.MIX_API_KEY+'cell/')
-                .then(({data}) => {this.cell = data});
+                .then(({data}) => {this.cell = data.data});
         },
         loadDataSetting(){
             this.axios
