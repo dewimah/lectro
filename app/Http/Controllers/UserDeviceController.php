@@ -112,7 +112,8 @@ class UserDeviceController extends Controller
 
     public function kabeh($id){
         $data = DB::table('battery_user')->select(
-            'battery_user.is_active', 'monitorings.tegangan_tot',
+            'battery_user.is_active',
+            'monitorings.tegangan_tot',
             'monitorings.tegangan_cell',
             'monitorings.temp_1',
             'monitorings.temp_2',

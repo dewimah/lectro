@@ -9,10 +9,10 @@ use Illuminate\Support\Facades\DB;
 
 class MonitoringController extends Controller
 {
-    public function __construct()
+    /*public function __construct()
     {
         $this->middleware('auth');
-    }
+    }*/
 
     public function all(){
         //return Monitoring::with(['battery'])->get();
@@ -44,12 +44,30 @@ class MonitoringController extends Controller
     }
 
     public function lala($id){
-         //$data = DB::table('monitorings')->select('*')->where('battery_id',$id)->get();
-         return Monitoring::with('battery')->where('battery_id',$id)->get();
-        //return Monitoring::with('battery')->where('id', $id)->get();
-        //return $data;
-        // return ResponseFormatter::success($data,'Berhasil Melakukan Registrasi');
-       // ->join('batteries','monitorings.battery_id','=','batteries.id')->get();
+        //return Monitoring::with('battery')->where('battery_id',$id)->get();
+
+         $data = DB::table('monitorings')->select(
+            'battery_id as batteryid',
+            'setting_id as settingid',
+            'cell_id as cellid',
+            'monitorings.*',
+            'settings.tegangan_min',
+            'settings.tegangan_max',
+            'settings.temp_min',
+            'settings.temp_max',
+            'settings.arus_min',
+            'settings.arus_max',
+            'batteries.name',
+            'batteries.tipe',
+            'batteries.serial',
+            'monitorings.id as monnn'
+        )->where('battery_id', $id);
+
+        $data = $data
+        ->join('batteries', 'monitorings.battery_id', '=', 'batteries.id')
+        ->join('settings', 'batteries.setting_id', '=', 'settings.id')->get();
+
+        return $data;
     }
 
     //menambah data
