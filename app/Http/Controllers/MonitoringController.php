@@ -65,9 +65,10 @@ class MonitoringController extends Controller
 
         $data = $data
         ->join('batteries', 'monitorings.battery_id', '=', 'batteries.id')
-        ->join('settings', 'batteries.setting_id', '=', 'settings.id')->latest()->get();
+        ->join('settings', 'batteries.setting_id', '=', 'settings.id');
 
-        return $data;
+        $data = $data->orderBy('id', 'desc')->first();
+	return $data;
     }
 
     //menambah data
