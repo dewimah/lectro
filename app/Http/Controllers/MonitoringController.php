@@ -47,7 +47,7 @@ class MonitoringController extends Controller
         //return Monitoring::with('battery')->where('battery_id',$id)->get();
 
          $data = DB::table('monitorings')->select(
-            'battery_id as batteryid',
+            //'battery_id as batteryid',
             'setting_id as settingid',
             'cell_id as cellid',
             'monitorings.*',
@@ -65,7 +65,7 @@ class MonitoringController extends Controller
 
         $data = $data
         ->join('batteries', 'monitorings.battery_id', '=', 'batteries.id')
-        ->join('settings', 'batteries.setting_id', '=', 'settings.id')->get();
+        ->join('settings', 'batteries.setting_id', '=', 'settings.id')->latest()->get();
 
         return $data;
     }
