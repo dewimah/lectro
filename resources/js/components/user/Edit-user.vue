@@ -1,7 +1,7 @@
 <template>
     <div class="card card-success">
         <div class="card-header" style="background-color:#1c3b10">
-            <h3 class="card-title">Edit Data User</h3>
+            <h1 class="card-title">Edit Data User</h1>
         </div>
 
 
@@ -14,12 +14,12 @@
 
             <div class="form-group">
                 <label for="name">Nama User</label>
-                <input type="text" class="form-control" v-model="User.name" placeholder="Nama User">
+                <input type="text" class="form-control" v-model="User.name" placeholder="Nama User" required>
             </div>
             
             <div class="form-group">
                 <label for="email">Email</label>
-                <input type="email" class="form-control"  v-model="User.email" placeholder="Email User">
+                <input type="email" class="form-control"  v-model="User.email" placeholder="Email User" required>
             </div>
         </div>
 

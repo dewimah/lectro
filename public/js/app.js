@@ -5481,8 +5481,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -6905,6 +6903,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -6924,7 +6926,7 @@ __webpack_require__.r(__webpack_exports__);
         Authorization: "Bearer " + this.token
       }
     }).then(function (response) {
-      console.log(response);
+      //console.log(response)
       _this.BatteryUser = response.data; //console.log(this.BatteryUser)
     }).then(function () {
       $(".DataTable").DataTable({
@@ -6961,13 +6963,19 @@ __webpack_require__.r(__webpack_exports__);
         }
       });
     },
-    fetchMonitor: function fetchMonitor() {
+    //NOTIFIKASI
+    fetchMonitoring: function fetchMonitoring() {
       var _this3 = this;
 
-      //Fetch data montitor dengan interval
       setInterval(function () {
-        _this3.axios.get("http://127.0.0.1:8000/api/" + "monitoring/").then(function (response) {
-          _this3.dataMonitoring = response.data;
+        _this3.axios.get("http://127.0.0.1:8000/api/" + "monitoring/", {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + localStorage.getItem("token")
+          }
+        }).then(function (response) {
+          //this.dataMonitoring = response.data;
+          console.log(response);
         })["catch"](function (err) {
           alert(err);
         });
@@ -7026,6 +7034,10 @@ __webpack_require__.r(__webpack_exports__);
         });
       }, 5000); //interval 
     }
+  },
+  mounted: function mounted() {
+    this.fetchMonitor();
+    this.check();
   }
 });
 
@@ -7969,24 +7981,22 @@ __webpack_require__.r(__webpack_exports__);
       User: {}
     };
   },
-  mounted: function mounted() {
-    var _this = this;
-
-    this.axios.get("http://127.0.0.1:8000/api/" + "userdevice/" + this.$route.params.id, {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: "Bearer " + localStorage.getItem("token")
-      }
-    }).then(function (response) {
-      //console.log(response)
-      _this.BatteryUser = response.data;
-      var lastData = _this.BatteryUser;
-      console.log(lastData);
-    });
-  },
+  // mounted() {
+  //     this.axios
+  //     .get(process.env.MIX_API_KEY+"userdevice/" + this.$route.params.id, {
+  //             headers: {
+  //                 "Content-Type": "application/json",
+  //                 Authorization: "Bearer " + localStorage.getItem("token")
+  //             }
+  //         })
+  //     .then((response) => {
+  //         //console.log(response)
+  //         this.BatteryUser = response.data;
+  //     })
+  // },
   methods: {
     tambahUserdevice: function tambahUserdevice() {
-      var _this2 = this;
+      var _this = this;
 
       this.axios.post("http://127.0.0.1:8000/api/" + 'userdevice/', this.BatteryUser, {
         headers: {
@@ -7997,7 +8007,7 @@ __webpack_require__.r(__webpack_exports__);
         return Toast.fire({
           icon: 'success',
           title: 'Data Berhasil Tersimpan'
-        }), _this2.$router.push({
+        }), _this.$router.push({
           name: 'data-userdevice'
         });
       })["catch"](function (err) {
@@ -8005,7 +8015,7 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     loadDataBattery: function loadDataBattery() {
-      var _this3 = this;
+      var _this2 = this;
 
       this.axios.get("http://127.0.0.1:8000/api/" + "battery/", {
         headers: {
@@ -8014,11 +8024,11 @@ __webpack_require__.r(__webpack_exports__);
         }
       }).then(function (_ref) {
         var data = _ref.data;
-        _this3.Battery = data.data;
+        _this2.Battery = data.data;
       });
     },
     loadDataUser: function loadDataUser() {
-      var _this4 = this;
+      var _this3 = this;
 
       this.axios.get("http://127.0.0.1:8000/api/" + "dewi/", {
         headers: {
@@ -8027,7 +8037,7 @@ __webpack_require__.r(__webpack_exports__);
         }
       }).then(function (_ref2) {
         var data = _ref2.data;
-        _this4.User = data;
+        _this3.User = data;
       });
     }
   },
@@ -8258,8 +8268,7 @@ __webpack_require__.r(__webpack_exports__);
         Authorization: "Bearer " + localStorage.getItem("token")
       }
     }).then(function (response) {
-      _this.BatteryUser = response.data[0];
-      console.log(response);
+      _this.BatteryUser = response.data[0]; //console.log(response.data[0])
     });
   },
   methods: {
@@ -8290,8 +8299,9 @@ __webpack_require__.r(__webpack_exports__);
         }
       }).then(function (_ref) {
         var data = _ref.data;
-        console.log(data);
-        _this3.Battery = data.data; // console.log(this.Battery)
+        //console.log(data)
+        _this3.Battery = data.data;
+        console.log(_this3.Battery);
       });
     },
     loadDataUser: function loadDataUser() {
@@ -8304,7 +8314,7 @@ __webpack_require__.r(__webpack_exports__);
         }
       }).then(function (_ref2) {
         var data = _ref2.data;
-        console.log(data);
+        //console.log(data)
         _this4.User = data;
       });
     }
@@ -54004,7 +54014,7 @@ var render = function () {
                 },
               ],
               staticClass: "form-control",
-              attrs: { type: "text", placeholder: "Nama BMS" },
+              attrs: { type: "text", placeholder: "Nama BMS", required: "" },
               domProps: { value: _vm.Battery.name },
               on: {
                 input: function ($event) {
@@ -54032,7 +54042,7 @@ var render = function () {
                   },
                 ],
                 staticClass: "form-control",
-                attrs: { name: "jml_sel" },
+                attrs: { name: "jml_sel", required: "" },
                 on: {
                   change: function ($event) {
                     var $$selectedVal = Array.prototype.filter
@@ -54077,7 +54087,7 @@ var render = function () {
                   },
                 ],
                 staticClass: "form-control",
-                attrs: { name: "jml_sel" },
+                attrs: { name: "jml_sel", required: "" },
                 on: {
                   change: function ($event) {
                     var $$selectedVal = Array.prototype.filter
@@ -54120,7 +54130,7 @@ var render = function () {
                 },
               ],
               staticClass: "form-control",
-              attrs: { type: "text", placeholder: "Tipe BMS" },
+              attrs: { type: "text", placeholder: "Tipe BMS", required: "" },
               domProps: { value: _vm.Battery.tipe },
               on: {
                 input: function ($event) {
@@ -54146,7 +54156,7 @@ var render = function () {
                 },
               ],
               staticClass: "form-control",
-              attrs: { type: "text", placeholder: "Serial BMS" },
+              attrs: { type: "text", placeholder: "Serial BMS", required: "" },
               domProps: { value: _vm.Battery.serial },
               on: {
                 input: function ($event) {
@@ -54200,7 +54210,7 @@ var staticRenderFns = [
         staticClass: "card-header",
         staticStyle: { "background-color": "#1c3b10" },
       },
-      [_c("h3", { staticClass: "card-title" }, [_vm._v("Tambah Data BMS")])]
+      [_c("h1", { staticClass: "card-title" }, [_vm._v("Tambah Data BMS")])]
     )
   },
 ]
@@ -54308,7 +54318,7 @@ var staticRenderFns = [
         staticClass: "card-header",
         staticStyle: { "background-color": "#1c3b10" },
       },
-      [_c("h3", { staticClass: "card-title" }, [_vm._v("Tambah Data Sel")])]
+      [_c("h1", { staticClass: "card-title" }, [_vm._v("Tambah Data Sel")])]
     )
   },
 ]
@@ -54637,7 +54647,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "card-header" }, [
-      _c("h5", [_vm._v("Jumlah Sel")]),
+      _c("h1", [_vm._v("Jumlah Sel")]),
     ])
   },
   function () {
@@ -55347,7 +55357,7 @@ var staticRenderFns = [
         staticClass: "card-header",
         staticStyle: { "background-color": "#1c3b10" },
       },
-      [_c("h3", { staticClass: "card-title" }, [_vm._v("Edit Data BMS")])]
+      [_c("h1", { staticClass: "card-title" }, [_vm._v("Edit Data BMS")])]
     )
   },
 ]
@@ -55455,7 +55465,7 @@ var staticRenderFns = [
         staticClass: "card-header",
         staticStyle: { "background-color": "#1c3b10" },
       },
-      [_c("h3", { staticClass: "card-title" }, [_vm._v("Edit Data Sel")])]
+      [_c("h1", { staticClass: "card-title" }, [_vm._v("Edit Data Sel")])]
     )
   },
 ]
@@ -56007,7 +56017,7 @@ var staticRenderFns = [
         staticClass: "card-header",
         staticStyle: { "background-color": "#1c3b10" },
       },
-      [_c("h3", { staticClass: "card-title" }, [_vm._v("Tambah Data Setting")])]
+      [_c("h1", { staticClass: "card-title" }, [_vm._v("Tambah Data Setting")])]
     )
   },
 ]
@@ -56585,7 +56595,7 @@ var staticRenderFns = [
         staticClass: "card-header",
         staticStyle: { "background-color": "#1c3b10" },
       },
-      [_c("h3", { staticClass: "card-title" }, [_vm._v("Edit Data Setting")])]
+      [_c("h1", { staticClass: "card-title" }, [_vm._v("Edit Data Setting")])]
     )
   },
 ]
@@ -56673,18 +56683,6 @@ var render = function () {
                       _vm._v(" "),
                       _c("td", [_vm._v(_vm._s(BatteryUser.namabattery))]),
                       _vm._v(" "),
-                      _c("td", [_vm._v(_vm._s(BatteryUser.temp_1) + " C")]),
-                      _vm._v(" "),
-                      _c("td", [_vm._v(_vm._s(BatteryUser.temp_2) + " C")]),
-                      _vm._v(" "),
-                      _c("td", [_vm._v(_vm._s(BatteryUser.temp_3) + " C")]),
-                      _vm._v(" "),
-                      _c("td", [
-                        _vm._v(_vm._s(BatteryUser.tegangan_tot) + " V"),
-                      ]),
-                      _vm._v(" "),
-                      _c("td", [_vm._v(_vm._s(BatteryUser.arus) + " A")]),
-                      _vm._v(" "),
                       _c(
                         "td",
                         [
@@ -56763,27 +56761,13 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("thead", [
       _c("tr", [
-        _c("th", { attrs: { rowspan: "2" } }, [_vm._v("No")]),
+        _c("th", [_vm._v("No")]),
         _vm._v(" "),
-        _c("th", { attrs: { rowspan: "2" } }, [_vm._v("Nama")]),
+        _c("th", [_vm._v("Nama")]),
         _vm._v(" "),
-        _c("th", { attrs: { rowspan: "2" } }, [_vm._v("BMS")]),
+        _c("th", [_vm._v("BMS")]),
         _vm._v(" "),
-        _c("th", { attrs: { colspan: "5" } }, [_vm._v("Current")]),
-        _vm._v(" "),
-        _c("th", { attrs: { rowspan: "2" } }, [_vm._v("Aksi")]),
-      ]),
-      _vm._v(" "),
-      _c("tr", [
-        _c("td", [_vm._v("T 1")]),
-        _vm._v(" "),
-        _c("td", [_vm._v("T 2")]),
-        _vm._v(" "),
-        _c("td", [_vm._v("T 3")]),
-        _vm._v(" "),
-        _c("td", [_vm._v("V")]),
-        _vm._v(" "),
-        _c("td", [_vm._v("I")]),
+        _c("th", [_vm._v("Aksi")]),
       ]),
     ])
   },
@@ -57432,7 +57416,7 @@ var staticRenderFns = [
         staticClass: "card-header",
         staticStyle: { "background-color": "#1c3b10" },
       },
-      [_c("h3", { staticClass: "card-title" }, [_vm._v("Tambah Data User")])]
+      [_c("h1", { staticClass: "card-title" }, [_vm._v("Tambah Data User")])]
     )
   },
 ]
@@ -57554,7 +57538,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "card-header" }, [
-      _c("h5", [_vm._v("Data User")]),
+      _c("h1", [_vm._v("Data User")]),
     ])
   },
   function () {
@@ -57652,7 +57636,7 @@ var render = function () {
                 },
               ],
               staticClass: "form-control",
-              attrs: { type: "text", placeholder: "Nama User" },
+              attrs: { type: "text", placeholder: "Nama User", required: "" },
               domProps: { value: _vm.User.name },
               on: {
                 input: function ($event) {
@@ -57678,7 +57662,7 @@ var render = function () {
                 },
               ],
               staticClass: "form-control",
-              attrs: { type: "email", placeholder: "Email User" },
+              attrs: { type: "email", placeholder: "Email User", required: "" },
               domProps: { value: _vm.User.email },
               on: {
                 input: function ($event) {
@@ -57732,7 +57716,7 @@ var staticRenderFns = [
         staticClass: "card-header",
         staticStyle: { "background-color": "#1c3b10" },
       },
-      [_c("h3", { staticClass: "card-title" }, [_vm._v("Edit Data User")])]
+      [_c("h1", { staticClass: "card-title" }, [_vm._v("Edit Data User")])]
     )
   },
 ]
@@ -57900,9 +57884,11 @@ var render = function () {
                 },
               },
               [
-                _c("option", { attrs: { value: "1" } }, [_vm._v("Aktif")]),
+                _c("option", { attrs: { value: "aktif" } }, [_vm._v("Aktif")]),
                 _vm._v(" "),
-                _c("option", { attrs: { value: "0" } }, [_vm._v("Non Aktif")]),
+                _c("option", { attrs: { value: "non-aktif" } }, [
+                  _vm._v("Non Aktif"),
+                ]),
               ]
             ),
           ]),
@@ -57949,7 +57935,7 @@ var staticRenderFns = [
         staticStyle: { "background-color": "#1c3b10" },
       },
       [
-        _c("h3", { staticClass: "card-title" }, [
+        _c("h1", { staticClass: "card-title" }, [
           _vm._v("Tambah Data User Device"),
         ]),
       ]
@@ -58078,7 +58064,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "card-header" }, [
-      _c("h5", [_vm._v("Data User Device")]),
+      _c("h1", [_vm._v("Data User Device")]),
     ])
   },
   function () {
@@ -58341,7 +58327,7 @@ var staticRenderFns = [
         staticStyle: { "background-color": "#1c3b10" },
       },
       [
-        _c("h3", { staticClass: "card-title" }, [
+        _c("h1", { staticClass: "card-title" }, [
           _vm._v("Edit Data User Device"),
         ]),
       ]

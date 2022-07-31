@@ -33,6 +33,11 @@ class MonitoringController extends Controller
             'arus_max',
             'tegangan_min',
             'tegangan_max',
+            'temp_1',
+            'temp_2',
+            'temp_3',
+            'arus',
+            'tegangan_tot'
         )
         ->get();
     }

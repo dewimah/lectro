@@ -1,7 +1,7 @@
 <template>
     <div class="card card-success">
         <div class="card-header" style="background-color:#1c3b10">
-            <h3 class="card-title">Edit Data User Device</h3>
+            <h1 class="card-title">Edit Data User Device</h1>
         </div>
 
 
@@ -71,7 +71,7 @@ export default {
             })
             .then((response) => {
                 this.BatteryUser = response.data[0];
-                console.log(response)
+                //console.log(response.data[0])
             })
 
     },
@@ -101,9 +101,9 @@ export default {
                 }
             })
                 .then(({data}) => {
-                    console.log(data)
+                    //console.log(data)
                     this.Battery = data.data
-                    // console.log(this.Battery)
+                    console.log(this.Battery)
                     });
         },
         loadDataUser(){
@@ -115,7 +115,7 @@ export default {
                 }
             })
                 .then(({data}) => {
-                    console.log(data)
+                    //console.log(data)
                     this.User = data
                     });
         }

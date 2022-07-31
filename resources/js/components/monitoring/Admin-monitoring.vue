@@ -40,19 +40,23 @@
             >
               <thead>
                 <tr>
-                  <th rowspan="2">No</th>
+                  <th>No</th>
+                  <th>Nama</th>
+                  <th>BMS</th>
+                  <th>Aksi</th>
+                  <!-- <th rowspan="2">No</th>
                   <th rowspan="2">Nama</th>
                   <th rowspan="2">BMS</th>
                   <th colspan="5">Current</th>
-                  <th rowspan="2">Aksi</th>
+                  <th rowspan="2">Aksi</th> -->
                 </tr>
-                <tr>
+                <!-- <tr>
                   <td>T 1</td>
                   <td>T 2</td>
                   <td>T 3</td>
                   <td>V</td>
                   <td>I</td>
-                </tr>
+                </tr> -->
               </thead>
 
               <tbody>
@@ -63,11 +67,11 @@
                   <td>{{ index + 1 }}</td>
                   <td>{{ BatteryUser.namauser }}</td>
                   <td>{{ BatteryUser.namabattery }}</td>
-                  <td>{{ BatteryUser.temp_1 }} C</td>
+                  <!-- <td>{{ BatteryUser.temp_1 }} C</td>
                   <td>{{ BatteryUser.temp_2 }} C</td>
                   <td>{{ BatteryUser.temp_3 }} C</td>
                   <td>{{ BatteryUser.tegangan_tot }} V</td>
-                  <td>{{ BatteryUser.arus }} A</td>
+                  <td>{{ BatteryUser.arus }} A</td> -->
                   <td>
                     <router-link
                       :to="'/halaman-detail/'+BatteryUser.battery_id"
@@ -113,7 +117,7 @@ export default {
           }
       })
       .then((response) => {
-        console.log(response)
+        //console.log(response)
         this.BatteryUser = response.data;
         //console.log(this.BatteryUser)
 
@@ -151,20 +155,29 @@ export default {
         }
       });
     },
-    fetchMonitor() {
-        //Fetch data montitor dengan interval
-      setInterval(() => {
-        this.axios
-          .get(process.env.MIX_API_KEY+"monitoring/")
-          .then((response) => {
-            this.dataMonitoring = response.data;
-          })
-          .catch((err) => {
-            alert(err);
-          });
-      }, 5000);
-    },
-    fetchSettings() {
+
+  //NOTIFIKASI
+  fetchMonitoring() {
+    setInterval(() =>
+    {
+      this.axios
+        .get(process.env.MIX_API_KEY+"monitoring/", {
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: "Bearer " + localStorage.getItem("token")
+                }
+            })
+        .then((response) => {
+          //this.dataMonitoring = response.data;
+          console.log(response)
+        })
+        .catch((err) => {
+          alert(err);
+        });
+    }, 5000);
+  },
+
+  fetchSettings() {
         // Fetch data settings
       this.axios
         .get(process.env.MIX_API_KEY+"setting/")
@@ -174,8 +187,9 @@ export default {
         .catch((err) => {
           alert(err);
         });
-    },
-    check() {
+  },
+
+  check() {
       setInterval(() => { //Set Interval cek
         this.dataNotifikasi = []; // reset data notifikasi tiap interval detik
         this.dataSettings.forEach((obj) => { // Loop pengecekan tiap settings
@@ -209,6 +223,10 @@ export default {
       }, 5000); //interval 
     },
   },
+  mounted () {
+    this.fetchMonitor();
+    this.check();
+  }
 };
 </script>
 

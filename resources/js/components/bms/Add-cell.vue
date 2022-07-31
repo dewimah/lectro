@@ -1,7 +1,7 @@
 <template>
     <div class="card card-success">
         <div class="card-header" style="background-color:#1c3b10">
-            <h3 class="card-title">Tambah Data Sel</h3>
+            <h1 class="card-title">Tambah Data Sel</h1>
         </div>
 
         <form @submit.prevent="tambahCell">

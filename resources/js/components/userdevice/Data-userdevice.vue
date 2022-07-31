@@ -2,7 +2,7 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="card">
-                <div class="card-header"><h5>Data User Device</h5></div>
+                <div class="card-header"><h1>Data User Device</h1></div>
                 <div class="card-body">
                     <router-link to="add-userdevice" class="btn btn-success" type="button" style="background-color:#1c3b10">
                     <i class="fa-solid fa-circle-plus"></i> Tambah</router-link> <br><br>

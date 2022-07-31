@@ -1,7 +1,7 @@
 <template>
     <div class="card card-success">
         <div class="card-header" style="background-color:#1c3b10">
-            <h3 class="card-title">Tambah Data User Device</h3>
+            <h1 class="card-title">Tambah Data User Device</h1>
         </div>
 
 
@@ -24,8 +24,8 @@
                 <div class="form-group">
                     <label for="is_active">Status</label>
                     <select name="is_active" class="form-control" v-model="BatteryUser.is_active">
-                        <option value=1>Aktif</option>
-                        <option value=0>Non Aktif</option>
+                        <option value=aktif>Aktif</option>
+                        <option value=non-aktif>Non Aktif</option>
                     </select>
                 </div>
             </div>
@@ -47,22 +47,20 @@ export default {
             User: {}
         }
     },
-    mounted() {
-        this.axios
-        .get(process.env.MIX_API_KEY+"userdevice/" + this.$route.params.id, {
-                headers: {
-                    "Content-Type": "application/json",
-                    Authorization: "Bearer " + localStorage.getItem("token")
-                }
-            })
-        .then((response) => {
-            //console.log(response)
-            this.BatteryUser = response.data;
-            const lastData = this.BatteryUser;
-            console.log(lastData)
-        })
+    // mounted() {
+    //     this.axios
+    //     .get(process.env.MIX_API_KEY+"userdevice/" + this.$route.params.id, {
+    //             headers: {
+    //                 "Content-Type": "application/json",
+    //                 Authorization: "Bearer " + localStorage.getItem("token")
+    //             }
+    //         })
+    //     .then((response) => {
+    //         //console.log(response)
+    //         this.BatteryUser = response.data;
+    //     })
         
-    },
+    // },
 
     methods: {
         tambahUserdevice(){

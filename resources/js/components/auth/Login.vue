@@ -35,8 +35,6 @@
     </body>
 </template>
 
-include
-
 <script>
 export default {
     data() {

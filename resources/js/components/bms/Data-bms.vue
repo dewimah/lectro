@@ -2,7 +2,7 @@
   <div class="container">
     <div class="row justify-content-center">
       <div class="card">
-        <div class="card-header"><h5>Jumlah Sel</h5></div>
+        <div class="card-header"><h1>Jumlah Sel</h1></div>
 
         <div class="card-body">
           <router-link
