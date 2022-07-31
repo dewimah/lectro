@@ -8842,12 +8842,13 @@ body,
 }
 
 .brand-image {
+  /* float: left; */
   line-height: .8;
   max-height: 34px;
   width: auto;
   margin-left: .8rem;
   margin-right: .5rem;
-  margin-bottom: 3px;
+  margin-top: -3px;
 }
 
 /**

@@ -45,8 +45,25 @@ export default {
             BatteryUser: {},
             Battery: {},
             User: {}
-    }
+        }
     },
+    mounted() {
+        this.axios
+        .get(process.env.MIX_API_KEY+"userdevice/" + this.$route.params.id, {
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: "Bearer " + localStorage.getItem("token")
+                }
+            })
+        .then((response) => {
+            //console.log(response)
+            this.BatteryUser = response.data;
+            const lastData = this.BatteryUser;
+            console.log(lastData)
+        })
+        
+    },
+
     methods: {
         tambahUserdevice(){
             this.axios

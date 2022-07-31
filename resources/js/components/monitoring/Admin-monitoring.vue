@@ -5,7 +5,7 @@
         <div class="card-header">
           <div class="row mt-1">
             <div class="col-md-11">
-              <h5>Monitoring BMS - Admin</h5>
+              <h1>Monitoring BMS - Admin</h1>
             </div>
             <div class="col-md-1">
               <div class="dropdown float-right">
@@ -40,10 +40,18 @@
             >
               <thead>
                 <tr>
-                  <th>No</th>
-                  <th>Nama</th>
-                  <th>BMS</th>
-                  <th>Aksi</th>
+                  <th rowspan="2">No</th>
+                  <th rowspan="2">Nama</th>
+                  <th rowspan="2">BMS</th>
+                  <th colspan="5">Current</th>
+                  <th rowspan="2">Aksi</th>
+                </tr>
+                <tr>
+                  <td>T 1</td>
+                  <td>T 2</td>
+                  <td>T 3</td>
+                  <td>V</td>
+                  <td>I</td>
                 </tr>
               </thead>
 
@@ -55,9 +63,14 @@
                   <td>{{ index + 1 }}</td>
                   <td>{{ BatteryUser.namauser }}</td>
                   <td>{{ BatteryUser.namabattery }}</td>
+                  <td>{{ BatteryUser.temp_1 }} C</td>
+                  <td>{{ BatteryUser.temp_2 }} C</td>
+                  <td>{{ BatteryUser.temp_3 }} C</td>
+                  <td>{{ BatteryUser.tegangan_tot }} V</td>
+                  <td>{{ BatteryUser.arus }} A</td>
                   <td>
                     <router-link
-                      :to="'/halaman-detail/'+BatteryUser.monnn"
+                      :to="'/halaman-detail/'+BatteryUser.battery_id"
                       class="btn btn-sm btn-primary"
                     >
                       <i class="fa-solid fa-circle-info"></i>
@@ -94,35 +107,23 @@ export default {
   created() {
     this.axios
       .get(process.env.MIX_API_KEY+"userdevice/", {
-                headers: {
-                    "Content-Type": "application/json",
-                    Authorization: "Bearer " + this.token
-                }
-            })
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + this.token
+          }
+      })
       .then((response) => {
         console.log(response)
         this.BatteryUser = response.data;
-        // console.log(this.BatteryUser)
+        //console.log(this.BatteryUser)
+
       })
       .then(function () {
-        $(".DataTable").DataTable();
+        $(".DataTable").DataTable({
+          dom: "Bfrtip",
+          buttons: ["excel", "pdf"],
+        });
       });
-  },
-
-  mounted() {
-    // localStorage.setItem('token', response.data.data.Token)
-    //         localStorage.setItem('role', response.data.data.user.roles[0].name)
-    //         if (response.data.data.user.roles[0].role === "admin") {
-    //             window.location.href = "/admin-monitoring"
-    //         } else if (response.data.data.user.roles[0].role === "user") {
-    //             window.location.href = "/login"
-    //         }
-    // window.axios.defaults.headers.common['Authorization'] = `Bearer ${this.token}`
-    // axios.get(process.env.MIX_API_KEY+'admin/user').then((response)=>{
-    //     this.currentUser = response.data
-    // }).catch((errors) => {
-    //     console.log(errors)
-    // })
   },
 
   methods: {
@@ -208,10 +209,42 @@ export default {
       }, 5000); //interval 
     },
   },
-  mounted() {
-    // this.fetchSettings();
-    // this.fetchMonitor();
-    // this.check();
-  },
 };
 </script>
+
+<style>
+.buttons-excel {
+  display: inline-block;
+  font-weight: 400;
+  line-height: 1.6;
+  color: #212529;
+  text-align: center;
+  text-decoration: none;
+  vertical-align: middle;
+  background-color: transparent;
+  border: 1px solid transparent;
+  padding: 0.375rem 0.75rem;
+  font-size: 0.9rem;
+  border-radius: 0.25rem;
+  color: #fff;
+  background-color: #007e0f;
+  border-color: #005a21;
+}
+.buttons-pdf {
+  display: inline-block;
+  font-weight: 400;
+  line-height: 1.6;
+  color: #212529;
+  text-align: center;
+  text-decoration: none;
+  vertical-align: middle;
+  background-color: transparent;
+  border: 1px solid transparent;
+  padding: 0.375rem 0.75rem;
+  font-size: 0.9rem;
+  border-radius: 0.25rem;
+  color: #fff;
+  background-color: #c20000;
+  border-color: #f30000;
+}
+</style>

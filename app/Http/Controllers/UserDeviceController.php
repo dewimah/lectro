@@ -87,6 +87,7 @@ class UserDeviceController extends Controller
             'monitorings.id as monnn',
             'batteries.name as namabattery',
             'users.name as namauser',
+            'battery_user.battery_id',
         );
 
         $data = $data
@@ -127,7 +128,8 @@ class UserDeviceController extends Controller
             'users.name',
             'battery_user.id as bttt',
             'users.id as usss',
-            'monitorings.id as monnn'
+            'monitorings.id as monnn',
+            //'battery_user.battery_id as battery_id'
         )->where('battery_user.id', $id);
 
         $data = $data->leftJoin('monitorings', 'battery_user.monitoring_id', '=', 'monitorings.id')

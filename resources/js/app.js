@@ -54,27 +54,7 @@ require('./bootstrap');
   Vue.use(VueAxios, axios)
   Vue.use(Vuex)
 
-  //BASE URL
-  // Axios.defaults.baseURL = "http://192.168.19.33:80/api/";
-  
-  
-  //LOGIN FUNCTION
-  // function loggedIn()
-  // {
-  //   return localStorage.getItem('token')
-  // }
-  
   let routes =[
-    //   {
-    //       path: '/',
-    //       name: 'home',
-    //       component: require('../home/Index.vue')
-    //   },
-    //   {
-    //     path: '/halaman-login',
-    //     name: 'halaman-login',
-    //     component: require('../views/auth/login.vue')
-    //   },
       {
           path: '/login',
           name: 'login',
@@ -247,9 +227,22 @@ require('./bootstrap');
   //     router.push({name: "admin-monitoring"})
   //   }
 
-  //   // if (isAuthenticated === null) next({ name: "login" });
-  //   // if (isAuthenticated !== null) next();
-  //   // else next();
+    // if (isAuthenticated === null) next({ name: "login" });
+    // if (isAuthenticated !== null) next();
+    // else next();
+  // })
+
+  // router.beforeEach((to, from, next) => {
+  //   if(to.meta.requiresAuth) 
+  //   {
+  //     const authUser = JSON.parse(window.localStorage.getItem('authUser')
+  //     if (authUser && authUser.access_token)
+  //     {
+  //       next()
+  //     }) else {
+  //       next({name:'login'})
+  //     }
+  //   }
   // })
   
   const app = new Vue({

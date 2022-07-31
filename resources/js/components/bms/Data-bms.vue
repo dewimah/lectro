@@ -219,7 +219,6 @@ export default {
       .then(function () {
         $(".DataTable2").DataTable({
           dom: "Bfrtip",
-          // lengthChange: false,
           buttons: ["excel", "pdf"],
         });
       });
@@ -364,17 +363,6 @@ export default {
         }
       });
     },
-  },
-  mounted() {
-    // console.log(process.env.MIX_API_KEY)
-    //window.axios.defaults.headers.common['Authorization'] = 'Bearer $(this.token)'
-    // localStorage.setItem("token", response.data.data.Token);
-    // localStorage.setItem("role", response.data.data.user.roles[0].name);
-    // if (localStorage.getItem("role") === "admin") {
-    //   window.location.href = "/admin-monitoring";
-    // } else if (localStorage.getItem("role") === "user") {
-    //   window.location.href = "/login";
-    // }
   },
 };
 </script>

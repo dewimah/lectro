@@ -2,7 +2,7 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="card">
-                <div class="card-header"><h1>Monitoring {{ namaBatery }}</h1></div>
+                <div class="card-header"><h1>Monitoring {{ this.Asik.name }}</h1></div>
                 <div class="card-body">
                     <div class="table-responsive">
                         <div class="row">
@@ -31,7 +31,8 @@ import VueApexCharts from 'vue-apexcharts';
 export default {
     data() {
         return{
-            Monitoring: [],
+            Asik: [],
+            //Monitoring: [],
             dataSetting: [],
             dataSettingMatch: [],
             dataJoin: [],
@@ -72,10 +73,10 @@ export default {
             legend: {
               show: true,
               floating: true,
-              fontSize: '16px',
+              fontSize: '12px',
               position: 'left',
               offsetX: 0,
-              offsetY: -10,
+              offsetY: -12,
               labels: {
                 useSeriesColors: true,
               },
@@ -130,7 +131,7 @@ export default {
             legend: {
               show: true,
               floating: true,
-              fontSize: '16px',
+              fontSize: '12px',
               position: 'left',
               offsetX: 0,
               offsetY: 10,
@@ -183,15 +184,15 @@ export default {
                 }
               }
             },
-            colors: ["#1c3b11", "#32681d"],
-            labels: ["I Batas Max", "I Output"],
+            colors: ["#1c3b11", "#32681d", "#54892d"],
+            labels: ["I Batas Max", "I Output", "I Batas Min"],
             legend: {
               show: true,
               floating: true,
-              fontSize: '16px',
+              fontSize: '12px',
               position: 'left',
               offsetX: 0,
-              offsetY: -10,
+              offsetY: 10,
               labels: {
                 useSeriesColors: true,
               },
@@ -230,81 +231,27 @@ export default {
                 }
             })
         .then(response =>{
-            this.Monitoring = response.data[0];
-            // console.log(response.data[0])
+            this.Asik = response.data;
+            //console.log(response.data)
+
+            //GET LAST DATA
+            const lastData = this.Asik
+            console.log(lastData)
+            this.namaBatery = lastData.name
+
+            this.series.push(this.Asik.temp_max);
+            this.series.push(lastData.temp_1);
+            this.series.push(lastData.temp_2);
+            this.series.push(lastData.temp_3);
+
+            this.seriestegangan.push(this.Asik.tegangan_max);
+            this.seriestegangan.push(lastData.tegangan_tot);
+            this.seriestegangan.push(this.Asik.tegangan_min);
+
+            this.seriesarus.push(this.Asik.arus_max);
+            this.seriesarus.push(lastData.arus);
+            this.seriesarus.push(this.Asik.arus_min);
         })
-        .then(function (){
-            $(".DataTable").DataTable();
-        });
-
-        //    this.axios
-        // .get(process.env.MIX_API_KEY+'monitoring/' + this.monitoring_id, {
-        //         headers: {
-        //             "Content-Type": "application/json",
-        //             Authorization: "Bearer " + localStorage.getItem("token")
-        //         }
-        //     })
-        // .then(response =>{
-        //     // console.log(response)
-        //     this.Monitoring = response.data[0];
-        //     console.log(this.Monitoring)
-        // })
-        // .then(function (){
-        //     $(".DataTable").DataTable();
-        // });
-      
-        this.axios
-        .get(process.env.MIX_API_KEY+'setting/', {
-                headers: {
-                    "Content-Type": "application/json",
-                    Authorization: "Bearer " + localStorage.getItem("token")
-                }
-            })
-        .then(response =>{
-            this.dataSetting = response.data;
-            console.log(response)
-            //const lastData = this.Monitoring.slice(-1)[0];
-            const lastData = this.Monitoring;
-            //console.log(lastData)
-            // this.namaBatery = lastData[0].battery.name
-            // console.log(lastData)
-            // console.log(lastData)
-
-            this.dataSetting.map(a => {
-                if(a.id === lastData[0].setting_id){
-                    this.dataSettingMatch = a;
-                }
-            });
-            // console.log(this.dataSettingMatch);
-            // console.log(lastData);
-            this.series.push(this.dataSettingMatch.temp_max);
-            this.series.push(lastData[0].temp_1);
-            this.series.push(lastData[0].temp_2);
-            this.series.push(lastData[0].temp_3);
-            //this.series.push(this.dataSettingMatch.temp_min);
-
-            this.seriestegangan.push(this.dataSettingMatch.tegangan_max);
-            this.seriestegangan.push(lastData[0].tegangan_tot);
-            this.seriestegangan.push(this.dataSettingMatch.tegangan_min);
-
-            this.seriesarus.push(this.dataSettingMatch.arus_max);
-            this.seriesarus.push(lastData[0].arus);
-            //this.seriesarus.push(this.dataSettingMatch.arus_min);
-        })
-        .then(function (){
-            $(".DataTable").DataTable();
-        });
-// }, 1000)
-    },
-    // methods: {
-    //     deleteSetting(id){
-    //         this.axios
-    //             .delete(process.env.MIX_API_KEY+'monitoring/' + id)
-    //             .then(response => {
-    //                 let i = this.Monitoring.map(data => data.id).indexOf(id);
-    //                 this.Monitoring.splice(i,1)
-    //             });
-    //     }
-    // }
+    }
 }
 </script>;
