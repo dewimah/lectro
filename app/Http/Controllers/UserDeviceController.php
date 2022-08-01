@@ -132,10 +132,10 @@ class UserDeviceController extends Controller
             //'battery_user.battery_id as battery_id'
         )->where('battery_user.id', $id);
 
-        $data = $data->leftJoin('monitorings', 'battery_user.monitoring_id', '=', 'monitorings.id')
+        $data = $data
+        ->leftJoin('monitorings', 'battery_user.monitoring_id', '=', 'monitorings.id')
         ->join('batteries', 'battery_user.battery_id', '=', 'batteries.id')
         ->join('users', 'battery_user.user_id', '=', 'users.id')->get();
-
         return $data;
     }
 

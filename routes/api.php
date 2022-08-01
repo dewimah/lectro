@@ -30,6 +30,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('/logout', 'App\Http\Controllers\LogoutController@logout')->name('logout');
     Route::get('/monitoring','App\Http\Controllers\MonitoringController@all');
     Route::get('/monitoring/{id}','App\Http\Controllers\MonitoringController@show');
+    Route::get('/userdevice','App\Http\Controllers\UserDeviceController@all');
     //Route::get('monitoring/{id}','App\Http\Controllers\MonitoringController@show');
     Route::get('/asik/{id}','App\Http\Controllers\MonitoringController@lala');
     Route::get('/setting','App\Http\Controllers\SettingController@all');
@@ -68,7 +69,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
             Route::put('/erorrs/{id}', 'App\Http\Controllers\ErorrsController@update');
             Route::delete('/erorrs/{id}', 'App\Http\Controllers\ErorrsController@delete');
             //userdevice
-            Route::get('/userdevice','App\Http\Controllers\UserDeviceController@all');
+            //Route::get('/userdevice','App\Http\Controllers\UserDeviceController@all');
             Route::get('/userdevice/{id}','App\Http\Controllers\UserDeviceController@kabeh');
             //Route::get('/userdevice/{id}','App\Http\Controllers\UserDeviceController@show');
             Route::post('/userdevice','App\Http\Controllers\UserDeviceController@store');
