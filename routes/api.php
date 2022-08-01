@@ -27,7 +27,7 @@ Route::post('/input','App\Http\Controllers\MonitoringController@datamasuk');
 
 //Route User
 Route::group(['middleware' => ['auth:sanctum']], function () {
-    Route::get('/logout', 'App\Http\Controllers\LogoutController@logout')->name('logout');
+    // Route::get('/logout', 'App\Http\Controllers\LogoutController@logout')->name('logout');
     Route::get('/monitoring','App\Http\Controllers\MonitoringController@all');
     Route::get('/monitoring/{id}','App\Http\Controllers\MonitoringController@show');
     Route::get('/userdevice','App\Http\Controllers\UserDeviceController@all');
