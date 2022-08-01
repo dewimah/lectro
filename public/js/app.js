@@ -6911,7 +6911,7 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       BatteryUser: {},
-      dataSettings: [],
+      //dataSettings: [],
       dataMonitoring: [],
       dataNotifikasi: [],
       token: localStorage.getItem("token")
@@ -6974,69 +6974,106 @@ __webpack_require__.r(__webpack_exports__);
             Authorization: "Bearer " + localStorage.getItem("token")
           }
         }).then(function (response) {
-          //this.dataMonitoring = response.data;
+          _this3.dataMonitoring = response.data;
           console.log(response);
         })["catch"](function (err) {
           alert(err);
         });
       }, 5000);
     },
-    fetchSettings: function fetchSettings() {
+    // fetchSettings() {
+    //       // Fetch data settings
+    //     this.axios
+    //       .get(process.env.MIX_API_KEY+"setting/")
+    //       .then((response) => {
+    //         this.dataSettings = response.data;
+    //       })
+    //       .catch((err) => {
+    //         alert(err);
+    //       });
+    // },
+    check: function check() {
       var _this4 = this;
 
-      // Fetch data settings
-      this.axios.get("http://127.0.0.1:8000/api/" + "setting/").then(function (response) {
-        _this4.dataSettings = response.data;
-      })["catch"](function (err) {
-        alert(err);
-      });
-    },
-    check: function check() {
-      var _this5 = this;
-
       setInterval(function () {
-        //Set Interval cek
-        _this5.dataNotifikasi = []; // reset data notifikasi tiap interval detik
+        _this4.dataNotifikasi = []; //const a = a;
+        // console.log(a);
 
-        _this5.dataSettings.forEach(function (obj) {
-          // Loop pengecekan tiap settings
-          _this5.dataMonitoring.map(function (a) {
-            // Map data monitoring
-            if (a.battery.setting_id === obj.id) {
-              // pengecekan ketika data bms setting dengan id setting
-              if (a.temp_1 > obj.temp_max) {
-                // cek ketika temp 1 over
-                _this5.dataNotifikasi.push( // push ke array dataNotifikasi
-                "Battery ".concat(a.battery.name, " Overheat (temp1)"));
-              }
+        _this4.dataMonitoring.map(function (a) {
+          if (a.temp_1 > a.temp_max) {
+            _this4.dataNotifikasi.push("Battery ".concat(a.namabattery, " Melampaui Batas Atas (T1)"));
+          }
 
-              if (a.temp_2 > obj.temp_max) {
-                // cek ketika temp 2 over
-                _this5.dataNotifikasi.push("Battery ".concat(a.battery.name, " Overheat (temp2)"));
-              }
+          if (a.temp_2 > a.temp_max) {
+            _this4.dataNotifikasi.push("Battery ".concat(a.namabattery, " Melampaui Batas Atas (T2)"));
+          }
 
-              if (a.temp_3 > obj.temp_max) {
-                // cek ketika temp 3 over
-                _this5.dataNotifikasi.push("Battery ".concat(a.battery.name, " Overheat (temp3)"));
-              }
+          if (a.temp_3 > a.temp_max) {
+            _this4.dataNotifikasi.push("Battery ".concat(a.namabattery, " Melampaui Batas Atas (T3)"));
+          }
 
-              if (a.tegangan_tot > obj.tegangan_max) {
-                // cek ketika tegangan over
-                _this5.dataNotifikasi.push("Battery ".concat(a.battery.name, " Over Volt"));
-              }
+          if (a.temp_1 < a.temp_min) {
+            _this4.dataNotifikasi.push("Battery ".concat(a.namabattery, " Melampaui Batas Bawah (T1)"));
+          }
 
-              if (a.arus > obj.arus_max) {
-                // cek ketika temp arus over
-                _this5.dataNotifikasi.push("Battery ".concat(a.battery.name, " Over Arus"));
-              }
-            }
-          });
+          if (a.temp_2 < a.temp_min) {
+            _this4.dataNotifikasi.push("Battery ".concat(a.namabattery, " Melampaui Batas Bawah (T2)"));
+          }
+
+          if (a.temp_3 < a.temp_min) {
+            _this4.dataNotifikasi.push("Battery ".concat(a.namabattery, " Melampaui Batas Bawah (T3)"));
+          }
+
+          if (a.arus > a.arus_max) {
+            _this4.dataNotifikasi.push("Battery ".concat(a.namabattery, " Melampaui Batas Atas (Arus)"));
+          }
+
+          if (a.arus < a.arus_min) {
+            _this4.dataNotifikasi.push("Battery ".concat(a.namabattery, " Melampaui Batas Bawah (Arus)"));
+          }
+
+          if (a.tegangan > a.tegangan_max) {
+            _this4.dataNotifikasi.push("Battery ".concat(a.namabattery, " Melampaui Batas Atas (Arus)"));
+          }
+
+          if (a.tegangan < a.tegangan_min) {
+            _this4.dataNotifikasi.push("Battery ".concat(a.namabattery, " Melampaui Batas Bawah (Tegangan)"));
+          }
         });
-      }, 5000); //interval 
+      }, 5000); // setInterval(() => { //Set Interval cek
+      //   this.dataNotifikasi = []; // reset data notifikasi tiap interval detik
+      //   this.dataSettings.forEach((obj) => { // Loop pengecekan tiap settings
+      //     this.dataMonitoring.map((a) => { // Map data monitoring
+      //       if (a.battery.setting_id === obj.id) { // pengecekan ketika data bms setting dengan id setting
+      //         if (a.temp_1 > obj.temp_max) { // cek ketika temp 1 over
+      //           this.dataNotifikasi.push( // push ke array dataNotifikasi
+      //             `Battery ${a.battery.name} Overheat (temp1)`
+      //           );
+      //         }
+      //         if (a.temp_2 > obj.temp_max) { // cek ketika temp 2 over
+      //           this.dataNotifikasi.push(
+      //             `Battery ${a.battery.name} Overheat (temp2)`
+      //           );
+      //         }
+      //         if (a.temp_3 > obj.temp_max) { // cek ketika temp 3 over
+      //           this.dataNotifikasi.push(
+      //             `Battery ${a.battery.name} Overheat (temp3)`
+      //           );
+      //         }
+      //         if (a.tegangan_tot > obj.tegangan_max) { // cek ketika tegangan over
+      //           this.dataNotifikasi.push(`Battery ${a.battery.name} Over Volt`);
+      //         }
+      //         if (a.arus > obj.arus_max) { // cek ketika temp arus over
+      //           this.dataNotifikasi.push(`Battery ${a.battery.name} Over Arus`);
+      //         }
+      //       }
+      //     });
+      //   });
+      // }, 5000); //interval 
     }
   },
   mounted: function mounted() {
-    this.fetchMonitor();
+    this.fetchMonitoring();
     this.check();
   }
 });
@@ -7385,6 +7422,32 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
@@ -7399,6 +7462,8 @@ __webpack_require__.r(__webpack_exports__);
       namaBatery: null,
       monitoring_id: null,
       seriesarus: [],
+      dataMonitoring: [],
+      dataNotifikasi: [],
       // CHART 1 (SUHU)
       chartOptions: {
         chart: {
@@ -7615,7 +7680,77 @@ __webpack_require__.r(__webpack_exports__);
       _this.seriesarus.push(lastData.arus);
 
       _this.seriesarus.push(_this.Asik.arus_min);
-    });
+    }), this.fetchMonitoring();
+    this.check();
+  },
+  methods: {
+    //NOTIFIKASI
+    fetchMonitoring: function fetchMonitoring() {
+      var _this2 = this;
+
+      setInterval(function () {
+        _this2.axios.get("http://127.0.0.1:8000/api/" + "monitoring/", {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + localStorage.getItem("token")
+          }
+        }).then(function (response) {
+          _this2.dataMonitoring = response.data;
+          console.log(response);
+        })["catch"](function (err) {
+          alert(err);
+        });
+      }, 5000);
+    },
+    check: function check() {
+      var _this3 = this;
+
+      setInterval(function () {
+        _this3.dataNotifikasi = [];
+
+        _this3.dataMonitoring.map(function (a) {
+          if (a.temp_1 > a.temp_max) {
+            _this3.dataNotifikasi.push("Battery ".concat(a.namabattery, " Melampaui Batas Atas (T1)"));
+          }
+
+          if (a.temp_2 > a.temp_max) {
+            _this3.dataNotifikasi.push("Battery ".concat(a.namabattery, " Melampaui Batas Atas (T2)"));
+          }
+
+          if (a.temp_3 > a.temp_max) {
+            _this3.dataNotifikasi.push("Battery ".concat(a.namabattery, " Melampaui Batas Atas (T3)"));
+          }
+
+          if (a.temp_1 < a.temp_min) {
+            _this3.dataNotifikasi.push("Battery ".concat(a.namabattery, " Melampaui Batas Bawah (T1)"));
+          }
+
+          if (a.temp_2 < a.temp_min) {
+            _this3.dataNotifikasi.push("Battery ".concat(a.namabattery, " Melampaui Batas Bawah (T2)"));
+          }
+
+          if (a.temp_3 < a.temp_min) {
+            _this3.dataNotifikasi.push("Battery ".concat(a.namabattery, " Melampaui Batas Bawah (T3)"));
+          }
+
+          if (a.arus > a.arus_max) {
+            _this3.dataNotifikasi.push("Battery ".concat(a.namabattery, " Melampaui Batas Atas (Arus)"));
+          }
+
+          if (a.arus < a.arus_min) {
+            _this3.dataNotifikasi.push("Battery ".concat(a.namabattery, " Melampaui Batas Bawah (Arus)"));
+          }
+
+          if (a.tegangan > a.tegangan_max) {
+            _this3.dataNotifikasi.push("Battery ".concat(a.namabattery, " Melampaui Batas Atas (Arus)"));
+          }
+
+          if (a.tegangan < a.tegangan_min) {
+            _this3.dataNotifikasi.push("Battery ".concat(a.namabattery, " Melampaui Batas Bawah (Tegangan)"));
+          }
+        });
+      }, 5000);
+    }
   }
 });
 
@@ -56914,8 +57049,40 @@ var render = function () {
   return _c("div", { staticClass: "container" }, [
     _c("div", { staticClass: "row justify-content-center" }, [
       _c("div", { staticClass: "card" }, [
-        _c("div", { staticClass: "card-header" }, [
-          _c("h1", [_vm._v("Monitoring " + _vm._s(this.Asik.name))]),
+        _c("div", { staticClass: "row mt-1" }, [
+          _vm._m(0),
+          _vm._v(" "),
+          _c("div", { staticClass: "col-md-1" }, [
+            _c("div", { staticClass: "dropdown float-right" }, [
+              _vm._m(1),
+              _vm._v(" "),
+              _c(
+                "ul",
+                {
+                  staticClass: "dropdown-menu",
+                  attrs: { "aria-labelledby": "dropdownMenuLink" },
+                },
+                [
+                  _vm.dataNotifikasi.length < 1
+                    ? _c("li", { staticClass: "dropdown-item" }, [
+                        _vm._v(
+                          "\n                Tidak ada Notifikasi\n              "
+                        ),
+                      ])
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _vm._l(_vm.dataNotifikasi, function (data) {
+                    return _c("li", { key: data.id }, [
+                      _c("span", { staticClass: "dropdown-item" }, [
+                        _vm._v(_vm._s(data)),
+                      ]),
+                    ])
+                  }),
+                ],
+                2
+              ),
+            ]),
+          ]),
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "card-body" }, [
@@ -56987,7 +57154,34 @@ var render = function () {
     ]),
   ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-md-11" }, [
+      _c("h1", [_vm._v("Monitoring BMS")]),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "a",
+      {
+        attrs: {
+          href: "#",
+          role: "button",
+          id: "dropdownMenuLink",
+          "data-bs-toggle": "dropdown",
+          "aria-expanded": "false",
+        },
+      },
+      [_c("i", { staticClass: "fa-solid fa-bell" })]
+    )
+  },
+]
 render._withStripped = true
 
 

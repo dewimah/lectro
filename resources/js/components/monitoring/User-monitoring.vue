@@ -2,7 +2,33 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="card">
-                <div class="card-header"><h1>Monitoring {{ this.Asik.name }}</h1></div>
+              <div class="row mt-1">
+            <div class="col-md-11">
+              <h1>Monitoring BMS</h1>
+            </div>
+            <div class="col-md-1">
+              <div class="dropdown float-right">
+                <a
+                  href="#"
+                  role="button"
+                  id="dropdownMenuLink"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  <i class="fa-solid fa-bell"></i>
+                </a>
+
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                  <li v-if="dataNotifikasi.length < 1" class="dropdown-item">
+                    Tidak ada Notifikasi
+                  </li>
+                  <li v-for="data in dataNotifikasi" :key="data.id">
+                    <span class="dropdown-item">{{ data }}</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
                 <div class="card-body">
                     <div class="table-responsive">
                         <div class="row">
@@ -41,6 +67,8 @@ export default {
             namaBatery: null,
             monitoring_id: null,
             seriesarus: [],
+            dataMonitoring: [],
+            dataNotifikasi: [],
             // CHART 1 (SUHU)
           chartOptions: {
             chart: {
@@ -251,7 +279,82 @@ export default {
             this.seriesarus.push(this.Asik.arus_max);
             this.seriesarus.push(lastData.arus);
             this.seriesarus.push(this.Asik.arus_min);
-        })
+        }),
+
+        this.fetchMonitoring();
+        this.check();
+    },
+
+    methods :{
+      //NOTIFIKASI
+      fetchMonitoring() {
+        setInterval(() => 
+        {
+          this.axios
+              .get(process.env.MIX_API_KEY+"monitoring/", {
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: "Bearer " + localStorage.getItem("token")
+                }
+            })
+          .then((response) => {
+            this.dataMonitoring = response.data;
+            console.log(response)
+          })
+          .catch((err) => {
+            alert(err);
+          })
+        }, 5000);
+      },
+
+      check() {
+        setInterval(() => {
+          this.dataNotifikasi = [];
+
+          this.dataMonitoring.map((a) => {
+            if (a.temp_1 > a.temp_max) 
+            {
+              this.dataNotifikasi.push (`Battery ${a.namabattery} Melampaui Batas Atas (T1)`);
+            }
+            if (a.temp_2 > a.temp_max) 
+            {
+              this.dataNotifikasi.push (`Battery ${a.namabattery} Melampaui Batas Atas (T2)`);
+            }
+            if (a.temp_3 > a.temp_max) 
+            {
+              this.dataNotifikasi.push (`Battery ${a.namabattery} Melampaui Batas Atas (T3)`);
+            }
+            if (a.temp_1 < a.temp_min) 
+            {
+              this.dataNotifikasi.push (`Battery ${a.namabattery} Melampaui Batas Bawah (T1)`);
+            }
+            if (a.temp_2 < a.temp_min) 
+            {
+              this.dataNotifikasi.push (`Battery ${a.namabattery} Melampaui Batas Bawah (T2)`);
+            }
+            if (a.temp_3 < a.temp_min) 
+            {
+              this.dataNotifikasi.push (`Battery ${a.namabattery} Melampaui Batas Bawah (T3)`);
+            }
+            if (a.arus > a.arus_max)
+            {
+              this.dataNotifikasi.push (`Battery ${a.namabattery} Melampaui Batas Atas (Arus)`);
+            }
+            if (a.arus < a.arus_min)
+            {
+              this.dataNotifikasi.push (`Battery ${a.namabattery} Melampaui Batas Bawah (Arus)`);
+            }
+            if (a.tegangan > a.tegangan_max)
+            {
+              this.dataNotifikasi.push (`Battery ${a.namabattery} Melampaui Batas Atas (Arus)`);
+            }
+            if (a.tegangan < a.tegangan_min)
+            {
+              this.dataNotifikasi.push (`Battery ${a.namabattery} Melampaui Batas Bawah (Tegangan)`);
+            }
+          })
+        }, 5000);
+      }
     }
 }
 </script>;

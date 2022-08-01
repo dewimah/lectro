@@ -24,21 +24,33 @@
 
                 <div class="sidebar">
                     <nav class="mt-2">
-                        <ul class="nav nav-pills nav-sidebar" data-widget="treeview" role="menu" data-accordion="false">
+                        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                            <div class="info">
+                                <div class="info mb-4">
+                                    @if(Auth::user() != null)
+                                    <h5 style="color:#fff">
+                                        {{Auth::user()->name}}
+                                    </h5>
+                                    <h6 style="color:#fff">
+                                        {{Auth::user()->email}}
+                                    </h6>
+                                    @endif
+                            </div>
 
+                            <li class="nav-item">
+                                <router-link to="ser-monitoring" class="nav-link">
+                                    <i class="fa-solid fa-desktop"></i>
+                                    <p>Monitoring</p>
+                                </router-link>
+                            </li>
+
+                            @if (Auth::user() != null && Auth::user()->name == "admin")
                             <li class="nav-item">
                                 <router-link to="admin-monitoring" class="nav-link">
                                     <i class="fa-solid fa-desktop"></i>
                                     <p>Monitoring</p>
                                 </router-link>
                             </li>
-
-                            <!-- <li class="nav-item">
-                                <router-link to="ser-monitoring" class="nav-link">
-                                    <i class="fa-solid fa-desktop"></i>
-                                    <p>Monitoring</p>
-                                </router-link>
-                            </li> -->
 
                             <li class="nav-item">
                                 <router-link to="data-userdevice" class="nav-link">
@@ -62,13 +74,15 @@
                                     <p>Data BMS</p>
                                 </router-link>
                             </li>
-
+                            @endif
                             
                             <li class="nav-item" onclick="Logout()">
                                 <!-- <form id="logout-form" action="{{ route('logout') }}" method="GET" class="nav-link">
                                     @csrf -->
+                                    <a class="nav-link">
                                     <i class="fa-solid fa-arrow-right-from-bracket"></i>
                                     <p>Logout</p>
+                                    </a>
                                 <!-- </form> -->
                             </li> 
 

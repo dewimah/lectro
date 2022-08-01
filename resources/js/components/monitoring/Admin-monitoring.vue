@@ -101,7 +101,7 @@ export default {
   data() {
     return {
       BatteryUser: {},
-      dataSettings: [],
+      //dataSettings: [],
       dataMonitoring: [],
       dataNotifikasi: [],
       token: localStorage.getItem("token"),
@@ -120,7 +120,6 @@ export default {
         //console.log(response)
         this.BatteryUser = response.data;
         //console.log(this.BatteryUser)
-
       })
       .then(function () {
         $(".DataTable").DataTable({
@@ -168,7 +167,7 @@ export default {
                 }
             })
         .then((response) => {
-          //this.dataMonitoring = response.data;
+          this.dataMonitoring = response.data;
           console.log(response)
         })
         .catch((err) => {
@@ -177,54 +176,101 @@ export default {
     }, 5000);
   },
 
-  fetchSettings() {
-        // Fetch data settings
-      this.axios
-        .get(process.env.MIX_API_KEY+"setting/")
-        .then((response) => {
-          this.dataSettings = response.data;
-        })
-        .catch((err) => {
-          alert(err);
-        });
-  },
+  // fetchSettings() {
+  //       // Fetch data settings
+  //     this.axios
+  //       .get(process.env.MIX_API_KEY+"setting/")
+  //       .then((response) => {
+  //         this.dataSettings = response.data;
+  //       })
+  //       .catch((err) => {
+  //         alert(err);
+  //       });
+  // },
 
   check() {
-      setInterval(() => { //Set Interval cek
-        this.dataNotifikasi = []; // reset data notifikasi tiap interval detik
-        this.dataSettings.forEach((obj) => { // Loop pengecekan tiap settings
-          this.dataMonitoring.map((a) => { // Map data monitoring
-            if (a.battery.setting_id === obj.id) { // pengecekan ketika data bms setting dengan id setting
-              if (a.temp_1 > obj.temp_max) { // cek ketika temp 1 over
-                this.dataNotifikasi.push( // push ke array dataNotifikasi
-                  `Battery ${a.battery.name} Overheat (temp1)`
-                );
-              }
-              if (a.temp_2 > obj.temp_max) { // cek ketika temp 2 over
-                this.dataNotifikasi.push(
-                  `Battery ${a.battery.name} Overheat (temp2)`
-                );
-              }
-              if (a.temp_3 > obj.temp_max) { // cek ketika temp 3 over
-                this.dataNotifikasi.push(
-                  `Battery ${a.battery.name} Overheat (temp3)`
-                );
-              }
-              if (a.tegangan_tot > obj.tegangan_max) { // cek ketika tegangan over
-                this.dataNotifikasi.push(`Battery ${a.battery.name} Over Volt`);
-              }
-              if (a.arus > obj.arus_max) { // cek ketika temp arus over
-                this.dataNotifikasi.push(`Battery ${a.battery.name} Over Arus`);
-              }
-            }
+      setInterval(() => {
+        this.dataNotifikasi = []; 
+        //const a = a;
+        // console.log(a);
+      this.dataMonitoring.map((a) => {
+        if (a.temp_1 > a.temp_max) 
+        {
+          this.dataNotifikasi.push (`Battery ${a.namabattery} Melampaui Batas Atas (T1)`);
+        }
+        if (a.temp_2 > a.temp_max) 
+        {
+          this.dataNotifikasi.push (`Battery ${a.namabattery} Melampaui Batas Atas (T2)`);
+        }
+        if (a.temp_3 > a.temp_max) 
+        {
+          this.dataNotifikasi.push (`Battery ${a.namabattery} Melampaui Batas Atas (T3)`);
+        }
+        if (a.temp_1 < a.temp_min) 
+        {
+          this.dataNotifikasi.push (`Battery ${a.namabattery} Melampaui Batas Bawah (T1)`);
+        }
+        if (a.temp_2 < a.temp_min) 
+        {
+          this.dataNotifikasi.push (`Battery ${a.namabattery} Melampaui Batas Bawah (T2)`);
+        }
+        if (a.temp_3 < a.temp_min) 
+        {
+          this.dataNotifikasi.push (`Battery ${a.namabattery} Melampaui Batas Bawah (T3)`);
+        }
+        if (a.arus > a.arus_max)
+        {
+          this.dataNotifikasi.push (`Battery ${a.namabattery} Melampaui Batas Atas (Arus)`);
+        }
+        if (a.arus < a.arus_min)
+        {
+          this.dataNotifikasi.push (`Battery ${a.namabattery} Melampaui Batas Bawah (Arus)`);
+        }
+        if (a.tegangan > a.tegangan_max)
+        {
+          this.dataNotifikasi.push (`Battery ${a.namabattery} Melampaui Batas Atas (Arus)`);
+        }
+        if (a.tegangan < a.tegangan_min)
+        {
+          this.dataNotifikasi.push (`Battery ${a.namabattery} Melampaui Batas Bawah (Tegangan)`);
+        }
+      })
+      }, 5000);
+      // setInterval(() => { //Set Interval cek
+      //   this.dataNotifikasi = []; // reset data notifikasi tiap interval detik
+      //   this.dataSettings.forEach((obj) => { // Loop pengecekan tiap settings
+      //     this.dataMonitoring.map((a) => { // Map data monitoring
+      //       if (a.battery.setting_id === obj.id) { // pengecekan ketika data bms setting dengan id setting
+      //         if (a.temp_1 > obj.temp_max) { // cek ketika temp 1 over
+      //           this.dataNotifikasi.push( // push ke array dataNotifikasi
+      //             `Battery ${a.battery.name} Overheat (temp1)`
+      //           );
+      //         }
+      //         if (a.temp_2 > obj.temp_max) { // cek ketika temp 2 over
+      //           this.dataNotifikasi.push(
+      //             `Battery ${a.battery.name} Overheat (temp2)`
+      //           );
+      //         }
+      //         if (a.temp_3 > obj.temp_max) { // cek ketika temp 3 over
+      //           this.dataNotifikasi.push(
+      //             `Battery ${a.battery.name} Overheat (temp3)`
+      //           );
+      //         }
+      //         if (a.tegangan_tot > obj.tegangan_max) { // cek ketika tegangan over
+      //           this.dataNotifikasi.push(`Battery ${a.battery.name} Over Volt`);
+      //         }
+      //         if (a.arus > obj.arus_max) { // cek ketika temp arus over
+      //           this.dataNotifikasi.push(`Battery ${a.battery.name} Over Arus`);
+      //         }
+      //       }
 
-          });
-        });
-      }, 5000); //interval 
+      //     });
+      //   });
+      // }, 5000); //interval 
     },
   },
   mounted () {
-    this.fetchMonitor();
+    this.fetchMonitoring();
     this.check();
   }
 };
