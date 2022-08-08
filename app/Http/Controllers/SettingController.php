@@ -15,14 +15,15 @@ class SettingController extends Controller
 
     //mengambil semua data
     public function all(){
-       /* $user=request()->user();
+        $user=request()->user();
         if(!$user->hasRole('admin'))
         {
             return ResponseFormatter:: error(null, 'Anda Tidak Punya Kewenangan', 403);
         }
-        $setting=Setting::all();
-        return ResponseFormatter::success($setting, 'Data Didapatkan');*/
-        return Setting::all();
+        $battery=Setting::with(['setting_suhus','setting_tegangans','setting_aruses'])->get();
+        return ResponseFormatter::success($battery, 'Data Didapatkan');
+        //return Battery::with(['cell','setting'])->get();
+        //return Setting::all();
     }
 
     //mengambil data by id
@@ -40,8 +41,8 @@ class SettingController extends Controller
         //return Setting::find($id);
     }
 
-    public function store(Request $request) {
-        $user=request()->user();
+    //public function store(Request $request) {
+        /*$user=request()->user();
         if(!$user->hasRole('admin'))
         {
             return ResponseFormatter:: error(null, 'Anda Tidak Punya Kewenangan', 403);
@@ -55,7 +56,17 @@ class SettingController extends Controller
             'arus_min' =>'required|numeric|gt:20|lt:60',
             'arus_max' =>'required|numeric|gt:20|lt:60'
         ]);
-        return Setting::create($validateData);
+        return Setting::create($validateData);*/
+        public function store(Request $request){
+            $setting=Setting::create([
+                'name' => request()->name,
+                'settingsuhus_id' => request()->settingsuhus_id,
+                'settingaruses_id' => request()->settingaruses_id,
+                'settingtegangans_id' => request()->settingtegangans_id,
+            ]);
+                return response()->json([
+                    'succes' => true
+                ]);
     }
 
     //mengubah data

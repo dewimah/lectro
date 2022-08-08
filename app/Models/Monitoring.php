@@ -14,8 +14,6 @@ class Monitoring extends Model
     protected $guarded = ['id'];
     protected $fillable = [
        'battery_id',
-       //'error_id',
-        //'control_relay',
         'tegangan_tot',
         'tegangan_cell',
         'temp_1',
@@ -26,10 +24,6 @@ class Monitoring extends Model
         'soh',
     ];
 
-    public function erorrs(){
-        return $this->hasMany(Erorrs::class);
-    }
-
     //hasmany
     public function battery(){
         return $this->belongsTo(Battery::class);
@@ -39,4 +33,7 @@ class Monitoring extends Model
         return $this->belongsTo(BatteryUser::class);
     }
 }
+
+
+
 

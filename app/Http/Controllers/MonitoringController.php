@@ -19,6 +19,9 @@ class MonitoringController extends Controller
         return DB::table('monitorings')
         ->join('batteries','monitorings.battery_id','=','batteries.id')
         ->join('settings','batteries.setting_id', '=', 'settings.id')
+        ->join('setting_tegangans','settings.settingtegangans_id', '=', 'setting_tegangans.id')
+        ->join('setting_aruses','settings.settingaruses_id', '=', 'setting_aruses.id')
+        ->join('setting_suhus','settings.settingsuhus_id', '=', 'setting_suhus.id')
         ->join('cells','batteries.cell_id', '=', 'cells.id')
         ->select(
             'monitorings.*',
@@ -27,6 +30,9 @@ class MonitoringController extends Controller
             'batteries.name as namabattery',
             'cellbaterai',
             'settings.name as namasetting',
+            'setting_tegangans.name as namasettingtegangan',
+            'setting_suhus.name as namasettingsuhu',
+            'setting_aruses.name as namasettingarus',
             'temp_min',
             'temp_max',
             'arus_min',
@@ -56,12 +62,15 @@ class MonitoringController extends Controller
             'setting_id as settingid',
             'cell_id as cellid',
             'monitorings.*',
-            'settings.tegangan_min',
-            'settings.tegangan_max',
-            'settings.temp_min',
-            'settings.temp_max',
-            'settings.arus_min',
-            'settings.arus_max',
+            'setting_tegangans.name as namasettingtegangan',
+            'setting_suhus.name as namasettingsuhu',
+            'setting_aruses.name as namasettingarus',
+            'setting_suhus.temp_min',
+            'setting_suhus.temp_max',
+            'setting_tegangans.tegangan_min',
+            'setting_tegangans.tegangan_max',
+            'setting_aruses.arus_min',
+            'setting_aruses.arus_max',
             'batteries.name',
             'batteries.tipe',
             'batteries.serial',
@@ -70,7 +79,10 @@ class MonitoringController extends Controller
 
         $data = $data
         ->join('batteries', 'monitorings.battery_id', '=', 'batteries.id')
-        ->join('settings', 'batteries.setting_id', '=', 'settings.id');
+        ->join('settings', 'batteries.setting_id', '=', 'settings.id')
+        ->join('setting_tegangans','settings.settingtegangans_id', '=', 'setting_tegangans.id')
+        ->join('setting_aruses','settings.settingaruses_id', '=', 'setting_aruses.id')
+        ->join('setting_suhus','settings.settingsuhus_id', '=', 'setting_suhus.id');
 
         $data = $data->orderBy('id', 'desc')->first();
 	return $data;
@@ -111,5 +123,12 @@ class MonitoringController extends Controller
         $data -> save();
         return 200;
         //return ResponseFormatter::success('Data Masuk');
+    }
+    public function rudi(){
+        return response()->json([
+            'berhasil'
+        ]);
+        //echo 'berhasil';
+        //return ;
     }
 }

@@ -53,14 +53,38 @@ class BatteryController extends Controller
 
     //mengambil semua data
     public function all(){
-        $user=request()->user();
+        /*$user=request()->user();
         if(!$user->hasRole('admin'))
         {
             return ResponseFormatter:: error(null, 'Anda Tidak Punya Kewenangan', 403);
         }
         $battery=Battery::with(['cell','setting'])->get();
         return ResponseFormatter::success($battery, 'Data Didapatkan');
-        //return Battery::with(['cell','setting'])->get();
+        //return Battery::with(['cell','setting'])->get();*/
+        $data = DB::table('batteries')->select(
+            'setting_tegangans.name as namasettingtegangan',
+            'setting_suhus.name as namasettingsuhu',
+            'setting_aruses.name as namasettingarus',
+            'setting_suhus.temp_min',
+            'setting_suhus.temp_max',
+            'setting_tegangans.tegangan_min',
+            'setting_tegangans.tegangan_max',
+            'setting_aruses.arus_min',
+            'setting_aruses.arus_max',
+            'cells.cellbaterai',
+            'batteries.tipe',
+            'batteries.serial',
+            'batteries.name as namabattery',
+        );
+
+        $data = $data
+        ->join('settings', 'batteries.setting_id', '=', 'settings.id')
+        ->join('cells', 'batteries.cell_id', '=', 'cells.id')
+        ->join('setting_tegangans','settings.settingtegangans_id', '=', 'setting_tegangans.id')
+        ->join('setting_aruses','settings.settingaruses_id', '=', 'setting_aruses.id')
+        ->join('setting_suhus','settings.settingsuhus_id', '=', 'setting_suhus.id')->get();
+
+        return $data;
     }
 
     //mengambil data by id

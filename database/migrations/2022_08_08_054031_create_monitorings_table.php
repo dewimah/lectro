@@ -17,17 +17,17 @@ return new class extends Migration
             $table->id();
             //$table->foreignId('error_id')->none()->constrained('errors')->onUpdate('cascade')->onDelete('cascade');
            $table->foreignId('battery_id')->none()->constrained('batteries')->onUpdate('cascade')->onDelete('cascade');
-            //$table->enum('control_relay', ['1', '0']);
-            //$table->foreignId('battery_user_id')->none()->constrained('battery_users')->onUpdate('cascade')->onDelete('cascade');
-           // $table->foreignId('battery_user_id')->references('id')->on('battery_users')->onUpdate('cascade')->onDelete('cascade');
-            $table->double('tegangan_tot',15,8);
-            $table->double('tegangan_cell',15,8);
-            $table->double('temp_1',15,8);
-            $table->double('temp_2',15,8);
-            $table->double('temp_3',15,8);
-            $table->double('arus',15,8);
-            $table->double('soc',15,8);
-            $table->double('soh',15,8);
+           //$table->enum('control_relay', ['1', '0']);
+           //$table->foreignId('battery_user_id')->none()->constrained('battery_users')->onUpdate('cascade')->onDelete('cascade');
+          // $table->foreignId('battery_user_id')->references('id')->on('battery_users')->onUpdate('cascade')->onDelete('cascade');
+           $table->double('tegangan_tot',15,8);
+           $table->double('tegangan_cell',15,8);
+           $table->double('temp_1',15,8);
+           $table->double('temp_2',15,8);
+           $table->double('temp_3',15,8);
+           $table->double('arus',15,8);
+           $table->double('soc',15,8);
+           $table->double('soh',15,8);
             $table->timestamps();
         });
     }
@@ -42,5 +42,3 @@ return new class extends Migration
         Schema::dropIfExists('monitorings');
     }
 };
-
-

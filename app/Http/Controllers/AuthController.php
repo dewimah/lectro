@@ -28,10 +28,10 @@ class AuthController extends Controller
         }
 
         $user = User::where('email', request()->email)->first();
-        $battery = DB::table('battery_user')
-        ->select('battery_user.battery_id')->where('battery_user.user_id', $user->id);
+        $battery = DB::table('battery_users')
+        ->select('battery_users.battery_id')->where('battery_users.user_id', $user->id);
             $battery = $battery
-            ->join('batteries', 'battery_user.battery_id', '=', 'batteries.id')->get();
+            ->join('batteries', 'battery_users.battery_id', '=', 'batteries.id')->get();
         if($user)
         {
             if(Hash::check(request()->password, $user->password))

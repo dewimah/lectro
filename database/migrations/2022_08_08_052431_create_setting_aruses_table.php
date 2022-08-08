@@ -13,13 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('settings', function (Blueprint $table) {
+        Schema::create('setting_aruses', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->integer('temp_min');
-            $table->integer('temp_max');
-            $table->integer('tegangan_min');
-            $table->integer('tegangan_max');
             $table->integer('arus_max');
             $table->integer('arus_min');
             $table->timestamps();
@@ -33,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('settings');
+        Schema::dropIfExists('setting_aruses');
     }
 };

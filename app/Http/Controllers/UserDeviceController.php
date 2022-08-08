@@ -63,39 +63,45 @@ class UserDeviceController extends Controller
             'succes' => true,
             'data' => $data
         ]);*/
-        $data = DB::table('battery_user')->select(
-            'battery_user.is_active',
-            'monitorings.tegangan_tot',
+        $data = DB::table('battery_users')->select(
+            'battery_users.is_active',
+           /* 'monitorings.tegangan_tot',
             'monitorings.tegangan_cell',
             'monitorings.temp_1',
             'monitorings.temp_2',
             'monitorings.temp_3',
             'monitorings.arus',
             'monitorings.soc',
-            'monitorings.soh',
-            'settings.temp_min',
-            'settings.temp_max',
-            'settings.tegangan_min',
-            'settings.tegangan_max',
-            'settings.arus_min',
-            'settings.arus_max',
+            'monitorings.soh',*/
+            'setting_tegangans.name as namasettingtegangan',
+            'setting_suhus.name as namasettingsuhu',
+            'setting_aruses.name as namasettingarus',
+            'setting_suhus.temp_min',
+            'setting_suhus.temp_max',
+            'setting_tegangans.tegangan_min',
+            'setting_tegangans.tegangan_max',
+            'setting_aruses.arus_min',
+            'setting_aruses.arus_max',
             'cells.cellbaterai',
             'batteries.tipe',
             'batteries.serial',
-            'battery_user.id as bttt',
+            'battery_users.id as bttt',
             'users.id as usss',
-            'monitorings.id as monnn',
+            //'monitorings.id as monnn',
             'batteries.name as namabattery',
             'users.name as namauser',
-            'battery_user.battery_id',
+            'battery_users.battery_id',
         );
 
         $data = $data
-        ->leftJoin('monitorings', 'battery_user.monitoring_id', '=', 'monitorings.id')
-        ->join('batteries', 'battery_user.battery_id', '=', 'batteries.id')
+       // ->leftJoin('monitorings', 'battery_users.monitoring_id', '=', 'monitorings.id')
+        ->join('batteries', 'battery_users.battery_id', '=', 'batteries.id')
         ->join('settings', 'batteries.setting_id', '=', 'settings.id')
         ->join('cells', 'batteries.cell_id', '=', 'cells.id')
-        ->join('users', 'battery_user.user_id', '=', 'users.id')->get();
+        ->join('setting_tegangans','settings.settingtegangans_id', '=', 'setting_tegangans.id')
+        ->join('setting_aruses','settings.settingaruses_id', '=', 'setting_aruses.id')
+        ->join('setting_suhus','settings.settingsuhus_id', '=', 'setting_suhus.id')
+        ->join('users', 'battery_users.user_id', '=', 'users.id')->get();
 
         return $data;
     }
@@ -111,31 +117,42 @@ class UserDeviceController extends Controller
         ]);
     }
 
+    public function belajar(Request $request){
+        $userdevice=BatteryUser::create([
+            'user_id' => request()->user_id,
+            'battery_id' => request()->battery_id,
+            'is_active' => request()->is_active,
+        ]);
+            return response()->json([
+                'succes' => true
+            ]);
+        }
+
     public function kabeh($id){
-        $data = DB::table('battery_user')->select(
-            'battery_user.is_active',
-            'monitorings.tegangan_tot',
+        $data = DB::table('battery_users')->select(
+            'battery_users.is_active',
+            /*'monitorings.tegangan_tot',
             'monitorings.tegangan_cell',
             'monitorings.temp_1',
             'monitorings.temp_2',
             'monitorings.temp_3',
             'monitorings.arus',
             'monitorings.soc',
-            'monitorings.soh',
+            'monitorings.soh',*/
             'batteries.name',
             'batteries.tipe',
             'batteries.serial',
             'users.name',
-            'battery_user.id as bttt',
+            'battery_users.id as bttt',
             'users.id as usss',
             'monitorings.id as monnn',
             //'battery_user.battery_id as battery_id'
-        )->where('battery_user.id', $id);
+        )->where('battery_users.id', $id);
 
         $data = $data
-        ->leftJoin('monitorings', 'battery_user.monitoring_id', '=', 'monitorings.id')
-        ->join('batteries', 'battery_user.battery_id', '=', 'batteries.id')
-        ->join('users', 'battery_user.user_id', '=', 'users.id')->get();
+       // ->leftJoin('monitorings', 'battery_users.monitoring_id', '=', 'monitorings.id')
+        ->join('batteries', 'battery_users.battery_id', '=', 'batteries.id')
+        ->join('users', 'battery_users.user_id', '=', 'users.id')->get();
         return $data;
     }
 
@@ -169,5 +186,13 @@ class UserDeviceController extends Controller
             BatteryUser::find($id),
             200
         );
+    }
+
+    public function rudi(){
+        /*return response()->json([
+            'berhasil'
+        ]);*/
+        //echo 'berhasil';
+        return 204;
     }
 }

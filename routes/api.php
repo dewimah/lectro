@@ -23,6 +23,7 @@ use App\Helpers\ResponseFormatter;
 Route::post('/register', 'App\Http\Controllers\RegisterController@register');
 Route::post('/login', [AuthController::class, 'login'])->name('login');
 Route::post('/input','App\Http\Controllers\MonitoringController@datamasuk');
+Route::get('/rudi','App\Http\Controllers\MonitoringController@rudi');
 //Route::post('/login', 'App\Http\Controllers\AuthController@login')->name('login');
 
 //Route User
@@ -45,7 +46,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
             Route::delete('/user/{id}', 'App\Http\Controllers\UserController@delete');
             //battery
             Route::get('/battery', 'App\Http\Controllers\BatteryController@all');
-            Route::get('/coba', 'App\Http\Controllers\BatteryController@getdata');
+           // Route::get('/coba', 'App\Http\Controllers\BatteryController@getdata');
             Route::get('/battery/{id}', 'App\Http\Controllers\BatteryController@show');
             Route::post('/battery','App\Http\Controllers\BatteryController@store');
             Route::put('/battery/{id}', 'App\Http\Controllers\BatteryController@update');
@@ -62,6 +63,24 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
             Route::post('/setting','App\Http\Controllers\SettingController@store');
             Route::put('/setting/{id}','App\Http\Controllers\SettingController@update');
             Route::delete('/setting/{id}', 'App\Http\Controllers\SettingController@delete');
+            //setting arus
+            Route::get('/settingarus', 'App\Http\Controllers\SettingArusController@all');
+            Route::get('/settingarus/{id}', 'App\Http\Controllers\SettingArusController@show');
+            Route::post('/settingarus','App\Http\Controllers\SettingArusController@store');
+            Route::put('/settingarus/{id}', 'App\Http\Controllers\SettingArusController@update');
+            Route::delete('/settingarus/{id}', 'App\Http\Controllers\SettingArusController@delete');
+            //setting suhu
+            Route::get('/settingsuhu', 'App\Http\Controllers\SettingSuhuController@all');
+            Route::get('/settingsuhu/{id}', 'App\Http\Controllers\SettingSuhuController@show');
+            Route::post('/settingsuhu','App\Http\Controllers\SettingSuhuController@store');
+            Route::put('/settingsuhu/{id}', 'App\Http\Controllers\SettingSuhuController@update');
+            Route::delete('/settingsuhu/{id}', 'App\Http\Controllers\SettingSuhuController@delete');
+            //setting tegangan
+            Route::get('/settingtegangan', 'App\Http\Controllers\SettingTeganganController@all');
+            Route::get('/settingtegangan/{id}', 'App\Http\Controllers\SettingTeganganController@show');
+            Route::post('/settingtegangan','App\Http\Controllers\SettingTeganganController@store');
+            Route::put('/settingtegangan/{id}', 'App\Http\Controllers\SettingTeganganController@update');
+            Route::delete('/settingtegangan/{id}', 'App\Http\Controllers\SettingTeganganController@delete');
             //error
             Route::get('/erorrs', 'App\Http\Controllers\ErorrsController@all');
             Route::get('/erorrs/{id}', 'App\Http\Controllers\ErorrsController@show');

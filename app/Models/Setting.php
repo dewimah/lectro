@@ -13,15 +13,20 @@ class Setting extends Model
     protected $guarded = ['id'];
     protected $fillable = [
         'name',
-        'temp_min',
-        'temp_max',
-        'tegangan_min',
-        'tegangan_max',
-        'arus_min',
-        'arus_max',
+       'settingsuhus_id',
+        'settingtegangans_id',
+         'settingaruses_id',
     ];
 
-    public function monitoring(){
-        return $this->belongsTo(Monitoring::class);
+    public function settingsuhu(){
+        return $this->belongsTo(SettingSuhu::class);
+    }
+
+    public function settingtegangan(){
+        return $this->belongsTo(SettingTegangan::class);
+    }
+
+    public function settingarus(){
+        return $this->belongsTo(SettingArus::class);
     }
 }

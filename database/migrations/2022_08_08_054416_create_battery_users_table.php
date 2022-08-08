@@ -13,8 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('battery_user', function (Blueprint $table) {
-           $table -> id();
+        Schema::create('battery_users', function (Blueprint $table) {
+            $table->id();
             $table->foreignId('battery_id')->references('id')->on('batteries')->onUpdate('cascade')->onDelete('cascade');
             $table->foreignId('user_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
             //$table->primary(['battery_id','user_id']);
@@ -25,13 +25,13 @@ return new class extends Migration
         });
     }
 
-     /**
+    /**
      * Reverse the migrations.
      *
      * @return void
      */
     public function down()
     {
-        Schema::dropIfExists('battery_user');
+        Schema::dropIfExists('battery_users');
     }
 };

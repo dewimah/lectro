@@ -10,7 +10,7 @@ use App\Models\Monitoring;
 class BatteryUser extends Model
 {
     use HasFactory,  HasApiTokens;
-    protected $table='battery_user';
+    protected $table='battery_users';
     protected $guarded = ['id'];
     protected $fillable = [
         'user_id',
