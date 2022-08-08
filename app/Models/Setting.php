@@ -5,6 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Monitoring;
+use App\Models\SettingSuhu;
+use App\Models\SettingTegangan;
+use App\Models\SettingArus;
 
 class Setting extends Model
 {

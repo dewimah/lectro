@@ -18,6 +18,6 @@ class SettingSuhu extends Model
     ];
 
     public function setting(){
-       // return $this->belongsTo(Setting::class);
+        return $this->belongsTo(Setting::class);
     }
 }
