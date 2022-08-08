@@ -20,9 +20,9 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="jml_sel">Setting</label>
-                    <select name="jml_sel" class="form-control" v-model="Battery.setting_id" required>
-                        <option v-for="Setting in Setting" :key="Setting.id" :value="Setting.id">{{Setting.name}}</option>
+                    <label for="setting">Setting</label>
+                    <select name="settimg" class="form-control" v-model="Battery.setting_id" required>
+                        <option v-for="Setting in Setting" :key="Setting.id" :value="Setting.id">{{Setting.namasettingarus}}</option>
                     </select>
                 </div>
 

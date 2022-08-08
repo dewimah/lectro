@@ -259,7 +259,7 @@
 
               <tbody>
                 <tr v-for="Setting in Setting" :key="Setting.id">
-                  <td>{{ Setting.name }}</td>
+                  <td>{{ Setting.namasettingarus }}</td>
                   <td>{{ Setting.temp_min }} C</td>
                   <td>{{ Setting.temp_max }} C</td>
                   <td>{{ Setting.tegangan_min }} V</td>

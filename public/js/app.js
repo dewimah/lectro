@@ -56450,7 +56450,7 @@ var render = function () {
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "form-group" }, [
-            _c("label", { attrs: { for: "jml_sel" } }, [_vm._v("Setting")]),
+            _c("label", { attrs: { for: "setting" } }, [_vm._v("Setting")]),
             _vm._v(" "),
             _c(
               "select",
@@ -56464,7 +56464,7 @@ var render = function () {
                   },
                 ],
                 staticClass: "form-control",
-                attrs: { name: "jml_sel", required: "" },
+                attrs: { name: "settimg", required: "" },
                 on: {
                   change: function ($event) {
                     var $$selectedVal = Array.prototype.filter
@@ -56487,7 +56487,7 @@ var render = function () {
                 return _c(
                   "option",
                   { key: Setting.id, domProps: { value: Setting.id } },
-                  [_vm._v(_vm._s(Setting.name))]
+                  [_vm._v(_vm._s(Setting.namasettingarus))]
                 )
               }),
               0
@@ -57650,7 +57650,7 @@ var render = function () {
                     "tbody",
                     _vm._l(_vm.Setting, function (Setting) {
                       return _c("tr", { key: Setting.id }, [
-                        _c("td", [_vm._v(_vm._s(Setting.name))]),
+                        _c("td", [_vm._v(_vm._s(Setting.namasettingarus))]),
                         _vm._v(" "),
                         _c("td", [_vm._v(_vm._s(Setting.temp_min) + " C")]),
                         _vm._v(" "),
