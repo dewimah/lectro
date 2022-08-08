@@ -188,19 +188,10 @@ class UserDeviceController extends Controller
         );
     }
 
-<<<<<<< Updated upstream
-    public function rudi(){
-        /*return response()->json([
-            'berhasil'
-        ]);*/
-        //echo 'berhasil';
-        return 204;
-=======
     public function rudi()
     {
         return ResponseFormatter::success(
             'berhasil'
         );
->>>>>>> Stashed changes
     }
 }

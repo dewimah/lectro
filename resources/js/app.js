@@ -131,6 +131,60 @@ require('./bootstrap');
           isAdmin: true
         }
       },
+      {
+        path: '/add-setting-suhu',
+        name: 'add-setting-suhu',
+        component:require('./components/bms/Add-setting-suhu.vue').default,
+        meta: {
+          requiresAuth: true,
+          isAdmin: true
+        }
+      },
+      {
+        path: '/edit-setting-suhu/:id',
+        name: 'edit-setting-suhu',
+        component:require('./components/bms/Edit-setting-suhu.vue').default,
+        meta: {
+          requiresAuth: true,
+          isAdmin: true
+        }
+      },
+      {
+        path: '/add-setting-tegangan',
+        name: 'add-setting-tegangan',
+        component:require('./components/bms/Add-setting-tegangan.vue').default,
+        meta: {
+          requiresAuth: true,
+          isAdmin: true
+        }
+      },
+      {
+        path: '/edit-setting-tegangan/:id',
+        name: 'edit-setting-tegangan',
+        component:require('./components/bms/Edit-setting-tegangan.vue').default,
+        meta: {
+          requiresAuth: true,
+          isAdmin: true
+        }
+      },
+      {
+        path: '/add-setting-arus',
+        name: 'add-setting-arus',
+        component:require('./components/bms/Add-setting-arus.vue').default,
+        meta: {
+          requiresAuth: true,
+          isAdmin: true
+        }
+      },
+      {
+        path: '/edit-setting-arus/:id',
+        name: 'edit-setting-arus',
+        component:require('./components/bms/Edit-setting-arus.vue').default,
+        meta: {
+          requiresAuth: true,
+          isAdmin: true
+        }
+      },
       
       //DATA USER
       {

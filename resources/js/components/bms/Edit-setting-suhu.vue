@@ -1,0 +1,75 @@
+<template>
+    <div class="card card-success">
+        <div class="card-header" style="background-color:#1c3b10">
+            <h1 class="card-title">Edit Data Sel</h1>
+        </div>
+
+        <form @submit.prevent="updateCell">
+            <div class="card-body">
+                <div class="form-group">
+                    <label for="temp_min">Jumlah Sel</label>
+                    <input type="number" class="form-control" v-model="cell.cellbaterai">
+                </div>
+            </div>
+
+            <div class="card-footer">
+                <router-link to="data-bms" class="btn btn-danger" type="button">Cancel</router-link>
+                <button type="submit" class="btn btn-success" style="background-color:#1c3b10">Simpan</button>
+            </div>
+        </form>
+    </div>
+   
+</template>
+
+<script>
+export default {
+    data() {
+        return{
+            cell: {},
+            role: localStorage.getItem("role")
+        }
+    },
+
+    mounted() {
+        if(this.role !== "admin")
+        {
+        localStorage.clear();
+        window.location.href ="/login"
+        } else {
+        router.push({name : "edit-cell"})
+        }
+    },
+
+    created() {
+        this.axios
+             .get(process.env.MIX_API_KEY+'cell/' + this.$route.params.id, {
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: "Bearer " + localStorage.getItem("token")
+                }
+            })
+             .then((response) => {
+                this.cell = response.data.data;
+            })
+    },
+
+    methods: {
+        updateCell(){
+            this.axios
+                .put(process.env.MIX_API_KEY+'cell/' + this.$route.params.id, this.cell, {
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: "Bearer " + localStorage.getItem("token")
+                }
+            })
+                .then((response) => {
+                    Toast.fire({
+                        icon: 'success',
+                        title: 'Data Berhasil Tersimpan'
+                    }),
+                    this.$router.push({ name:'data-bms'})
+                })
+        }
+    }
+}
+</script>

@@ -1,7 +1,8 @@
 <template>
   <div class="container">
     <div class="row justify-content-center">
-      <div class="card">
+      <div class="col md-6">
+        <div class="card">
         <div class="card-header"><h1>Jumlah Sel</h1></div>
 
         <div class="card-body">
@@ -54,9 +55,179 @@
           </div>
         </div>
       </div>
+      </div>
 
+      <div class="col md-6">
+        <div class="card">
+        <div class="card-header"><h1>Setting Suhu</h1></div>
+
+        <div class="card-body">
+          <router-link
+            to="/add-setting-suhu"
+            class="btn btn-success"
+            type="button"
+            style="background-color: #1c3b10"
+          >
+            <i class="fa-solid fa-circle-plus"></i> Tambah
+          </router-link>
+          <br /><br />
+          <div class="table-responsive">
+            <table
+              id="example4"
+              class="table table-bordered table-striped DataTable4"
+            >
+              <thead>
+                <tr>
+                  <th>Setting</th>
+                  <th>Suhu Min</th>
+                  <th>Suhu Max</th>
+                  <th>Aksi</th>
+                </tr>
+              </thead>
+
+              <tbody>
+                <tr v-for="SettingSuhu in SettingSuhu" :key="SettingSuhu.id">
+                  <td>{{ SettingSuhu.name }}</td>
+                  <td>{{ SettingSuhu.temp_min }} C</td>
+                  <td>{{ SettingSuhu.temp_max }} C</td>
+                  <td>
+                    <router-link
+                      :to="{ name: 'edit-setting-suhu', params: { id: SettingSuhu.id } }"
+                      class="btn btn-sm btn-warning"
+                    >
+                      <i class="fas fa-edit"></i>
+                    </router-link>
+                    <button
+                      class="btn btn-danger btn-sm"
+                      @click="deleteSettingSuhu(SettingSuhu.id)"
+                    >
+                      <i class="fa-solid fa-trash"></i>
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      </div>
+    </div>
+
+    <div class="row justify-content-center">
+      <div class="col md-6">
+        <div class="card">
+        <div class="card-header"><h1>Setting Tegangan</h1></div>
+
+        <div class="card-body">
+          <router-link
+            to="/add-setting-tegangan"
+            class="btn btn-success"
+            type="button"
+            style="background-color: #1c3b10"
+          >
+            <i class="fa-solid fa-circle-plus"></i> Tambah
+          </router-link>
+          <br /><br />
+          <div class="table-responsive">
+            <table
+              id="example6"
+              class="table table-bordered table-striped DataTable6"
+            >
+              <thead>
+                <tr>
+                  <th>Setting</th>
+                  <th>Tegangan Min</th>
+                  <th>Tegangan Max</th>
+                  <th>Aksi</th>
+                </tr>
+              </thead>
+
+              <tbody>
+                <tr v-for="SettingTegangan in SettingTegangan" :key="SettingTegangan.id">
+                  <td>{{ SettingTegangan.name }}</td>
+                  <td>{{ SettingTegangan.tegangan_min }} V</td>
+                  <td>{{ SettingTegangan.tegangan_max }} V</td>
+                  <td>
+                    <router-link
+                      :to="{ name: 'edit-setting-tegangan', params: { id: SettingTegangan.id } }"
+                      class="btn btn-sm btn-warning"
+                    >
+                      <i class="fas fa-edit"></i>
+                    </router-link>
+                    <button
+                      class="btn btn-danger btn-sm"
+                      @click="deleteSettingTegangan(SettingTegangan.id)"
+                    >
+                      <i class="fa-solid fa-trash"></i>
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      </div>
+
+      <div class="col md-6">
+          <div class="card">
+        <div class="card-header"><h1>Setting Arus</h1></div>
+
+        <div class="card-body">
+          <router-link
+            to="/add-setting-arus"
+            class="btn btn-success"
+            type="button"
+            style="background-color: #1c3b10"
+          >
+            <i class="fa-solid fa-circle-plus"></i> Tambah
+          </router-link>
+          <br /><br />
+          <div class="table-responsive">
+            <table
+              id="example5"
+              class="table table-bordered table-striped DataTable5"
+            >
+              <thead>
+                <tr>
+                  <th>Setting</th>
+                  <th>Arus Min</th>
+                  <th>Arus Max</th>
+                  <th>Aksi</th>
+                </tr>
+              </thead>
+
+              <tbody>
+                <tr v-for="SettingArus in SettingArus" :key="SettingArus.id">
+                  <td>{{ SettingArus.name }}</td>
+                  <td>{{ SettingArus.arus_min }} A</td>
+                  <td>{{ SettingArus.arus_max }} A</td>
+                  <td>
+                    <router-link
+                      :to="{ name: 'edit-setting-arus', params: { id: SettingArus.id } }"
+                      class="btn btn-sm btn-warning"
+                    >
+                      <i class="fas fa-edit"></i>
+                    </router-link>
+                    <button
+                      class="btn btn-danger btn-sm"
+                      @click="deleteSettingArus(SettingArus.id)"
+                    >
+                      <i class="fa-solid fa-trash"></i>
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      </div>
+    </div>
+
+    <div class="row justify-content-center">
       <div class="card">
-        <div class="card-header"><h5>Data Setting</h5></div>
+        <div class="card-header"><h1>Data Setting</h1></div>
 
         <div class="card-body">
           <router-link
@@ -117,7 +288,7 @@
       </div>
 
       <div class="card">
-        <div class="card-header"><h5>Data BMS</h5></div>
+        <div class="card-header"><h1>Data BMS</h1></div>
 
         <div class="card-body">
           <router-link
@@ -200,6 +371,9 @@ export default {
       cell: {},
       Setting: {},
       // getDataPosts,
+      SettingSuhu: {},
+      SettingTegangan: {},
+      SettingArus:{},
       token: localStorage.getItem("token"),
       role: localStorage.getItem("role")
     };
@@ -260,7 +434,7 @@ export default {
                 }
             })
       .then((response) => {
-        //console.log(response.data)
+        console.log(response.data)
         this.Setting = response.data;
       })
       .then(function () {
@@ -269,7 +443,61 @@ export default {
           // lengthChange: false,
           buttons: ["excel", "pdf"],
         });
-      });
+    });
+    this.axios
+      .get(process.env.MIX_API_KEY + "settingsuhu/", {
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: "Bearer " + this.token
+                }
+            })
+      .then((response) => {
+        //console.log(response.data)
+        this.SettingSuhu = response.data;
+      })
+      .then(function () {
+        $(".DataTable4").DataTable({
+          dom: "Bfrtip",
+          // lengthChange: false,
+          buttons: ["excel", "pdf"],
+        });
+    });
+    this.axios
+      .get(process.env.MIX_API_KEY + "settingarus/", {
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: "Bearer " + this.token
+                }
+            })
+      .then((response) => {
+        //console.log(response.data)
+        this.SettingArus = response.data;
+      })
+      .then(function () {
+        $(".DataTable5").DataTable({
+          dom: "Bfrtip",
+          // lengthChange: false,
+          buttons: ["excel", "pdf"],
+        });
+    });
+    this.axios
+      .get(process.env.MIX_API_KEY + "settingtegangan/", {
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: "Bearer " + this.token
+                }
+            })
+      .then((response) => {
+        //console.log(response.data)
+        this.SettingTegangan = response.data;
+      })
+      .then(function () {
+        $(".DataTable6").DataTable({
+          dom: "Bfrtip",
+          // lengthChange: false,
+          buttons: ["excel", "pdf"],
+        });
+    });
   },
 
   methods: {
@@ -303,19 +531,6 @@ export default {
       });
     },
 
-    tambahCell() {
-      this.axios
-        .post(process.env.MIX_API_KEY + "cell/", this.cell, {
-                headers: {
-                    "Content-Type": "application/json",
-                    Authorization: "Bearer " + localStorage.getItem("token")
-                }
-            })
-        .then((response) => this.$router.push({ name: "data-bms" }))
-        .catch((err) => console.log(err))
-        .finally(() => (this.loading = false));
-    },
-
     deleteSetting(id) {
       Swal.fire({
         title: "Anda yakin ingin menghapus data ini?",
@@ -345,6 +560,7 @@ export default {
         }
       });
     },
+
     deleteCell(id) {
       Swal.fire({
         title: "Anda yakin ingin menghapus data ini?",
@@ -367,6 +583,96 @@ export default {
               Swal.fire("Terhapus", "Data sudah terhapus", "success");
               let i = this.cell.map((data) => data.id).indexOf(id);
               this.cell.splice(i, 1);
+            })
+            .catch(() => {
+              Swal.fire("Gagal", "Data gagal terhapus", "warning");
+            });
+        }
+      });
+    },
+
+    deleteSettingSuhu(id) {
+      Swal.fire({
+        title: "Anda yakin ingin menghapus data ini?",
+        text: "Klik batal untuk membatalkan hapus data",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#ddd",
+        confirmButtonText: "Hapus",
+      }).then((result) => {
+        if (result.value) {
+          this.axios
+            .delete(process.env.MIX_API_KEY + "settingsuhu/" + id, {
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: "Bearer " + localStorage.getItem("token")
+                }
+            })
+            .then((response) => {
+              Swal.fire("Terhapus", "Data sudah terhapus", "success");
+              let i = this.SettingSuhu.map((data) => data.id).indexOf(id);
+              this.SettingSuhu.splice(i, 1);
+            })
+            .catch(() => {
+              Swal.fire("Gagal", "Data gagal terhapus", "warning");
+            });
+        }
+      });
+    },
+
+     deleteSettingArus(id) {
+      Swal.fire({
+        title: "Anda yakin ingin menghapus data ini?",
+        text: "Klik batal untuk membatalkan hapus data",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#ddd",
+        confirmButtonText: "Hapus",
+      }).then((result) => {
+        if (result.value) {
+          this.axios
+            .delete(process.env.MIX_API_KEY + "settingarus/" + id, {
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: "Bearer " + localStorage.getItem("token")
+                }
+            })
+            .then((response) => {
+              Swal.fire("Terhapus", "Data sudah terhapus", "success");
+              let i = this.SettingArus.map((data) => data.id).indexOf(id);
+              this.SettingArus.splice(i, 1);
+            })
+            .catch(() => {
+              Swal.fire("Gagal", "Data gagal terhapus", "warning");
+            });
+        }
+      });
+    },
+
+     deleteSettingTegangan(id) {
+      Swal.fire({
+        title: "Anda yakin ingin menghapus data ini?",
+        text: "Klik batal untuk membatalkan hapus data",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#ddd",
+        confirmButtonText: "Hapus",
+      }).then((result) => {
+        if (result.value) {
+          this.axios
+            .delete(process.env.MIX_API_KEY + "settingtegangan/" + id, {
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: "Bearer " + localStorage.getItem("token")
+                }
+            })
+            .then((response) => {
+              Swal.fire("Terhapus", "Data sudah terhapus", "success");
+              let i = this.SettingTegangan.map((data) => data.id).indexOf(id);
+              this.SettingTegangan.splice(i, 1);
             })
             .catch(() => {
               Swal.fire("Gagal", "Data gagal terhapus", "warning");

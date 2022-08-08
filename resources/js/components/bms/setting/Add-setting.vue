@@ -16,48 +16,31 @@
             </div>
 
             <div class="form-group">
-                <label for="temp_min">Suhu Mininum</label>
+                <label for="temp_min">Suhu</label>
                 <ValidationProvider name="temp_min" rules="batasmin" v-slot="{ errors }">
-                <input type="number" class="form-control" v-model="Setting.temp_min">
-                <span class="invalid-feedback d-block">{{ errors[0] }}</span>
-                </ValidationProvider>
-            </div>
-            
-            <div class="form-group">
-                <label for="temp_max">Suhu Maksimum</label>
-                <ValidationProvider name="temp_min" rules="batasmax" v-slot="{ errors }">
-                <input type="number" class="form-control" v-model="Setting.temp_max">
+                <select type="number" class="form-control" v-model="Setting.settingsuhus_id">
+                    <option v-for="SettingSuhu in SettingSuhu" :key="SettingSuhu.id" :value="SettingSuhu.id">{{SettingSuhu.name}}</option>
+                </select>
                 <span class="invalid-feedback d-block">{{ errors[0] }}</span>
                 </ValidationProvider>
             </div>
 
             <div class="form-group">
-                <label for="tegangan_min">Tegangan Minimum</label>
+                <label for="tegangan_min">Tegangan</label>
                 <ValidationProvider name="temp_min" rules="batasmin" v-slot="{ errors }">
-                <input type="number" class="form-control" v-model="Setting.tegangan_min">
+                <select type="number" class="form-control" v-model="Setting.settingtegangans_id">
+                    <option v-for="SettingTegangan in SettingTegangan" :key="SettingTegangan.id" :value="SettingTegangan.id">{{SettingTegangan.name}}</option>
+                </select>
                 <span class="invalid-feedback d-block">{{ errors[0] }}</span>
                 </ValidationProvider>
             </div>
 
             <div class="form-group">
-                <label for="tegangan_max">Tegangan Maksimum</label>
-                <ValidationProvider name="temp_min" rules="batasmax" v-slot="{ errors }">
-                <input type="number" class="form-control" v-model="Setting.tegangan_max">
-                <span class="invalid-feedback d-block">{{ errors[0] }}</span>
-                </ValidationProvider>
-            </div>
-            <div class="form-group">
-                <label for="tegangan_min">Arus Minimum</label>
+                <label for="tegangan_min">Arus</label>
                 <ValidationProvider name="temp_min" rules="batasmin" v-slot="{ errors }">
-                <input type="number" class="form-control" v-model="Setting.arus_min">
-                <span class="invalid-feedback d-block">{{ errors[0] }}</span>
-                </ValidationProvider>
-            </div>
-
-            <div class="form-group">
-                <label for="tegangan_max">Arus Maksimum</label>
-                <ValidationProvider name="temp_min" rules="batasmax" v-slot="{ errors }">
-                <input type="number" class="form-control" v-model="Setting.arus_max">
+                <select type="number" class="form-control" v-model="Setting.settingaruses_id">
+                    <option v-for="SettingArus in SettingArus" :key="SettingArus.id" :value="SettingArus.id">{{SettingArus.name}}</option>
+                </select>
                 <span class="invalid-feedback d-block">{{ errors[0] }}</span>
                 </ValidationProvider>
             </div>
@@ -77,6 +60,9 @@ export default {
     data() {
         return{
             Setting: {},
+            SettingSuhu: {},
+            SettingArus: {},
+            SettingTegangan: {},
             role: localStorage.getItem("role")
         }
     },
@@ -90,6 +76,7 @@ export default {
         router.push({name : "add-setting"})
         }
     },
+
     methods: {
         tambahSetting(){
             this.axios
@@ -99,17 +86,56 @@ export default {
                     Authorization: "Bearer " + localStorage.getItem("token")
                 }
             })
-                .then(response => (
-                    Toast.fire({
-                        icon: 'success',
-                        title: 'Data Berhasil Tersimpan'
-                    }),
-                    this.$router.push({name:'data-bms'})
-                ))
-                .catch(err => console.log(err))
-                .finally(() => this.loading = false)
+            .then(response => (
+                Toast.fire({
+                    icon: 'success',
+                    title: 'Data Berhasil Tersimpan'
+                }),
+                this.$router.push({name:'data-bms'})
+            ))
+            .catch(err => console.log(err))
+            .finally(() => this.loading = false)
+        },
+
+        loadDataSettingArus() {
+            this.axios
+                .get(process.env.MIX_API_KEY+'settingarus/', {
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: "Bearer " + localStorage.getItem("token")
+                }
+            })
+                .then(({data}) => {this.SettingArus = data});
+        },
+
+        loadDataSettingTegangan() {
+            this.axios
+                .get(process.env.MIX_API_KEY+'settingtegangan/', {
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: "Bearer " + localStorage.getItem("token")
+                }
+            })
+                .then(({data}) => {this.SettingTegangan = data});
+        },
+
+        loadDataSettingSuhu() {
+            this.axios
+                .get(process.env.MIX_API_KEY+'settingsuhu/', {
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: "Bearer " + localStorage.getItem("token")
+                }
+            })
+                .then(({data}) => {this.SettingSuhu = data});
         }
         
+    },
+
+    created() {
+        this.loadDataSettingArus();
+        this.loadDataSettingTegangan();
+        this.loadDataSettingSuhu();
     }
 }
 </script>
