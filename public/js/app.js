@@ -6430,8 +6430,8 @@ __webpack_require__.r(__webpack_exports__);
         Authorization: "Bearer " + this.token
       }
     }).then(function (response) {
-      // console.log(response);
-      _this.Battery = response.data.data;
+      //console.log(response.data);
+      _this.Battery = response.data;
     }).then(function () {
       $(".DataTable2").DataTable({
         dom: "Bfrtip",
@@ -8013,6 +8013,15 @@ __webpack_require__.r(__webpack_exports__);
         buttons: ["excel", "pdf"]
       });
     });
+    this.axios.get("http://127.0.0.1:8000/api/" + "monitoring/", {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + this.token
+      }
+    }).then(function (response) {
+      console.log(response.data); //this.BatteryUser = response.data;
+      //console.log(this.BatteryUser)
+    });
   },
   methods: {
     deleteUserdevice: function deleteUserdevice(id) {
@@ -8068,43 +8077,43 @@ __webpack_require__.r(__webpack_exports__);
 
         _this4.dataMonitoring.map(function (a) {
           if (a.temp_1 > a.temp_max) {
-            _this4.dataNotifikasi.push("Battery ".concat(a.name, " Melampaui Batas Atas (T1)"));
+            _this4.dataNotifikasi.push("Battery ".concat(a.namabattery, " Melampaui Batas Atas (T1)"));
           }
 
           if (a.temp_2 > a.temp_max) {
-            _this4.dataNotifikasi.push("Battery ".concat(a.name, " Melampaui Batas Atas (T2)"));
+            _this4.dataNotifikasi.push("Battery ".concat(a.namabattery, " Melampaui Batas Atas (T2)"));
           }
 
           if (a.temp_3 > a.temp_max) {
-            _this4.dataNotifikasi.push("Battery ".concat(a.name, " Melampaui Batas Atas (T3)"));
+            _this4.dataNotifikasi.push("Battery ".concat(a.namabattery, " Melampaui Batas Atas (T3)"));
           }
 
           if (a.temp_1 < a.temp_min) {
-            _this4.dataNotifikasi.push("Battery ".concat(a.name, " Melampaui Batas Bawah (T1)"));
+            _this4.dataNotifikasi.push("Battery ".concat(a.namabattery, " Melampaui Batas Bawah (T1)"));
           }
 
           if (a.temp_2 < a.temp_min) {
-            _this4.dataNotifikasi.push("Battery ".concat(a.name, " Melampaui Batas Bawah (T2)"));
+            _this4.dataNotifikasi.push("Battery ".concat(a.namabattery, " Melampaui Batas Bawah (T2)"));
           }
 
           if (a.temp_3 < a.temp_min) {
-            _this4.dataNotifikasi.push("Battery ".concat(a.name, " Melampaui Batas Bawah (T3)"));
+            _this4.dataNotifikasi.push("Battery ".concat(a.namabattery, " Melampaui Batas Bawah (T3)"));
           }
 
           if (a.arus > a.arus_max) {
-            _this4.dataNotifikasi.push("Battery ".concat(a.name, " Melampaui Batas Atas (Arus)"));
+            _this4.dataNotifikasi.push("Battery ".concat(a.namabattery, " Melampaui Batas Atas (Arus)"));
           }
 
           if (a.arus < a.arus_min) {
-            _this4.dataNotifikasi.push("Battery ".concat(a.name, " Melampaui Batas Bawah (Arus)"));
+            _this4.dataNotifikasi.push("Battery ".concat(a.namabattery, " Melampaui Batas Bawah (Arus)"));
           }
 
           if (a.tegangan_tot > a.tegangan_max) {
-            _this4.dataNotifikasi.push("Battery ".concat(a.name, " Melampaui Batas Atas (Tegangan)"));
+            _this4.dataNotifikasi.push("Battery ".concat(a.namabattery, " Melampaui Batas Atas (Tegangan)"));
           }
 
           if (a.tegangan_tot < a.tegangan_min) {
-            _this4.dataNotifikasi.push("Battery ".concat(a.name, " Melampaui Batas Bawah (Tegangan)"));
+            _this4.dataNotifikasi.push("Battery ".concat(a.namabattery, " Melampaui Batas Bawah (Tegangan)"));
           }
         });
       }, 5000); // setInterval(() => { //Set Interval cek
@@ -8970,6 +8979,7 @@ __webpack_require__.r(__webpack_exports__);
         Authorization: "Bearer " + this.token
       }
     }).then(function (response) {
+      //console.log(response.data)
       _this.BatteryUser = response.data;
 
       _this.battery_id.map(function (a) {
@@ -8984,6 +8994,14 @@ __webpack_require__.r(__webpack_exports__);
         dom: "Bfrtip",
         buttons: ["excel", "pdf"]
       });
+    });
+    this.axios.get("http://127.0.0.1:8000/api/" + "monitoring/", {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + this.token
+      }
+    }).then(function (response) {
+      console.log(response.data); //this.BatteryUser = response.data;
     });
   },
   methods: {
@@ -9000,8 +9018,7 @@ __webpack_require__.r(__webpack_exports__);
           _this2.dataMonitoring = response.data;
           _this2.filterNotifikasi = [], _this2.battery_id.map(function (a) {
             _this2.dataMonitoring.map(function (b) {
-              console.log(b);
-
+              //console.log(b);
               if (a == b.battery_id && _this2.user_id == b.id) {
                 _this2.filterNotifikasi.push(b); //console.log(this.filterNotifikasi)
 
@@ -9530,7 +9547,7 @@ __webpack_require__.r(__webpack_exports__);
         }
       }).then(function (_ref) {
         var data = _ref.data;
-        _this2.Battery = data.data;
+        _this2.Battery = data;
       });
     },
     loadDataUser: function loadDataUser() {
@@ -57650,7 +57667,7 @@ var render = function () {
                     "tbody",
                     _vm._l(_vm.Setting, function (Setting) {
                       return _c("tr", { key: Setting.id }, [
-                        _c("td", [_vm._v(_vm._s(Setting.namasettingarus))]),
+                        _c("td", [_vm._v(_vm._s(Setting.name))]),
                         _vm._v(" "),
                         _c("td", [_vm._v(_vm._s(Setting.temp_min) + " C")]),
                         _vm._v(" "),
@@ -57747,35 +57764,23 @@ var render = function () {
                       return _c("tr", { key: Battery.id }, [
                         _c("td", [_vm._v(_vm._s(Battery.name))]),
                         _vm._v(" "),
-                        _c("td", [_vm._v(_vm._s(Battery.cell.cellbaterai))]),
+                        _c("td", [_vm._v(_vm._s(Battery.cellbaterai))]),
                         _vm._v(" "),
                         _c("td", [_vm._v(_vm._s(Battery.tipe))]),
                         _vm._v(" "),
                         _c("td", [_vm._v(_vm._s(Battery.serial))]),
                         _vm._v(" "),
-                        _c("td", [
-                          _vm._v(_vm._s(Battery.setting.temp_max) + " C"),
-                        ]),
+                        _c("td", [_vm._v(_vm._s(Battery.temp_max) + " C")]),
                         _vm._v(" "),
-                        _c("td", [
-                          _vm._v(_vm._s(Battery.setting.temp_min) + " C"),
-                        ]),
+                        _c("td", [_vm._v(_vm._s(Battery.temp_min) + " C")]),
                         _vm._v(" "),
-                        _c("td", [
-                          _vm._v(_vm._s(Battery.setting.tegangan_max) + " V"),
-                        ]),
+                        _c("td", [_vm._v(_vm._s(Battery.tegangan_max) + " V")]),
                         _vm._v(" "),
-                        _c("td", [
-                          _vm._v(_vm._s(Battery.setting.tegangan_min) + " V"),
-                        ]),
+                        _c("td", [_vm._v(_vm._s(Battery.tegangan_min) + " V")]),
                         _vm._v(" "),
-                        _c("td", [
-                          _vm._v(_vm._s(Battery.setting.arus_max) + " A"),
-                        ]),
+                        _c("td", [_vm._v(_vm._s(Battery.arus_max) + " A")]),
                         _vm._v(" "),
-                        _c("td", [
-                          _vm._v(_vm._s(Battery.setting.arus_min) + " A"),
-                        ]),
+                        _c("td", [_vm._v(_vm._s(Battery.arus_min) + " A")]),
                         _vm._v(" "),
                         _c(
                           "td",
@@ -57886,9 +57891,9 @@ var staticRenderFns = [
       _c("tr", [
         _c("th", [_vm._v("Setting")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Tegangan Min")]),
+        _c("th", [_vm._v("V Min")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Tegangan Max")]),
+        _c("th", [_vm._v("V Max")]),
         _vm._v(" "),
         _c("th", [_vm._v("Aksi")]),
       ]),

@@ -18,33 +18,44 @@ class MonitoringController extends Controller
     public function all(){
         //return Monitoring::with(['battery'])->get();
         return DB::table('monitorings')
-        ->join('batteries','monitorings.battery_id','=','batteries.id')
-        ->join('settings','batteries.setting_id', '=', 'settings.id')
-        ->join('setting_tegangans','settings.settingtegangans_id', '=', 'setting_tegangans.id')
-        ->join('setting_aruses','settings.settingaruses_id', '=', 'setting_aruses.id')
-        ->join('setting_suhus','settings.settingsuhus_id', '=', 'setting_suhus.id')
-        ->join('cells','batteries.cell_id', '=', 'cells.id')
+        // ->join('batteries AS a','a.id','=','monitorings.battery_id')
+        // ->join('settings AS b','batteries.setting_id', '=', 'settings.id')
+        // ->join('setting_tegangans','settings.settingtegangans_id', '=', 'setting_tegangans.id')
+        // ->join('setting_aruses','settings.settingaruses_id', '=', 'setting_aruses.id')
+        // ->join('setting_suhus','settings.settingsuhus_id', '=', 'setting_suhus.id')
+        // ->join('cells','batteries.cell_id', '=', 'cells.id')
+        // ->join('batteries','battery_users.battery_id', '=', 'batteries.id' )
+        
+        ->join('batteries AS a','a.id','=','monitorings.battery_id')
+        ->join('settings AS b','b.id', '=', 'a.setting_id')
+        ->join('setting_tegangans AS c','c.id', '=', 'b.settingtegangans_id')
+        ->join('setting_aruses AS d','d.id', '=', 'b.settingaruses_id')
+        ->join('setting_suhus AS e','e.id', '=', 'b.settingsuhus_id')
+        ->join('cells AS f','f.id', '=', 'a.cell_id')
+        ->join('battery_users AS g','g.battery_id', '=', 'a.id' )
+
         ->select(
             'monitorings.*',
-            'battery_id',
-            'setting_id',
-            'batteries.name as namabattery',
-            'cellbaterai',
-            'settings.name as namasetting',
-            'setting_tegangans.name as namasettingtegangan',
-            'setting_suhus.name as namasettingsuhu',
-            'setting_aruses.name as namasettingarus',
-            'temp_min',
-            'temp_max',
-            'arus_min',
-            'arus_max',
-            'tegangan_min',
-            'tegangan_max',
+            'g.battery_id',
+            'a.setting_id',
+            'a.name as namabattery',
+            'f.cellbaterai',
+            'b.name as namasetting',
+            'c.name as namasettingtegangan',
+            'e.name as namasettingsuhu',
+            'd.name as namasettingarus',
+            'e.temp_min',
+            'e.temp_max',
+            'd.arus_min',
+            'd.arus_max',
+            'c.tegangan_min',
+            'c.tegangan_max',
             'temp_1',
             'temp_2',
             'temp_3',
             'arus',
-            'tegangan_tot')
+            'tegangan_tot',
+            'g.user_id as id')
             ->get();
     }
 

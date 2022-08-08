@@ -111,6 +111,19 @@ export default {
           buttons: ["excel", "pdf"],
         });
       });
+
+      this.axios
+      .get(process.env.MIX_API_KEY+"monitoring/", {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + this.token
+          }
+      })
+      .then((response) => {
+        console.log(response.data)
+        //this.BatteryUser = response.data;
+        //console.log(this.BatteryUser)
+      })
   },
 
   methods: {
@@ -167,43 +180,43 @@ export default {
         this.dataMonitoring.map((a) => {
         if (a.temp_1 > a.temp_max) 
         {
-          this.dataNotifikasi.push (`Battery ${a.name} Melampaui Batas Atas (T1)`);
+          this.dataNotifikasi.push (`Battery ${a.namabattery} Melampaui Batas Atas (T1)`);
         }
         if (a.temp_2 > a.temp_max) 
         {
-          this.dataNotifikasi.push (`Battery ${a.name} Melampaui Batas Atas (T2)`);
+          this.dataNotifikasi.push (`Battery ${a.namabattery} Melampaui Batas Atas (T2)`);
         }
         if (a.temp_3 > a.temp_max) 
         {
-          this.dataNotifikasi.push (`Battery ${a.name} Melampaui Batas Atas (T3)`);
+          this.dataNotifikasi.push (`Battery ${a.namabattery} Melampaui Batas Atas (T3)`);
         }
         if (a.temp_1 < a.temp_min) 
         {
-          this.dataNotifikasi.push (`Battery ${a.name} Melampaui Batas Bawah (T1)`);
+          this.dataNotifikasi.push (`Battery ${a.namabattery} Melampaui Batas Bawah (T1)`);
         }
         if (a.temp_2 < a.temp_min) 
         {
-          this.dataNotifikasi.push (`Battery ${a.name} Melampaui Batas Bawah (T2)`);
+          this.dataNotifikasi.push (`Battery ${a.namabattery} Melampaui Batas Bawah (T2)`);
         }
         if (a.temp_3 < a.temp_min) 
         {
-          this.dataNotifikasi.push (`Battery ${a.name} Melampaui Batas Bawah (T3)`);
+          this.dataNotifikasi.push (`Battery ${a.namabattery} Melampaui Batas Bawah (T3)`);
         }
         if (a.arus > a.arus_max)
         {
-          this.dataNotifikasi.push (`Battery ${a.name} Melampaui Batas Atas (Arus)`);
+          this.dataNotifikasi.push (`Battery ${a.namabattery} Melampaui Batas Atas (Arus)`);
         }
         if (a.arus < a.arus_min)
         {
-          this.dataNotifikasi.push (`Battery ${a.name} Melampaui Batas Bawah (Arus)`);
+          this.dataNotifikasi.push (`Battery ${a.namabattery} Melampaui Batas Bawah (Arus)`);
         }
         if (a.tegangan_tot > a.tegangan_max)
         {
-          this.dataNotifikasi.push (`Battery ${a.name} Melampaui Batas Atas (Tegangan)`);
+          this.dataNotifikasi.push (`Battery ${a.namabattery} Melampaui Batas Atas (Tegangan)`);
         }
         if (a.tegangan_tot < a.tegangan_min)
         {
-          this.dataNotifikasi.push (`Battery ${a.name} Melampaui Batas Bawah (Tegangan)`);
+          this.dataNotifikasi.push (`Battery ${a.namabattery} Melampaui Batas Bawah (Tegangan)`);
         }
       });
       }, 5000);

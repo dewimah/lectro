@@ -99,7 +99,7 @@ export default {
                     Authorization: "Bearer " + localStorage.getItem("token")
                 }
             })
-                .then(({data}) => {this.Battery = data.data});
+                .then(({data}) => {this.Battery = data});
         },
         loadDataUser(){
             this.axios

@@ -102,6 +102,7 @@ export default {
         },
       })
       .then((response) => {
+        //console.log(response.data)
         this.BatteryUser = response.data;
 
         this.battery_id.map((a) => {
@@ -118,6 +119,18 @@ export default {
           buttons: ["excel", "pdf"],
         });
       });
+
+       this.axios
+      .get(process.env.MIX_API_KEY + "monitoring/", {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + this.token,
+        },
+      })
+      .then((response) => {
+        console.log(response.data);
+        //this.BatteryUser = response.data;
+      })
   },
 
   methods: {
@@ -136,7 +149,7 @@ export default {
             this.filterNotifikasi=[],
             this.battery_id.map((a) => {
               this.dataMonitoring.map((b) => {
-                console.log(b);
+                //console.log(b);
                 if (a == b.battery_id && this.user_id == b.id) {
                   this.filterNotifikasi.push(b);
                   //console.log(this.filterNotifikasi)

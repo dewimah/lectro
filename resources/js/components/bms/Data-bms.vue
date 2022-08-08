@@ -136,8 +136,8 @@
               <thead>
                 <tr>
                   <th>Setting</th>
-                  <th>Tegangan Min</th>
-                  <th>Tegangan Max</th>
+                  <th>V Min</th>
+                  <th>V Max</th>
                   <th>Aksi</th>
                 </tr>
               </thead>
@@ -259,7 +259,7 @@
 
               <tbody>
                 <tr v-for="Setting in Setting" :key="Setting.id">
-                  <td>{{ Setting.namasettingarus }}</td>
+                  <td>{{ Setting.name }}</td>
                   <td>{{ Setting.temp_min }} C</td>
                   <td>{{ Setting.temp_max }} C</td>
                   <td>{{ Setting.tegangan_min }} V</td>
@@ -330,15 +330,15 @@
               <tbody>
                 <tr v-for="Battery in Battery" :key="Battery.id">
                   <td>{{ Battery.name }}</td>
-                  <td>{{ Battery.cell.cellbaterai }}</td>
+                  <td>{{ Battery.cellbaterai }}</td>
                   <td>{{ Battery.tipe }}</td>
                   <td>{{ Battery.serial }}</td>
-                  <td>{{ Battery.setting.temp_max }} C</td>
-                  <td>{{ Battery.setting.temp_min }} C</td>
-                  <td>{{ Battery.setting.tegangan_max }} V</td>
-                  <td>{{ Battery.setting.tegangan_min }} V</td>
-                  <td>{{ Battery.setting.arus_max }} A</td>
-                  <td>{{ Battery.setting.arus_min }} A</td>
+                  <td>{{ Battery.temp_max }} C</td>
+                  <td>{{ Battery.temp_min }} C</td>
+                  <td>{{ Battery.tegangan_max }} V</td>
+                  <td>{{ Battery.tegangan_min }} V</td>
+                  <td>{{ Battery.arus_max }} A</td>
+                  <td>{{ Battery.arus_min }} A</td>
                   <td>
                     <router-link
                       :to="{ name: 'edit-bms', params: { id: Battery.id } }"
@@ -398,8 +398,8 @@ export default {
                 }
             })
       .then((response) => {
-        // console.log(response);
-        this.Battery = response.data.data;
+        //console.log(response.data);
+        this.Battery = response.data;
       })
       .then(function () {
         $(".DataTable2").DataTable({
