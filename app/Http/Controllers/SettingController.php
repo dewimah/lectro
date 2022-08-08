@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Setting;
 use App\Helpers\ResponseFormatter;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\DB;
 
 class SettingController extends Controller
 {
@@ -15,20 +16,38 @@ class SettingController extends Controller
 
     //mengambil semua data
     public function all(){
-        $user=request()->user();
+       /* $user=request()->user();
         if(!$user->hasRole('admin'))
         {
             return ResponseFormatter:: error(null, 'Anda Tidak Punya Kewenangan', 403);
         }
-        $battery=Setting::with(['setting_suhus','setting_tegangans','setting_aruses'])->get();
-        return ResponseFormatter::success($battery, 'Data Didapatkan');
+        //$setting=Setting::with(['setting_suhus','setting_tegangans','setting_aruses'])->get();
+        //return ResponseFormatter::success($setting, 'Data Didapatkan');
         //return Battery::with(['cell','setting'])->get();
-        //return Setting::all();
+        return Setting::all();*/
+        $data = DB::table('settings')->select(
+            'setting_tegangans.name as namasettingtegangan',
+            'setting_suhus.name as namasettingsuhu',
+            'setting_aruses.name as namasettingarus',
+            'setting_suhus.temp_min',
+            'setting_suhus.temp_max',
+            'setting_tegangans.tegangan_min',
+            'setting_tegangans.tegangan_max',
+            'setting_aruses.arus_min',
+            'setting_aruses.arus_max',
+        );
+
+        $data = $data
+        ->join('setting_tegangans','settings.settingtegangans_id', '=', 'setting_tegangans.id')
+        ->join('setting_aruses','settings.settingaruses_id', '=', 'setting_aruses.id')
+        ->join('setting_suhus','settings.settingsuhus_id', '=', 'setting_suhus.id')->get();
+
+        return $data;
     }
 
     //mengambil data by id
     public function show ($id){
-        $user=request()->user();
+       /* $user=request()->user();
         if(!$user->hasRole('admin'))
         {
             return ResponseFormatter:: error(null, 'Anda Tidak Punya Kewenangan', 403);
@@ -38,26 +57,28 @@ class SettingController extends Controller
             return ResponseFormatter:: error(null, 'Data Tidak Ada', 403);
         }
         return ResponseFormatter::success($setting, 'Data Didapatkan');
-        //return Setting::find($id);
+        //return Setting::find($id);*/
+        $data = DB::table('settings')->select(
+            'setting_tegangans.name as namasettingtegangan',
+            'setting_suhus.name as namasettingsuhu',
+            'setting_aruses.name as namasettingarus',
+            'setting_suhus.temp_min',
+            'setting_suhus.temp_max',
+            'setting_tegangans.tegangan_min',
+            'setting_tegangans.tegangan_max',
+            'setting_aruses.arus_min',
+            'setting_aruses.arus_max',
+        )->where('settings.id', $id);
+
+        $data = $data
+        ->join('setting_tegangans','settings.settingtegangans_id', '=', 'setting_tegangans.id')
+        ->join('setting_aruses','settings.settingaruses_id', '=', 'setting_aruses.id')
+        ->join('setting_suhus','settings.settingsuhus_id', '=', 'setting_suhus.id')->get();
+
+        return $data;
     }
 
-    //public function store(Request $request) {
-        /*$user=request()->user();
-        if(!$user->hasRole('admin'))
-        {
-            return ResponseFormatter:: error(null, 'Anda Tidak Punya Kewenangan', 403);
-        }
-        $validateData = $request->validate([
-            'name' => 'required',
-            'temp_min' => 'required|numeric|gt:20|lt:60',
-            'temp_max' => 'required|numeric|gt:20|lt:60',
-            'tegangan_min' => 'required|numeric|gt:20|lt:60',
-            'tegangan_max' =>'required|numeric|gt:20|lt:60',
-            'arus_min' =>'required|numeric|gt:20|lt:60',
-            'arus_max' =>'required|numeric|gt:20|lt:60'
-        ]);
-        return Setting::create($validateData);*/
-        public function store(Request $request){
+    public function store(Request $request){
             $setting=Setting::create([
                 'name' => request()->name,
                 'settingsuhus_id' => request()->settingsuhus_id,
