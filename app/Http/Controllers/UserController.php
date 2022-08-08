@@ -20,6 +20,13 @@ class UserController extends Controller
     public function ambil(){
         return User::all();
     }
+
+    //JUMLAH USER
+    public function jumlahUser() {
+        $data = User::count();
+        return ResponseFormatter::success($data, 'Data Didapatkan');
+    }
+
     public function all()
     {
         /*$user=request()->user();

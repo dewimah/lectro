@@ -7,6 +7,7 @@ use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\User;
+use App\Http\Controllers\ChatController;
 use App\Helpers\ResponseFormatter;
 /*
 |--------------------------------------------------------------------------
@@ -35,18 +36,31 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     //Route::get('monitoring/{id}','App\Http\Controllers\MonitoringController@show');
     Route::get('/asik/{id}','App\Http\Controllers\MonitoringController@lala');
     Route::get('/setting','App\Http\Controllers\SettingController@all');
+    //LIVE CHAT
+    Route::post('/message','App\Http\Controllers\ChatController@store' );
+    Route::get('/message','App\Http\Controllers\ChatController@all' );
+    //COBA
+    Route::get('/rudi', 'App\Http\Controllers\UserDeviceController@rudi');
+    //REKAPDATA
+    // Route::get('rekapdata', 'App\Http\Controllers\MonitoringController@rekapData');
         Route::middleware('is.admin')->group( function(){
         //Route::prefix('/admin')->group( function(){
             Route::get('/admin', 'App\Http\Controllers\UserController@showCurrentUser');
             //User
             Route::get('/dewi','App\Http\Controllers\UserController@ambil');
+            Route::get('/jumlahuser','App\Http\Controllers\UserController@jumlahUser');
             Route::get('/user/{id}', 'App\Http\Controllers\UserController@show');
             Route::post('/user','App\Http\Controllers\UserController@store');
             Route::put('/user/{id}', 'App\Http\Controllers\UserController@update');
             Route::delete('/user/{id}', 'App\Http\Controllers\UserController@delete');
             //battery
             Route::get('/battery', 'App\Http\Controllers\BatteryController@all');
+<<<<<<< Updated upstream
            // Route::get('/coba', 'App\Http\Controllers\BatteryController@getdata');
+=======
+            Route::get('/rudi', 'App\Http\Controllers\BatteryController@jumlahBattery');
+            Route::get('/coba', 'App\Http\Controllers\BatteryController@getdata');
+>>>>>>> Stashed changes
             Route::get('/battery/{id}', 'App\Http\Controllers\BatteryController@show');
             Route::post('/battery','App\Http\Controllers\BatteryController@store');
             Route::put('/battery/{id}', 'App\Http\Controllers\BatteryController@update');

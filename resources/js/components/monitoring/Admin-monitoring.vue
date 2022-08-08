@@ -44,19 +44,7 @@
                   <th>Nama</th>
                   <th>BMS</th>
                   <th>Aksi</th>
-                  <!-- <th rowspan="2">No</th>
-                  <th rowspan="2">Nama</th>
-                  <th rowspan="2">BMS</th>
-                  <th colspan="5">Current</th>
-                  <th rowspan="2">Aksi</th> -->
                 </tr>
-                <!-- <tr>
-                  <td>T 1</td>
-                  <td>T 2</td>
-                  <td>T 3</td>
-                  <td>V</td>
-                  <td>I</td>
-                </tr> -->
               </thead>
 
               <tbody>
@@ -67,11 +55,6 @@
                   <td>{{ index + 1 }}</td>
                   <td>{{ BatteryUser.namauser }}</td>
                   <td>{{ BatteryUser.namabattery }}</td>
-                  <!-- <td>{{ BatteryUser.temp_1 }} C</td>
-                  <td>{{ BatteryUser.temp_2 }} C</td>
-                  <td>{{ BatteryUser.temp_3 }} C</td>
-                  <td>{{ BatteryUser.tegangan_tot }} V</td>
-                  <td>{{ BatteryUser.arus }} A</td> -->
                   <td>
                     <router-link
                       :to="'/halaman-detail/'+BatteryUser.battery_id"
@@ -105,6 +88,7 @@ export default {
       dataMonitoring: [],
       dataNotifikasi: [],
       token: localStorage.getItem("token"),
+      role: localStorage.getItem("role")
     };
   },
 
@@ -168,7 +152,8 @@ export default {
             })
         .then((response) => {
           this.dataMonitoring = response.data;
-          console.log(response)
+          //this.dataNotifikasi= [];
+          //console.log(response)
         })
         .catch((err) => {
           alert(err);
@@ -176,65 +161,51 @@ export default {
     }, 5000);
   },
 
-  // fetchSettings() {
-  //       // Fetch data settings
-  //     this.axios
-  //       .get(process.env.MIX_API_KEY+"setting/")
-  //       .then((response) => {
-  //         this.dataSettings = response.data;
-  //       })
-  //       .catch((err) => {
-  //         alert(err);
-  //       });
-  // },
-
   check() {
       setInterval(() => {
         this.dataNotifikasi = []; 
-        //const a = a;
-        // console.log(a);
-      this.dataMonitoring.map((a) => {
+        this.dataMonitoring.map((a) => {
         if (a.temp_1 > a.temp_max) 
         {
-          this.dataNotifikasi.push (`Battery ${a.namabattery} Melampaui Batas Atas (T1)`);
+          this.dataNotifikasi.push (`Battery ${a.name} Melampaui Batas Atas (T1)`);
         }
         if (a.temp_2 > a.temp_max) 
         {
-          this.dataNotifikasi.push (`Battery ${a.namabattery} Melampaui Batas Atas (T2)`);
+          this.dataNotifikasi.push (`Battery ${a.name} Melampaui Batas Atas (T2)`);
         }
         if (a.temp_3 > a.temp_max) 
         {
-          this.dataNotifikasi.push (`Battery ${a.namabattery} Melampaui Batas Atas (T3)`);
+          this.dataNotifikasi.push (`Battery ${a.name} Melampaui Batas Atas (T3)`);
         }
         if (a.temp_1 < a.temp_min) 
         {
-          this.dataNotifikasi.push (`Battery ${a.namabattery} Melampaui Batas Bawah (T1)`);
+          this.dataNotifikasi.push (`Battery ${a.name} Melampaui Batas Bawah (T1)`);
         }
         if (a.temp_2 < a.temp_min) 
         {
-          this.dataNotifikasi.push (`Battery ${a.namabattery} Melampaui Batas Bawah (T2)`);
+          this.dataNotifikasi.push (`Battery ${a.name} Melampaui Batas Bawah (T2)`);
         }
         if (a.temp_3 < a.temp_min) 
         {
-          this.dataNotifikasi.push (`Battery ${a.namabattery} Melampaui Batas Bawah (T3)`);
+          this.dataNotifikasi.push (`Battery ${a.name} Melampaui Batas Bawah (T3)`);
         }
         if (a.arus > a.arus_max)
         {
-          this.dataNotifikasi.push (`Battery ${a.namabattery} Melampaui Batas Atas (Arus)`);
+          this.dataNotifikasi.push (`Battery ${a.name} Melampaui Batas Atas (Arus)`);
         }
         if (a.arus < a.arus_min)
         {
-          this.dataNotifikasi.push (`Battery ${a.namabattery} Melampaui Batas Bawah (Arus)`);
+          this.dataNotifikasi.push (`Battery ${a.name} Melampaui Batas Bawah (Arus)`);
         }
-        if (a.tegangan > a.tegangan_max)
+        if (a.tegangan_tot > a.tegangan_max)
         {
-          this.dataNotifikasi.push (`Battery ${a.namabattery} Melampaui Batas Atas (Arus)`);
+          this.dataNotifikasi.push (`Battery ${a.name} Melampaui Batas Atas (Tegangan)`);
         }
-        if (a.tegangan < a.tegangan_min)
+        if (a.tegangan_tot < a.tegangan_min)
         {
-          this.dataNotifikasi.push (`Battery ${a.namabattery} Melampaui Batas Bawah (Tegangan)`);
+          this.dataNotifikasi.push (`Battery ${a.name} Melampaui Batas Bawah (Tegangan)`);
         }
-      })
+      });
       }, 5000);
       // setInterval(() => { //Set Interval cek
       //   this.dataNotifikasi = []; // reset data notifikasi tiap interval detik

@@ -49,7 +49,8 @@
 export default {
     data() {
         return{
-            BatteryUser: {}
+            BatteryUser: {},
+            role:localStorage.getItem("role")
         }
     },
     mounted() {
@@ -59,7 +60,7 @@ export default {
                     Authorization: "Bearer " + localStorage.getItem("token")
                 }
             }).then((response) => {
-            console.log(response)
+            //console.log(response)
             this.BatteryUser = response.data
         })
         .then(function (){
@@ -71,24 +72,25 @@ export default {
             });
         });
 
+        this.axios.get(process.env.MIX_API_KEY + "rudi", {
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: "Bearer " + localStorage.getItem("token")
+                }
+            }).then((response) => {
+            console.log(response)
+            //this.BatteryUser = response.data
+        })
+
     },
     created(){
-        // this.axios
-        // .get(process.env.MIX_API_KEY+'userdevice')
-        // // .then(response => (this.BatteryUser=response))
-        // // console.log(response)
-        // .then((response) =>{
-        //     //this.BatteryUser = response.data;
-        //     console.log(response)
-        // })
-        // .then(function (){
-        //     $(".DataTable").DataTable({
-        //         dom: 'Bfrtip',
-        //         buttons: [
-        //             'excel', 'pdf'
-        //         ]
-        //     });
-        // });
+        if(this.role !== "admin")
+        {
+        localStorage.clear();
+        window.location.href ="/login"
+        } else {
+        router.push({name : "data-userdevice"})
+        }
     },
     methods: {
         deleteUserdevice(id){

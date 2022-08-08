@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Monitoring;
 use App\Helpers\ResponseFormatter;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 
 class MonitoringController extends Controller
@@ -43,10 +44,23 @@ class MonitoringController extends Controller
             'temp_2',
             'temp_3',
             'arus',
-            'tegangan_tot'
-        )
-        ->get();
+            'tegangan_tot')
+            ->get();
     }
+
+    // public function rekapData (Request $request)
+    // {
+    //     $tgl_sekarang = Carbon::now()->format('Y-m-d');
+    //     $data_temp1 = Monitoring::where('hari', $tgl_sekarang)->max('temp_1');
+    //     $data_temp2 = Monitoring::where(date('Y-m-d', strtotime('created_at')), $tgl_sekarang)->max('temp_2')->first();
+    //     $data_temp3 = Monitoring::where(date('Y-m-d', strtotime('created_at')), $tgl_sekarang)->max('temp_3')->first();
+    //     $arus = Monitoring::where(date('Y-m-d', strtotime('created_at')), $tgl_sekarang)->max('arus')->first();
+    //     $tot = Monitoring::where(date('Y-m-d', strtotime('created_at')), $tgl_sekarang)->max('tegangan_tot')->first();
+
+    //     return response()->json(
+    //         [$data_temp1, $data_temp2, $data_temp3, $arus, $tot]
+    //     );
+    // }
 
     public function show ($id){
         return Monitoring::with('battery')->where('id', $id)->get();
@@ -107,6 +121,8 @@ class MonitoringController extends Controller
     }
 
     public function datamasuk(Request $request){
+        $tgl_sekarang = Carbon::now()->format('Y-m-d');
+
         $data = new Monitoring;
         //$data -> error_id = $request -> error_id;
         //$data -> control_relay = $request -> control_relay;
@@ -119,6 +135,8 @@ class MonitoringController extends Controller
         $data -> arus = $request -> arus;
         $data -> soc = $request -> soc;
         $data -> soh = $request -> soh;
+        //$data -> hari = $tgl_sekarang;
+
 
         $data -> save();
         return 200;

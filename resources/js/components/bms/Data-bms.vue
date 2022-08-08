@@ -162,11 +162,11 @@
                   <td>{{ Battery.cell.cellbaterai }}</td>
                   <td>{{ Battery.tipe }}</td>
                   <td>{{ Battery.serial }}</td>
+                  <td>{{ Battery.setting.temp_max }} C</td>
                   <td>{{ Battery.setting.temp_min }} C</td>
-                  <td>{{ Battery.setting.temp_min }} C</td>
+                  <td>{{ Battery.setting.tegangan_max }} V</td>
                   <td>{{ Battery.setting.tegangan_min }} V</td>
-                  <td>{{ Battery.setting.tegangan_min }} V</td>
-                  <td>{{ Battery.setting.arus_min }} A</td>
+                  <td>{{ Battery.setting.arus_max }} A</td>
                   <td>{{ Battery.setting.arus_min }} A</td>
                   <td>
                     <router-link
@@ -201,10 +201,21 @@ export default {
       Setting: {},
       // getDataPosts,
       token: localStorage.getItem("token"),
+      role: localStorage.getItem("role")
     };
   },
 
-  created() {
+  mounted() {
+    if(this.role !== "admin")
+    {
+      localStorage.clear();
+      window.location.href ="/login"
+    } else {
+      router.push({name : "data-bms"})
+    }
+  },
+
+  created() { 
     this.axios
       .get(process.env.MIX_API_KEY + "battery/", {
                 headers: {

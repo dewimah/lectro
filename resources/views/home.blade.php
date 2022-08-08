@@ -6,6 +6,17 @@
     @include('template.head')
     <link rel="shortcut icon" href="{{asset('img/favicon4.png')}}">
     <title>BMS | LECTRO</title>
+    <!-- <style>
+        .brand-image {
+            float:left;
+            line-height: .8;
+            max-height: 46px;
+            width: auto;
+            margin-left: .8rem;
+            margin-right: .5rem;
+            margin-bottom: 3px;
+            }
+    </style> -->
 
 </head>
 
@@ -22,7 +33,7 @@
             <aside class="main-sidebar sidebar-dark-primary elevation-4">
                 <a href="#" class="brand-link">
                     <img src="{{asset('img/logoputih.png')}}" alt="Logo" class="brand-image img" style="opacity: .8">
-                    <span class="brand-text font-weight-light"></span>
+                    <span class="brand-text font-weight-light"></span> <br>
                 </a>
 
                 @if(Auth::check())
@@ -47,9 +58,23 @@
                                         <p>Monitoring</p>
                                     </router-link>
                                 </li>
+                                <li class="nav-item">
+                                    <a href="https://api.whatsapp.com/send?phone=62895344407134&text=BMS%20saya%20mengalami%20kendala"
+                                    class="nav-link">
+                                        <i class="fa-solid fa-chalkboard"></i>
+                                        <p>Hubungi Admin</p>
+                                    </a>
+                                </li>
                                 @endif
 
                                 @if (auth()->user()->getRoleNames()[0] == "admin")
+                                <li class="nav-item">
+                                    <router-link to="rudi" class="nav-link">
+                                        <i class="fa-solid fa-chalkboard"></i>
+                                        <p>Pak Rudi</p>
+                                    </router-link>
+                                </li>
+
                                 <li class="nav-item">
                                     <router-link to="admin-monitoring" class="nav-link">
                                         <i class="fa-solid fa-desktop"></i>

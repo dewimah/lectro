@@ -44,7 +44,18 @@ export default {
         return{
             BatteryUser: {},
             Battery: {},
-            User: {}
+            User: {},
+            role:localStorage.getItem("role")
+        }
+    },
+
+    mounted(){
+        if(this.role !== "admin")
+        {
+        localStorage.clear();
+        window.location.href ="/login"
+        } else {
+        router.push({name : "add-userdevice"})
         }
     },
     // mounted() {

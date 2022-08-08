@@ -35,7 +35,17 @@
 export default {
     data() {
         return{
-            User: []
+            User: [],
+            role:localStorage.getItem("role")
+        }
+    },
+    mounted(){
+        if(this.role !== "admin")
+        {
+        localStorage.clear();
+        window.location.href ="/login"
+        } else {
+        router.push({name : "edit-user"})
         }
     },
     created(){

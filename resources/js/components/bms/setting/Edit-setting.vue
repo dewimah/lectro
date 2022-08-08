@@ -83,9 +83,21 @@
 export default {
     data() {
         return{
-            Setting: {}
+            Setting: {},
+            role: localStorage.getItem("role")
         }
     },
+
+      mounted() {
+        if(this.role !== "admin")
+        {
+        localStorage.clear();
+        window.location.href ="/login"
+        } else {
+        router.push({name : "edit-setting"})
+        }
+    },
+
     created(){
         this.axios
             .get(process.env.MIX_API_KEY+"setting/"+this.$route.params.id, {

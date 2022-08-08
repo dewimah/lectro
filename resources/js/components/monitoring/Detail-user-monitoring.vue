@@ -2,34 +2,19 @@
   <div class="container">
     <div class="row justify-content-center">
       <div class="card">
-        <div class="row mt-1">
-          <div class="col-md-11">
+          <div class="card-header">
             <h1>Monitoring BMS : {{ this.Asik.name }}</h1>
           </div>
-          <div class="col-md-1">
-            <div class="dropdown float-right">
-              <a
-                href="#"
-                role="button"
-                id="dropdownMenuLink"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
-              >
-                <i class="fa-solid fa-bell"></i>
-              </a>
 
-              <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                <li v-if="dataNotifikasi.length < 1" class="dropdown-item">
-                  Tidak ada Notifikasi
-                </li>
-                <li v-for="data in dataNotifikasi" :key="data.id">
-                  <span class="dropdown-item">{{ data }}</span>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
         <div class="card-body">
+          <router-link
+            to="/user-monitoring"
+            class="btn btn-success"
+            style="background-color: #1c3b10"
+          >
+            Kembali</router-link
+          >
+          <br /><br />
           <img
             :src="getFotoBMS()"
             class="rounded mx-auto d-block"
@@ -89,6 +74,7 @@ export default {
       dataMonitoring: [],
       dataNotifikasi: [],
       photo: "",
+      role:localStorage.getItem("role"),
       // CHART 1 (SUHU)
       chartOptions: {
         chart: {
@@ -276,14 +262,17 @@ export default {
   },
   created() {},
   mounted() {
-    // setInterval(() => {
-    // $.each(localStorage.getItem("battery_id"), function (key, value) {
-    //   console.log(value.battery_id);
-    // });
-    //console.log(localStorage.getItem("battery_id"));
+    // if(this.role !== "user")
+    // {
+    //   localStorage.clear();
+    //   window.location.href ="/login"
+    // } else {
+    //   router.push({name : "halaman-detail-user"})
+    // }
+
     this.axios
       .get(
-        process.env.MIX_API_KEY + "asik/" + localStorage.getItem("battery_id"),
+        process.env.MIX_API_KEY + "asik/" + this.$route.params.id,
         {
           headers: {
             "Content-Type": "application/json",
@@ -297,7 +286,10 @@ export default {
 
         //GET LAST DATA
         const lastData = this.Asik;
-        console.log(lastData);
+        // console.log(lastData);
+        // console.log("ngisorku");
+        // console.log(this.$route.params.id);
+
         this.namaBatery = lastData.name;
 
         this.series.push(this.Asik.temp_max);
@@ -312,6 +304,7 @@ export default {
         this.seriesarus.push(this.Asik.arus_max);
         this.seriesarus.push(lastData.arus);
         this.seriesarus.push(this.Asik.arus_min);
+        //console.log(this.series);
       }),
       this.fetchMonitoring();
     this.check();
@@ -322,7 +315,7 @@ export default {
     fetchMonitoring() {
       setInterval(() => {
         this.axios
-          .get(process.env.MIX_API_KEY + "monitoring/", {
+          .get(process.env.MIX_API_KEY + "asik/", this.$route.params.id,{
             headers: {
               "Content-Type": "application/json",
               Authorization: "Bearer " + localStorage.getItem("token"),
@@ -330,7 +323,7 @@ export default {
           })
           .then((response) => {
             this.dataMonitoring = response.data;
-            console.log(response);
+            //console.log(response);
           })
           .catch((err) => {
             // alert(err);

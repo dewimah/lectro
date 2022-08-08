@@ -23,7 +23,7 @@
 
                 <div class="form-group">
                     <label for="exampleSelectRounded0">Role</label>
-                    <ValidationProvider name="role" rules="required" v-slot="{ errors }">
+                    <ValidationProvider name="role" rhules="required" v-slot="{ errors }">
                     <select class="custom-select rounded-0" id="exampleSelectRounded0" v-model="User.role">
                         <option value="Admin">Admin</option>
                         <option value="User">User</option>
@@ -62,7 +62,17 @@
 export default {
     data() {
         return{
-            User: {}
+            User: {},
+            role: localStorage.getItem("role")
+        }
+    },
+    mounted(){
+        if(this.role !== "admin")
+        {
+        localStorage.clear();
+        window.location.href ="/login"
+        } else {
+        router.push({name : "add-user"})
         }
     },
     methods: {

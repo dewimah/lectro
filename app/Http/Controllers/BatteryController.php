@@ -87,6 +87,12 @@ class BatteryController extends Controller
         return $data;
     }
 
+    //JUMLAH BATTERY
+    public function jumlahBattery() {
+        $data = Battery::count();
+        return ResponseFormatter::success($data, 'Data Didapatkan');
+    }
+
     //mengambil data by id
     public function show ($id){
         $user=request()->user();

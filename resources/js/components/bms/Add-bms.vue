@@ -51,9 +51,21 @@ export default {
         return{
             Battery: {},
             cell: {},
-            Setting: {}
+            Setting: {},
+            role: localStorage.getItem("role")
         }
     },
+
+      mounted() {
+        if(this.role !== "admin")
+        {
+        localStorage.clear();
+        window.location.href ="/login"
+        } else {
+        router.push({name : "add-bms"})
+        }
+    },
+
     methods: {
         tambahBms(){
             this.axios

@@ -46,7 +46,17 @@
 export default {
     data() {
         return{
-            User: {}
+            User: {},
+            role: localStorage.getItem("role")
+        }
+    },
+    mounted(){
+        if(this.role !== "admin")
+        {
+        localStorage.clear();
+        window.location.href ="/login"
+        } else {
+        router.push({name : "data-user"})
         }
     },
     created(){
@@ -89,25 +99,25 @@ export default {
                     Authorization: "Bearer " + localStorage.getItem("token")
                 }
             })
-                        .then(()=> {
-                            Swal.fire(
-                                "Terhapus",
-                                "Data sudah terhapus",
-                                "success"
-                            );
-                            let i = this.User.map(data => data.id).indexOf(id);
-                            this.User.splice(i,1)
-                        })
-                        .catch(() => {
-                            Swal.fire (
-                                "Gagal",
-                                "Data gagal terhapus",
-                                "warning"
-                            );
-                        });
-                }
+            .then(()=> {
+                Swal.fire(
+                    "Terhapus",
+                    "Data sudah terhapus",
+                    "success"
+                 );
+                let i = this.User.map(data => data.id).indexOf(id);
+                this.User.splice(i,1)
+            })
+            .catch(() => {
+                Swal.fire (
+                    "Gagal",
+                    "Data gagal terhapus",
+                    "warning"
+                );
             });
         }
+    });
+}
     }
 }
 </script>

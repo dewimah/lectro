@@ -69,7 +69,8 @@ require('./bootstrap');
           name: 'data-bms',
           component:require('./components/bms/Data-bms.vue').default,
           meta: {
-              auth: false
+              requiresAuth: true,
+              isAdmin: true
           }
       },
       {
@@ -77,7 +78,8 @@ require('./bootstrap');
           name: 'add-bms',
           component:require('./components/bms/Add-bms.vue').default,
           meta: {
-              auth: false
+            requiresAuth: true,
+            isAdmin: true
           }
       },
       {
@@ -85,7 +87,8 @@ require('./bootstrap');
         name: 'edit-bms',
         component:require('./components/bms/Edit-bms.vue').default,
         meta: {
-            auth: false
+          requiresAuth: true,
+          isAdmin: true
         }
       },
 
@@ -95,7 +98,8 @@ require('./bootstrap');
         name: 'add-cell',
         component:require('./components/bms/Add-cell.vue').default,
         meta: {
-            auth: false
+          requiresAuth: true,
+          isAdmin: true
         }
       },
       {
@@ -103,7 +107,8 @@ require('./bootstrap');
         name: 'edit-cell',
         component:require('./components/bms/Edit-cell.vue').default,
         meta: {
-            auth: false
+          requiresAuth: true,
+          isAdmin: true
         }
       },
 
@@ -113,7 +118,8 @@ require('./bootstrap');
         name: 'add-setting',
         component:require('./components/bms/setting/Add-setting.vue').default,
         meta: {
-            auth: false
+          requiresAuth: true,
+          isAdmin: true
         }
       },
       {
@@ -121,7 +127,8 @@ require('./bootstrap');
         name: 'edit-setting',
         component:require('./components/bms/setting/Edit-setting.vue').default,
         meta: {
-            auth: false
+          requiresAuth: true,
+          isAdmin: true
         }
       },
       
@@ -131,7 +138,8 @@ require('./bootstrap');
           name: 'data-user',
           component:require('./components/user/Data-user.vue').default,
           meta: {
-              auth: false
+            requiresAuth: true,
+            isAdmin: true
           }
       },
       {
@@ -139,7 +147,8 @@ require('./bootstrap');
           name: 'add-user',
           component:require('./components/user/Add-user.vue').default,
           meta: {
-              auth: false
+            requiresAuth: true,
+            isAdmin: true
           }
       },
       {
@@ -147,7 +156,8 @@ require('./bootstrap');
           name: 'edit-user',
           component:require('./components/user/Edit-user.vue').default,
           meta: {
-              auth: false
+            requiresAuth: true,
+            isAdmin: true
           }
       },
 
@@ -157,7 +167,8 @@ require('./bootstrap');
           name: 'user-monitoring',
           component:require('./components/monitoring/User-monitoring.vue').default,
           meta: {
-              auth: true
+            requiresAuth: true,
+            isUser: true
           }
       },
       {
@@ -165,7 +176,17 @@ require('./bootstrap');
         name: 'halaman-detail-user',
         component:require('./components/monitoring/Detail-user-monitoring.vue').default,
         meta: {
-            auth: true
+            requiresAuth: true,
+            isUser: true
+          }
+      },
+      {
+        path: '/rekapdata-user/:id',
+        name: 'rekapdata-user',
+        component:require('./components/dashboard/rekapdata-user.vue').default,
+        meta: {
+          requiresAuth: true,
+          isAdmin: true
         }
       },
 
@@ -175,7 +196,8 @@ require('./bootstrap');
           name: 'admin-monitoring',
           component:require('./components/monitoring/Admin-monitoring.vue').default,
           meta: {
-              auth: false
+            requiresAuth: true,
+            isAdmin: true
           }
       },
       {
@@ -183,7 +205,8 @@ require('./bootstrap');
         name: 'halaman-detail',
         component:require('./components/monitoring/Detail.vue').default,
         meta: {
-            auth: false
+          requiresAuth: true,
+          isAdmin: true
         }
       },
 
@@ -193,7 +216,8 @@ require('./bootstrap');
         name: 'data-userdevice',
         component:require('./components/userdevice/Data-userdevice.vue').default,
         meta: {
-            auth: false
+          requiresAuth: true,
+          isAdmin: true
         }
       },
       {
@@ -201,7 +225,8 @@ require('./bootstrap');
         name: 'add-userdevice',
         component:require('./components/userdevice/Add-userdevice.vue').default,
         meta: {
-            auth: false
+          requiresAuth: true,
+          isAdmin: true
         }
       },
       {
@@ -209,9 +234,33 @@ require('./bootstrap');
         name: 'edit-userdevice',
         component:require('./components/userdevice/Edit-userdevice.vue').default,
         meta: {
-            auth: false
+          requiresAuth: true,
+          isAdmin: true
         }
       },
+
+      //DASHBOARD
+      {
+        path: '/dashboard-admin',
+        name: 'dashboard-admin',
+        component:require('./components/dashboard/dashboard-admin.vue').default,
+        meta: {
+          requiresAuth: true,
+          isAdmin: true
+        }
+      },
+
+      //REQUEST PAK RUDI
+      {
+        path: '/rudi',
+        name: 'rudi',
+        component:require('./components/dashboard/rudi.vue').default,
+        meta: {
+          requiresAuth: true,
+          isAdmin: true
+        } 
+      },
+
   ]
   
   Vue.component('example-component', require('./components/ExampleComponent.vue').default);
@@ -222,37 +271,8 @@ require('./bootstrap');
       history: true
   });
 
-
-  // router.beforeEach((to, from, next) => {
-  //   const isAuthenticated = JSON.parse(localStorage.getItem("token"));
-
-  //   if (isAuthenticated === null) {
-  //     window.location.href = "/login"
-  //   } else {
-  //     router.push({name: "admin-monitoring"})
-  //   }
-
-    // if (isAuthenticated === null) next({ name: "login" });
-    // if (isAuthenticated !== null) next();
-    // else next();
-  // })
-
-  // router.beforeEach((to, from, next) => {
-  //   if(to.meta.requiresAuth) 
-  //   {
-  //     const authUser = JSON.parse(window.localStorage.getItem('authUser')
-  //     if (authUser && authUser.access_token)
-  //     {
-  //       next()
-  //     }) else {
-  //       next({name:'login'})
-  //     }
-  //   }
-  // })
-  
   const app = new Vue({
       el: '#app',
       router
   });
 
-  //const validation = ref([]);

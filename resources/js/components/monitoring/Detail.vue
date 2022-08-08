@@ -68,6 +68,7 @@ export default {
       namaBatery: null,
       seriesarus: [],
       photo: "",
+      role: localStorage.getItem("role"),
       // CHART 1 (SUHU)
       chartOptions: {
         chart: {
@@ -253,8 +254,17 @@ export default {
   components: {
     apexchart: VueApexCharts,
   },
-  created() {},
+  created() {
+    // if(this.role !== "admin")
+    // {
+    //   localStorage.clear();
+    //   window.location.href ="/login"
+    // } else {
+    //   router.push({name : "halaman-detail"})
+    // }
+  },
   mounted() {
+    
     console.log(this.$route.params.id)
     // setInterval(() => {
     this.axios
@@ -267,7 +277,7 @@ export default {
       .then((response) => {
         //console.log(response.data)
         this.Asik = response.data;
-        //console.log(this.Asik)
+        console.log(this.Asik)
 
         //GET LAST DATA
         const lastData = this.Asik;
