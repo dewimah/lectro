@@ -35,6 +35,7 @@ class SettingController extends Controller
             'setting_tegangans.tegangan_max',
             'setting_aruses.arus_min',
             'setting_aruses.arus_max',
+            'settings.*'
         );
 
         $data = $data
@@ -68,6 +69,7 @@ class SettingController extends Controller
             'setting_tegangans.tegangan_max',
             'setting_aruses.arus_min',
             'setting_aruses.arus_max',
+            'settings.*'
         )->where('settings.id', $id);
 
         $data = $data

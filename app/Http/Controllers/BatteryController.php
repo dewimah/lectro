@@ -62,6 +62,9 @@ class BatteryController extends Controller
         return ResponseFormatter::success($battery, 'Data Didapatkan');
         //return Battery::with(['cell','setting'])->get();*/
         $data = DB::table('batteries')->select(
+            'setting_tegangans.id as idsettingtegangan',
+            'setting_suhus.id as idsettingsuhu',
+            'setting_aruses.id as idsettingarus',
             'setting_tegangans.name as namasettingtegangan',
             'setting_suhus.name as namasettingsuhu',
             'setting_aruses.name as namasettingarus',
@@ -72,8 +75,9 @@ class BatteryController extends Controller
             'setting_aruses.arus_min',
             'setting_aruses.arus_max',
             'cells.cellbaterai',
-            'batteries.tipe',
-            'batteries.serial',
+            //'batteries.tipe',
+            //'batteries.serial',
+            'batteries.*',
             'batteries.name as namabattery',
         );
 
@@ -95,7 +99,7 @@ class BatteryController extends Controller
 
     //mengambil data by id
     public function show ($id){
-        $user=request()->user();
+       /* $user=request()->user();
         if(!$user->hasRole('admin'))
         {
             return ResponseFormatter:: error(null, 'Anda Tidak Punya Kewenangan', 403);
@@ -105,7 +109,35 @@ class BatteryController extends Controller
             return ResponseFormatter:: error(null, 'Data Tidak Ada', 403);
         }
         return ResponseFormatter::success($battery, 'Data Didapatkan');
-        //return Battery::find($id);
+        //return Battery::find($id);*/
+        $data = DB::table('batteries')->select(
+            'setting_tegangans.id as idsettingtegangan',
+            'setting_suhus.id as idsettingsuhu',
+            'setting_aruses.id as idsettingarus',
+            'setting_tegangans.name as namasettingtegangan',
+            'setting_suhus.name as namasettingsuhu',
+            'setting_aruses.name as namasettingarus',
+            'setting_suhus.temp_min',
+            'setting_suhus.temp_max',
+            'setting_tegangans.tegangan_min',
+            'setting_tegangans.tegangan_max',
+            'setting_aruses.arus_min',
+            'setting_aruses.arus_max',
+            'cells.cellbaterai',
+            //'batteries.tipe',
+            //'batteries.serial',
+            'batteries.*',
+            'batteries.name as namabattery',
+        )->where('batteries.id', $id);;
+
+        $data = $data
+        ->join('settings', 'batteries.setting_id', '=', 'settings.id')
+        ->join('cells', 'batteries.cell_id', '=', 'cells.id')
+        ->join('setting_tegangans','settings.settingtegangans_id', '=', 'setting_tegangans.id')
+        ->join('setting_aruses','settings.settingaruses_id', '=', 'setting_aruses.id')
+        ->join('setting_suhus','settings.settingsuhus_id', '=', 'setting_suhus.id')->get();
+
+        return $data;
     }
 
     //menambah data
