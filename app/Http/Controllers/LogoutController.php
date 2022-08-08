@@ -23,19 +23,12 @@ class LogoutController extends Controller
 
     public function logout(request $request)
     {
-        $this->middleware('auth');
-        if ($request->user()) {
-            $request->user()->tokens()->delete();
-            // $request->user()->currentAccessToken()->delete();
-            // $user->tokens()->delete();
-            // Auth::logout();
-
-            $request->session()->invalidate();
-            $request->session()->regenerateToken();
-        }
+         
         // $user = auth()->user();
         // $request->user()->logout();
-        return redirect('/login');
+        auth()->logout();
+        Session::flush();
+        return redirect('login');
 
         // return ResponseFormatter::success(null, 'Token Revoked',200);
     }

@@ -63,14 +63,7 @@ require('./bootstrap');
               auth: false
           }
       },
-      {
-        path: '/logout',
-        name: 'logout',
-        component:require('./components/auth/Login.vue').default,
-        meta: {
-            auth: false
-        }
-    },
+      //DATA BMS
       {
           path: '/data-bms',
           name: 'data-bms',
@@ -80,14 +73,6 @@ require('./bootstrap');
           }
       },
       {
-        path: '/data-bmx',
-        name: 'data-bmx',
-        component:require('./components/bms/Data-bmx.vue').default,
-        meta: {
-            auth: false
-        }
-    },
-      {
           path: '/add-bms',
           name: 'add-bms',
           component:require('./components/bms/Add-bms.vue').default,
@@ -95,6 +80,16 @@ require('./bootstrap');
               auth: false
           }
       },
+      {
+        path: '/edit-bms/:id',
+        name: 'edit-bms',
+        component:require('./components/bms/Edit-bms.vue').default,
+        meta: {
+            auth: false
+        }
+      },
+
+      // CELL
       {
         path: '/add-cell',
         name: 'add-cell',
@@ -111,14 +106,26 @@ require('./bootstrap');
             auth: false
         }
       },
+
+      //SETTING
       {
-          path: '/edit-bms/:id',
-          name: 'edit-bms',
-          component:require('./components/bms/Edit-bms.vue').default,
-          meta: {
-              auth: false
-          }
+        path: '/add-setting',
+        name: 'add-setting',
+        component:require('./components/bms/setting/Add-setting.vue').default,
+        meta: {
+            auth: false
+        }
       },
+      {
+        path: '/edit-setting/:id',
+        name: 'edit-setting',
+        component:require('./components/bms/setting/Edit-setting.vue').default,
+        meta: {
+            auth: false
+        }
+      },
+      
+      //DATA USER
       {
           path: '/data-user',
           name: 'data-user',
@@ -143,6 +150,8 @@ require('./bootstrap');
               auth: false
           }
       },
+
+      //MONITORING USER
       {
           path: '/user-monitoring',
           name: 'user-monitoring',
@@ -152,28 +161,22 @@ require('./bootstrap');
           }
       },
       {
+        path: '/halaman-detail-user/:id',
+        name: 'halaman-detail-user',
+        component:require('./components/monitoring/Detail-user-monitoring.vue').default,
+        meta: {
+            auth: true
+        }
+      },
+
+      //MONITORING ADMIN
+      {
           path: '/admin-monitoring',
           name: 'admin-monitoring',
           component:require('./components/monitoring/Admin-monitoring.vue').default,
           meta: {
               auth: false
           }
-      },
-      {
-        path: '/add-setting',
-        name: 'add-setting',
-        component:require('./components/bms/setting/Add-setting.vue').default,
-        meta: {
-            auth: false
-        }
-      },
-      {
-        path: '/edit-setting/:id',
-        name: 'edit-setting',
-        component:require('./components/bms/setting/Edit-setting.vue').default,
-        meta: {
-            auth: false
-        }
       },
       {
         path: '/halaman-detail/:id',
@@ -183,6 +186,8 @@ require('./bootstrap');
             auth: false
         }
       },
+
+      //USER DEVICE
       {
         path: '/data-userdevice',
         name: 'data-userdevice',

@@ -54,16 +54,26 @@ export default {
                 localStorage.setItem('token', response.data.data.Token)
                 localStorage.setItem('role', response.data.data.user.roles[0].name)
                 localStorage.setItem('id', response.data.data.user.id)
+                //localStorage.setItem('id_battery', response.data.data.ba)
                 if (response.data.data.battery.length !== 0) {
-                    localStorage.setItem('battery_id', response.data.data.battery[0].battery_id)
+                    const battery = response.data.data.battery;
+                    const batt = []; 
+                    battery.forEach(element => {
+                        batt.push(element.battery_id); 
+                    }); 
+                    localStorage.setItem('battery_id', JSON.stringify(batt));
                 }
+
+                const users = JSON.parse(localStorage.getItem("battery_id") || "[]");
+                
+                        console.log(users);
                 if (response.data.data.user.roles[0].name === "admin") {
                     window.location.href = "/admin-monitoring"
                 } else if (response.data.data.user.roles[0].name === "user") {
                     window.location.href = "/user-monitoring"
                 }
-                //console.log(response.data)
-                // this.$router.push({ name: "admin-monitoring"});
+                console.log(response.data)
+                this.$router.push({ name: "admin-monitoring"});
             }).catch((errors) => {
                 this.errors = errors.response.data.errors;
             })

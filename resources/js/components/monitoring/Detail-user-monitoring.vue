@@ -2,55 +2,73 @@
   <div class="container">
     <div class="row justify-content-center">
       <div class="card">
-        <div class="card-header"><h1>Detail Monitoring BMS : {{ this.Asik.name }}</h1></div>
+        <div class="row mt-1">
+          <div class="col-md-11">
+            <h1>Monitoring BMS : {{ this.Asik.name }}</h1>
+          </div>
+          <div class="col-md-1">
+            <div class="dropdown float-right">
+              <a
+                href="#"
+                role="button"
+                id="dropdownMenuLink"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                <i class="fa-solid fa-bell"></i>
+              </a>
+
+              <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                <li v-if="dataNotifikasi.length < 1" class="dropdown-item">
+                  Tidak ada Notifikasi
+                </li>
+                <li v-for="data in dataNotifikasi" :key="data.id">
+                  <span class="dropdown-item">{{ data }}</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
         <div class="card-body">
-          <router-link
-            to="/admin-monitoring"
-            class="btn btn-success"
-            style="background-color: #1c3b10"
-          >
-            Kembali</router-link
-          >
-          <br /><br />
           <img
             :src="getFotoBMS()"
             class="rounded mx-auto d-block"
             alt="villi"
             width="300px"
           />
-            <div class="row">
-              <div class="col-md-4">
-                <div class="text-center">Grafik Suhu BMS (Celcius)</div>
-                <apexchart
-                  type="radialBar"
-                  height="340"
-                  :options="chartOptions"
-                  :series="series"
-                ></apexchart>
-              </div>
-              <div class="col-md-4">
-                <div class="text-center">Grafik Tegangan BMS (Volt)</div>
-                <apexchart
-                  type="radialBar"
-                  height="340"
-                  :options="chartOptions2"
-                  :series="seriestegangan"
-                ></apexchart>
-              </div>
-              <div class="col-md-4">
-                <div class="text-center">Grafik Arus BMS (Ampere)</div>
-                <apexchart
-                  type="radialBar"
-                  height="340"
-                  :options="chartOptions3"
-                  :series="seriesarus"
-                ></apexchart>
-              </div>
+          <div class="row">
+            <div class="col-md-4">
+              <div class="text-center">Grafik Suhu BMS (Celcius)</div>
+              <apexchart
+                type="radialBar"
+                height="340"
+                :options="chartOptions"
+                :series="series"
+              ></apexchart>
+            </div>
+            <div class="col-md-4">
+              <div class="text-center">Grafik Tegangan BMS (Volt)</div>
+              <apexchart
+                type="radialBar"
+                height="340"
+                :options="chartOptions2"
+                :series="seriestegangan"
+              ></apexchart>
+            </div>
+            <div class="col-md-4">
+              <div class="text-center">Grafik Arus BMS (Ampere)</div>
+              <apexchart
+                type="radialBar"
+                height="340"
+                :options="chartOptions3"
+                :series="seriesarus"
+              ></apexchart>
             </div>
           </div>
         </div>
       </div>
     </div>
+  </div>
 </template>
 
 <script>
@@ -58,15 +76,18 @@ import VueApexCharts from "vue-apexcharts";
 export default {
   data() {
     return {
-      // Monitoring: [],
       Asik: [],
+      //Monitoring: [],
       dataSetting: [],
       dataSettingMatch: [],
       dataJoin: [],
       series: [],
       seriestegangan: [],
       namaBatery: null,
+      monitoring_id: null,
       seriesarus: [],
+      dataMonitoring: [],
+      dataNotifikasi: [],
       photo: "",
       // CHART 1 (SUHU)
       chartOptions: {
@@ -160,7 +181,7 @@ export default {
         legend: {
           show: true,
           floating: true,
-          fontSize: "10px",
+          fontSize: "12px",
           position: "left",
           offsetX: 0,
           offsetY: 10,
@@ -255,24 +276,29 @@ export default {
   },
   created() {},
   mounted() {
-    console.log(this.$route.params.id)
     // setInterval(() => {
+    // $.each(localStorage.getItem("battery_id"), function (key, value) {
+    //   console.log(value.battery_id);
+    // });
+    //console.log(localStorage.getItem("battery_id"));
     this.axios
-      .get(process.env.MIX_API_KEY+"asik/" + this.$route.params.id, {
-                headers: {
-                    "Content-Type": "application/json",
-                    Authorization: "Bearer " + localStorage.getItem("token")
-                }
-            })
+      .get(
+        process.env.MIX_API_KEY + "asik/" + localStorage.getItem("battery_id"),
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + localStorage.getItem("token"),
+          },
+        }
+      )
       .then((response) => {
-        //console.log(response.data)
         this.Asik = response.data;
-        //console.log(this.Asik)
+        //console.log(response.data)
 
         //GET LAST DATA
         const lastData = this.Asik;
-        console.log(lastData)
-        this.namaBatery = lastData.name
+        console.log(lastData);
+        this.namaBatery = lastData.name;
 
         this.series.push(this.Asik.temp_max);
         this.series.push(lastData.temp_1);
@@ -286,12 +312,94 @@ export default {
         this.seriesarus.push(this.Asik.arus_max);
         this.seriesarus.push(lastData.arus);
         this.seriesarus.push(this.Asik.arus_min);
-      })
+      }),
+      this.fetchMonitoring();
+    this.check();
   },
+
   methods: {
+    //NOTIFIKASI
+    fetchMonitoring() {
+      setInterval(() => {
+        this.axios
+          .get(process.env.MIX_API_KEY + "monitoring/", {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: "Bearer " + localStorage.getItem("token"),
+            },
+          })
+          .then((response) => {
+            this.dataMonitoring = response.data;
+            console.log(response);
+          })
+          .catch((err) => {
+            // alert(err);
+          });
+      }, 5000);
+    },
+
+    check() {
+      setInterval(() => {
+        this.dataNotifikasi = [];
+
+        this.dataMonitoring.map((a) => {
+          if (a.temp_1 > a.temp_max) {
+            this.dataNotifikasi.push(
+              `Battery ${a.namabattery} Melampaui Batas Atas (T1)`
+            );
+          }
+          if (a.temp_2 > a.temp_max) {
+            this.dataNotifikasi.push(
+              `Battery ${a.namabattery} Melampaui Batas Atas (T2)`
+            );
+          }
+          if (a.temp_3 > a.temp_max) {
+            this.dataNotifikasi.push(
+              `Battery ${a.namabattery} Melampaui Batas Atas (T3)`
+            );
+          }
+          if (a.temp_1 < a.temp_min) {
+            this.dataNotifikasi.push(
+              `Battery ${a.namabattery} Melampaui Batas Bawah (T1)`
+            );
+          }
+          if (a.temp_2 < a.temp_min) {
+            this.dataNotifikasi.push(
+              `Battery ${a.namabattery} Melampaui Batas Bawah (T2)`
+            );
+          }
+          if (a.temp_3 < a.temp_min) {
+            this.dataNotifikasi.push(
+              `Battery ${a.namabattery} Melampaui Batas Bawah (T3)`
+            );
+          }
+          if (a.arus > a.arus_max) {
+            this.dataNotifikasi.push(
+              `Battery ${a.namabattery} Melampaui Batas Atas (Arus)`
+            );
+          }
+          if (a.arus < a.arus_min) {
+            this.dataNotifikasi.push(
+              `Battery ${a.namabattery} Melampaui Batas Bawah (Arus)`
+            );
+          }
+          if (a.tegangan > a.tegangan_max) {
+            this.dataNotifikasi.push(
+              `Battery ${a.namabattery} Melampaui Batas Atas (Arus)`
+            );
+          }
+          if (a.tegangan < a.tegangan_min) {
+            this.dataNotifikasi.push(
+              `Battery ${a.namabattery} Melampaui Batas Bawah (Tegangan)`
+            );
+          }
+        });
+      }, 5000);
+    },
+
     getFotoBMS() {
       return "/img/board.png" + this.photo;
     },
-  }
+  },
 };
 </script>;

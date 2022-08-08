@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\LogoutController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,9 +24,8 @@ Route::get('/', function () {
 // Route::get('/', function () {
 //     return view('welcome');
 // });
-Route::get('habib', function(){
-    return csrf_token();
-});  
+ 
+Route::get('/logout', [LogoutController::class, 'logout'])->name('logout');
 
 Route::get('/{any}', function () {
     return view('home');
