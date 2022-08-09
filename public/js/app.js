@@ -7715,14 +7715,31 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
+      dataMonitoring: [],
       series: [{
         name: 'SUHU 1',
         type: 'column',
-        data: [23, 11, 22, 27, 13, 22, 37, 21, 44, 22, 30]
+        data: [this.dataMonitoring.temp_1]
       }, {
         name: 'SUHU 2',
         type: 'column',
@@ -7798,8 +7815,23 @@ __webpack_require__.r(__webpack_exports__);
   components: {
     apexchart: (vue_apexcharts__WEBPACK_IMPORTED_MODULE_0___default())
   },
-  mounted: function mounted() {},
-  created: function created() {}
+  mounted: function mounted() {
+    var _this = this;
+
+    this.axios.get("http://127.0.0.1:8000/api/" + "monitoring/" + this.$route.params.id, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + localStorage.getItem("token")
+      }
+    }).then(function (response) {
+      console.log(response.data);
+      _this.dataMonitoring = response.data;
+    });
+  },
+  created: function created() {},
+  methods: {
+    inputTanggal: function inputTanggal() {}
+  }
 });
 
 /***/ }),
@@ -59890,23 +59922,147 @@ var render = function () {
       _c("div", { staticClass: "card" }, [
         _vm._m(0),
         _vm._v(" "),
-        _c("div", { staticClass: "card-body" }, [
-          _c(
-            "div",
-            { attrs: { id: "chart" } },
-            [
-              _c("apexchart", {
-                attrs: {
-                  type: "line",
-                  height: "350",
-                  options: _vm.chartOptions,
-                  series: _vm.series,
-                },
-              }),
-            ],
-            1
-          ),
-        ]),
+        _c(
+          "div",
+          { staticClass: "card-body" },
+          [
+            _c(
+              "router-link",
+              {
+                staticClass: "btn btn-success",
+                staticStyle: { "background-color": "#1c3b10" },
+                attrs: { to: "/user-monitoring" },
+              },
+              [
+                _vm._v(
+                  "\n                        Kembali\n                        "
+                ),
+              ]
+            ),
+            _vm._v(" "),
+            _c("br"),
+            _c("br"),
+            _vm._v(" "),
+            _c(
+              "div",
+              { attrs: { id: "chart" } },
+              [
+                _c(
+                  "form",
+                  {
+                    on: {
+                      submit: function ($event) {
+                        $event.preventDefault()
+                        return _vm.inputTanggal.apply(null, arguments)
+                      },
+                    },
+                  },
+                  [
+                    _c("div", { staticClass: "input-group mb-3" }, [
+                      _c(
+                        "span",
+                        {
+                          staticClass: "input-group-text",
+                          attrs: { id: "basic-addon1" },
+                        },
+                        [_vm._v("First Date")]
+                      ),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.Monitoring.firstdate,
+                            expression: "Monitoring.firstdate",
+                          },
+                        ],
+                        staticClass: "form-control",
+                        attrs: {
+                          type: "date",
+                          "aria-label": "firstdate",
+                          "aria-describedby": "basic-addon1",
+                        },
+                        domProps: { value: _vm.Monitoring.firstdate },
+                        on: {
+                          input: function ($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(
+                              _vm.Monitoring,
+                              "firstdate",
+                              $event.target.value
+                            )
+                          },
+                        },
+                      }),
+                      _vm._v(" "),
+                      _c(
+                        "span",
+                        {
+                          staticClass: "input-group-text",
+                          attrs: { id: "basic-addon1" },
+                        },
+                        [_vm._v("Last Date Date")]
+                      ),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.Monitoring.lastdate,
+                            expression: "Monitoring.lastdate",
+                          },
+                        ],
+                        staticClass: "form-control",
+                        attrs: {
+                          type: "date",
+                          "aria-label": "lastdate",
+                          "aria-describedby": "basic-addon1",
+                        },
+                        domProps: { value: _vm.Monitoring.lastdate },
+                        on: {
+                          input: function ($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(
+                              _vm.Monitoring,
+                              "lastdate",
+                              $event.target.value
+                            )
+                          },
+                        },
+                      }),
+                      _vm._v(" "),
+                      _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-outline-secondary",
+                          attrs: { type: "submit", id: "button-addon1" },
+                        },
+                        [_vm._v("Search")]
+                      ),
+                    ]),
+                  ]
+                ),
+                _vm._v(" "),
+                _c("apexchart", {
+                  attrs: {
+                    type: "line",
+                    height: "350",
+                    options: _vm.chartOptions,
+                    series: _vm.series,
+                  },
+                }),
+              ],
+              1
+            ),
+          ],
+          1
+        ),
       ]),
     ]),
   ])

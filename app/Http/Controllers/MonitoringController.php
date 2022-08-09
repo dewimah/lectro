@@ -29,15 +29,8 @@ class MonitoringController extends Controller
 
     public function all(){
         //return Monitoring::with(['battery'])->get();
-<<<<<<< Updated upstream
+
         return DB::table('monitorings')
-        // ->join('batteries AS a','a.id','=','monitorings.battery_id')
-        // ->join('settings AS b','batteries.setting_id', '=', 'settings.id')
-        // ->join('setting_tegangans','settings.settingtegangans_id', '=', 'setting_tegangans.id')
-        // ->join('setting_aruses','settings.settingaruses_id', '=', 'setting_aruses.id')
-        // ->join('setting_suhus','settings.settingsuhus_id', '=', 'setting_suhus.id')
-        // ->join('cells','batteries.cell_id', '=', 'cells.id')
-        // ->join('batteries','battery_users.battery_id', '=', 'batteries.id' )
         
         ->join('batteries AS a','a.id','=','monitorings.battery_id')
         ->join('settings AS b','b.id', '=', 'a.setting_id')
@@ -46,16 +39,6 @@ class MonitoringController extends Controller
         ->join('setting_suhus AS e','e.id', '=', 'b.settingsuhus_id')
         ->join('cells AS f','f.id', '=', 'a.cell_id')
         ->join('battery_users AS g','g.battery_id', '=', 'a.id' )
-
-=======
-        /*return DB::table('monitorings')
-        ->join('batteries','monitorings.battery_id','=','batteries.id')
-        ->join('settings','batteries.setting_id', '=', 'settings.id')
-        ->join('setting_tegangans','settings.settingtegangans_id', '=', 'setting_tegangans.id')
-        ->join('setting_aruses','settings.settingaruses_id', '=', 'setting_aruses.id')
-        ->join('setting_suhus','settings.settingsuhus_id', '=', 'setting_suhus.id')
-        ->join('cells','batteries.cell_id', '=', 'cells.id')
->>>>>>> Stashed changes
         ->select(
             'monitorings.*',
             'g.battery_id',
@@ -76,14 +59,10 @@ class MonitoringController extends Controller
             'temp_2',
             'temp_3',
             'arus',
-<<<<<<< Updated upstream
             'tegangan_tot',
             'g.user_id as id')
             ->get();
-=======
-            'tegangan_tot')
-            ->get();*/
->>>>>>> Stashed changes
+
     }
 
     // public function rekapData (Request $request)
@@ -103,7 +82,6 @@ class MonitoringController extends Controller
     public function show ($id){
         return Monitoring::with('battery')->where('id', $id)->get();
 
-        //return Monitoring::find($id)->with('settings','cells');
     }
 
     public function lala($id){

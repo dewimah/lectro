@@ -57,8 +57,12 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
             Route::delete('/user/{id}', 'App\Http\Controllers\UserController@delete');
             //battery
             Route::get('/battery', 'App\Http\Controllers\BatteryController@all');
+
+           // Route::get('/coba', 'App\Http\Controllers\BatteryController@getdata');
+
             Route::get('/rudi', 'App\Http\Controllers\BatteryController@jumlahBattery');
             Route::get('/coba', 'App\Http\Controllers\BatteryController@getdata');
+            
             Route::get('/battery/{id}', 'App\Http\Controllers\BatteryController@show');
             Route::post('/battery','App\Http\Controllers\BatteryController@store');
             Route::put('/battery/{id}', 'App\Http\Controllers\BatteryController@update');

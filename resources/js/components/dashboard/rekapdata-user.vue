@@ -7,7 +7,20 @@
                 </div>
 
                 <div class="card-body">
+                    <router-link
+                            to="/user-monitoring"
+                            class="btn btn-success"
+                            style="background-color: #1c3b10"
+                        >
+                            Kembali
+                            </router-link> <br /><br />
                     <div id="chart">
+                        <div class="input-group mb-3">
+                            <span class="input-group-text" id="basic-addon1">First Date</span>
+                            <input type="date" class="form-control" aria-label="Username" aria-describedby="basic-addon1">
+                            <span class="input-group-text" id="basic-addon1">Last Date</span>
+                            <input type="date" class="form-control" aria-label="Username" aria-describedby="basic-addon1">
+                        </div>
                         <apexchart type="line" height="350" :options="chartOptions" :series="series"></apexchart>
                     </div>
                 </div>
