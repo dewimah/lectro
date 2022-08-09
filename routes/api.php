@@ -32,6 +32,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     //Route::get('/logout', 'App\Http\Controllers\LogoutController@logout')->name('logout');
     Route::get('/logout', 'App\Http\Controllers\AuthController@logout');
     Route::get('/monitoring','App\Http\Controllers\MonitoringController@all');
+    Route::get('/monitoring/{dari}/waktu/{ke}','App\Http\Controllers\MonitoringController@getwaktu');
     Route::get('/monitoring/{id}','App\Http\Controllers\MonitoringController@show');
     Route::get('/userdevice','App\Http\Controllers\UserDeviceController@all');
     //Route::get('monitoring/{id}','App\Http\Controllers\MonitoringController@show');
@@ -56,17 +57,8 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
             Route::delete('/user/{id}', 'App\Http\Controllers\UserController@delete');
             //battery
             Route::get('/battery', 'App\Http\Controllers\BatteryController@all');
-<<<<<<< Updated upstream
-
-           // Route::get('/coba', 'App\Http\Controllers\BatteryController@getdata');
-
             Route::get('/rudi', 'App\Http\Controllers\BatteryController@jumlahBattery');
             Route::get('/coba', 'App\Http\Controllers\BatteryController@getdata');
-            
-=======
-            Route::get('/rudi', 'App\Http\Controllers\BatteryController@jumlahBattery');
-            Route::get('/coba', 'App\Http\Controllers\BatteryController@getdata');
->>>>>>> Stashed changes
             Route::get('/battery/{id}', 'App\Http\Controllers\BatteryController@show');
             Route::post('/battery','App\Http\Controllers\BatteryController@store');
             Route::put('/battery/{id}', 'App\Http\Controllers\BatteryController@update');

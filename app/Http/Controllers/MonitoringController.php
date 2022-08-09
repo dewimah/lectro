@@ -10,13 +10,26 @@ use Illuminate\Support\Facades\DB;
 
 class MonitoringController extends Controller
 {
-    /*public function __construct()
-    {
-        $this->middleware('auth');
-    }*/
+    public function getwaktu($dari, $ke){
+       $monitoring= Monitoring::whereBetween('created_at', [$dari, $ke])->get();
+
+
+
+       /* $startDate = Carbon::now()->subDays(7);
+        $endDate = Carbon::now();
+
+        $monitoring = Monitoring::select('*')
+                    ->whereBetween('created_at', [$startDate, $endDate])
+                    -> $transactions = Transaction::whereBetween('created_at',
+                    [$data_inicio, $data_fim])->where('user_id',Auth::id())->get();
+                    ->get();*/
+
+        return $monitoring;
+    }
 
     public function all(){
         //return Monitoring::with(['battery'])->get();
+<<<<<<< Updated upstream
         return DB::table('monitorings')
         // ->join('batteries AS a','a.id','=','monitorings.battery_id')
         // ->join('settings AS b','batteries.setting_id', '=', 'settings.id')
@@ -34,6 +47,15 @@ class MonitoringController extends Controller
         ->join('cells AS f','f.id', '=', 'a.cell_id')
         ->join('battery_users AS g','g.battery_id', '=', 'a.id' )
 
+=======
+        /*return DB::table('monitorings')
+        ->join('batteries','monitorings.battery_id','=','batteries.id')
+        ->join('settings','batteries.setting_id', '=', 'settings.id')
+        ->join('setting_tegangans','settings.settingtegangans_id', '=', 'setting_tegangans.id')
+        ->join('setting_aruses','settings.settingaruses_id', '=', 'setting_aruses.id')
+        ->join('setting_suhus','settings.settingsuhus_id', '=', 'setting_suhus.id')
+        ->join('cells','batteries.cell_id', '=', 'cells.id')
+>>>>>>> Stashed changes
         ->select(
             'monitorings.*',
             'g.battery_id',
@@ -54,9 +76,14 @@ class MonitoringController extends Controller
             'temp_2',
             'temp_3',
             'arus',
+<<<<<<< Updated upstream
             'tegangan_tot',
             'g.user_id as id')
             ->get();
+=======
+            'tegangan_tot')
+            ->get();*/
+>>>>>>> Stashed changes
     }
 
     // public function rekapData (Request $request)
