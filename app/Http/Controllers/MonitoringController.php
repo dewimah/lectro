@@ -11,9 +11,11 @@ use Illuminate\Support\Facades\DB;
 class MonitoringController extends Controller
 {
     public function getwaktu($dari, $ke){
-       $monitoring= Monitoring::whereBetween('created_at', [$dari, $ke])->get();
+    //    $monitoring= Monitoring::whereBetween('created_at', [$ke, $dari])->get() ;
+    //    die($monitoring);
+    $monitoring=DB::table('monitorings')->whereBetween(str_to_date(created_at, '%Y-%m-%d'), array($dari, $ke))->get();
 
-
+    
 
        /* $startDate = Carbon::now()->subDays(7);
         $endDate = Carbon::now();
@@ -80,7 +82,7 @@ class MonitoringController extends Controller
     // }
 
     public function show ($id){
-        return Monitoring::with('battery')->where('id', $id)->get();
+        return Monitoring::with('battery')->where('battery_id', $id)->orderby('created_at')->get();
 
     }
 

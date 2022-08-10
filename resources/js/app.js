@@ -237,7 +237,7 @@ require('./bootstrap');
       {
         path: '/rekapdata-user/:id',
         name: 'rekapdata-user',
-        component:require('./components/dashboard/rekapdata-user.vue').default,
+        component:require('./components/dashboard/rekap-data-user.vue').default,
         meta: {
           requiresAuth: true,
           isAdmin: true
