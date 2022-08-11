@@ -3,14 +3,18 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Battery;
 use App\Models\Monitoring;
+use App\Models\MonitoringCell;
 use App\Helpers\ResponseFormatter;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
+use StdClass;
 
 class MonitoringController extends Controller
 {
     public function getwaktu($dari, $ke){
+<<<<<<< Updated upstream
     //    $monitoring= Monitoring::whereBetween('created_at', [$ke, $dari])->get() ;
     //    die($monitoring);
     $monitoring=DB::table('monitorings')->whereBetween(str_to_date(created_at, '%Y-%m-%d'), array($dari, $ke))->get();
@@ -26,6 +30,9 @@ class MonitoringController extends Controller
                     [$data_inicio, $data_fim])->where('user_id',Auth::id())->get();
                     ->get();*/
 
+=======
+        $monitoring= Monitoring::whereBetween('created_at', [$dari, $ke])->get();
+>>>>>>> Stashed changes
         return $monitoring;
     }
 
@@ -33,13 +40,18 @@ class MonitoringController extends Controller
         //return Monitoring::with(['battery'])->get();
 
         return DB::table('monitorings')
+<<<<<<< Updated upstream
         
+=======
+
+>>>>>>> Stashed changes
         ->join('batteries AS a','a.id','=','monitorings.battery_id')
         ->join('settings AS b','b.id', '=', 'a.setting_id')
         ->join('setting_tegangans AS c','c.id', '=', 'b.settingtegangans_id')
         ->join('setting_aruses AS d','d.id', '=', 'b.settingaruses_id')
         ->join('setting_suhus AS e','e.id', '=', 'b.settingsuhus_id')
         ->join('cells AS f','f.id', '=', 'a.cell_id')
+       // ->join('monitoring_cells', 'monitorings.monitoring_cell_id', '=', 'monitoring_cells.id')
         ->join('battery_users AS g','g.battery_id', '=', 'a.id' )
         ->select(
             'monitorings.*',
@@ -117,8 +129,11 @@ class MonitoringController extends Controller
         ->join('setting_suhus','settings.settingsuhus_id', '=', 'setting_suhus.id');
 
         $data = $data->orderBy('id', 'desc')->first();
+        // $cell = MonitoringCell::where('monitoring_id',$id)->get();
+        // foreach ($cell as $key => $value) {
+
 	return $data;
-    }
+        }
 
     //menambah data
     public function store(Request $request){
@@ -155,11 +170,79 @@ class MonitoringController extends Controller
         $data -> soh = $request -> soh;
         //$data -> hari = $tgl_sekarang;
 
-
         $data -> save();
         return 200;
         //return ResponseFormatter::success('Data Masuk');
     }
+
+    public function inputdata(Request $request){
+        $data = new Monitoring;
+        $data -> battery_id = $request-> battery_id;
+        $data -> tegangan_tot = $request -> tegangan_tot;
+       //$data -> tegangan_cell = $request -> tegangan_cell;
+        $data -> temp_1 = $request -> temp_1;
+        $data -> temp_2 = $request -> temp_2;
+        $data -> temp_3 = $request -> temp_3;
+        $data -> arus = $request -> arus;
+        $data -> soc = $request -> soc;
+        $data -> soh = $request -> soh;
+
+        $data -> save();
+
+        $arr = $request->all();
+        $loop= $request-> tegangan_cell;
+        foreach ($arr['tegangan_cell'] as $l=>$value){
+            $cell = new MonitoringCell;
+           $cell->tegangan_cell = $arr['tegangan_cell'][$l];
+            //$cell -> $tegangan_cell = $l;
+            $cell -> monitoring_id = $data->id;
+            $cell -> save();
+        }
+    }
+
+    public function showdata($id){
+
+        $battery     = Battery::find($id);
+        $monitorings = Monitoring::where('battery_id', $battery?->id)->get();
+
+        $monitoringData = [];
+        foreach ($monitorings as $key => $monitoring) {
+            $_temp = $monitoring;
+            $_temp['monitoring_cells'] = MonitoringCell::where('monitoring_id', $monitoring->id)->get();
+
+            $monitoringData[] = $_temp;
+        }
+
+        $data = [
+            'battery' => $battery,
+            'monitoring' => $monitoringData,
+        ];
+
+        return $data;
+    }
+
+    public function showlastdata($id){
+
+        $battery     = Battery::find($id);
+        $monitorings = Monitoring::where('battery_id', $battery?->id)->latest('created_at')->limit(1)->get();
+
+
+        $monitoringData = [];
+        foreach ($monitorings as $key => $monitoring) {
+            $_temp = $monitoring;
+            $_temp['monitoring_cells'] = MonitoringCell::where('monitoring_id', $monitoring->id)->get();
+
+            $monitoringData[] = $_temp;
+        }
+
+        $data = [
+            'battery' => $battery,
+            'monitoring' => $monitoringData,
+        ];
+
+        return $data;
+    }
+
     public function rudi(){
         return response()->json([
             'berhasil'
@@ -167,4 +250,5 @@ class MonitoringController extends Controller
         //echo 'berhasil';
         //return ;
     }
+
 }

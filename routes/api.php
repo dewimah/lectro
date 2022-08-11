@@ -24,6 +24,8 @@ use App\Helpers\ResponseFormatter;
 Route::post('/register', 'App\Http\Controllers\RegisterController@register');
 Route::post('/login', [AuthController::class, 'login'])->name('login');
 Route::post('/input','App\Http\Controllers\MonitoringController@datamasuk');
+Route::get('/getdata/{id}','App\Http\Controllers\MonitoringController@showdata');
+Route::post('/inputdata','App\Http\Controllers\MonitoringController@inputdata');
 Route::get('/rudi','App\Http\Controllers\MonitoringController@rudi');
 //Route::post('/login', 'App\Http\Controllers\AuthController@login')->name('login');
 
@@ -37,6 +39,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('/userdevice','App\Http\Controllers\UserDeviceController@all');
     //Route::get('monitoring/{id}','App\Http\Controllers\MonitoringController@show');
     Route::get('/asik/{id}','App\Http\Controllers\MonitoringController@lala');
+    Route::get('/lastdatamonitoring/{id}','App\Http\Controllers\MonitoringController@showlastdata');
     Route::get('/setting','App\Http\Controllers\SettingController@all');
     //LIVE CHAT
     Route::post('/message','App\Http\Controllers\ChatController@store' );
